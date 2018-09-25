@@ -28,7 +28,7 @@ Different scenarios you can demo
 ## Prove that the application will really crash if it misses a single write
 The application defaults to CL One which provides maximum availability. You may want to showcase how the application crashes on a single failure.
 * Ctrl+C to stop the Demo Application if running
-* Ctrl+C to stop khasKatz if running
+* Ctrl+C to stop khasKatz if running (Ensure all nodes are up)
 * Edit runDemo.py
   * Comment `CL = ConsistencyLevel.ONE`
   * Uncomment `CL = ConsistencyLevel.ALL`
