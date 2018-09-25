@@ -14,6 +14,6 @@
 ## Setup khaosKatz
 * Update priv.key with ssh key to access all of the DSE nodes
 * Edit khaosKatz.sh
-  update the dcXnodeX IP addresses
-  Update SSH username
+  * update the dcXnodeX IP addresses
+  * Update SSH username
 * ./khaosKatz (ctrl+C to quit)
