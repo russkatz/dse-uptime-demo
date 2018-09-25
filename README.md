@@ -7,8 +7,11 @@
 ## Setup the load app
 * sudo apt-get install python-pip
 * sudo pip install dse-driver
-* git clone https://github.com/russkatz/dse-uptime-demo && cd dse-uptime-demo
-* edit runLoad.py and update the contact points
+* git clone https://github.com/russkatz/dse-uptime-demo
+  * cd dse-uptime-demo
+* edit runLoad.py
+  * Update the contact points
+  * Update authentication information (if enabled on cluster)
 * ./runLoad.py (ctrl+C to quit)
 
 ## Setup khaosKatz
