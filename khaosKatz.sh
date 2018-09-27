@@ -92,7 +92,7 @@ if [ $seed = 5 ]; then
  kill_node $dc1node3 $username
  echo "  Step: Resting.."
  sleep 60
- echo "Step: Restarting DC2/Node1!"
+ echo "  Step: Restarting DC2/Node1!"
  recover_node $dc2node1 $username
  sleep 1
  echo "  Step: Restarting DC1 all nodes!"
@@ -103,5 +103,7 @@ fi
 
 echo "  Step: Recovering for next scenario"
 sleep 60
+echo "  =^_^= khaosKatz is pleased."
+sleep 1
 
 done
