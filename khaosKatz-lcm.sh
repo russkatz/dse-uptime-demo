@@ -50,8 +50,8 @@ while [ 1 ]; do
 clear
 echo "Randomly selecting scenario.."
 sleep 1
-#seed=$((1 + RANDOM % 7))
-seed=5
+seed=$((1 + RANDOM % 5))
+#seed=5
 #echo $seed
 
 if [ $seed = 1 ]; then
@@ -213,11 +213,13 @@ fi
 #End of Scenarios
 echo "  Step: Recovering for next scenario"
 sleep 60
-status=`curl -s http://127.0.0.1:8888/$clustername/nodes | jq -r ".[]".mode  | grep -v normal > /dev/null | echo $?`
+status=`curl -s http://$lcm:$lcmport/$clustername/nodes | jq -r ".[]".mode  | grep null > /dev/null | echo $?`
 if [ $status -eq 1 ]; then
- echo "  =^_^= khaosKatz is pleased."
-else 
  echo "  =^_^= khaosKatz senses nodes still down!"
+ echo "  Waiting 60 seconds"
+ sleep 60
+else 
+ echo "  =^_^= khaosKatz is pleased."
 fi
 sleep 3
 
