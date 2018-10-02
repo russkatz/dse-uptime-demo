@@ -3,36 +3,38 @@
 lcm=127.0.0.1
 lcmport=8888
 clustername=Demo
-localdc=dc1
-username=ubuntu
+localdc=AWS
+username=opsc
 keyfile=./priv.key
+interactive=1
 
-nodes=(`curl -s http://${lcm}:${lcmport}/${clustername}/nodes | jq -rc ".[].node_ip" | paste -s`)
-dcs=(`curl -s http://${lcm}:${lcmport}/${clustername}/nodes | jq -rc ".[].dc" | paste -s`)
-dccount=`echo ${dcs[@]} | sed 's/ /\n/g' | sort | uniq | wc -l`
-localnodes=()
-localnodecount=0
-remotenodes=()
-remotenodecount=0
-nodecount=0
-
-for i in ${nodes[@]}; do
- echo $i is in ${dcs[$nodecount]}
- if [ "${dcs[$nodecount]}" = "$localdc" ]; then
-  localnodes[$localnodecount]=$i
-  localnodecount=$(( $localnodecount + 1 ))
- else
-  remotenodes[$remotenodecount]=$i
-  remotenodecount=$(( $remotenodecount + 1 ))
- fi
+detect () {
+ nodes=(`curl -s http://${lcm}:${lcmport}/${clustername}/nodes | jq -rc ".[].node_ip" | paste -s`)
+ dcs=(`curl -s http://${lcm}:${lcmport}/${clustername}/nodes | jq -rc ".[].dc" | paste -s`)
+ dccount=`echo ${dcs[@]} | sed 's/ /\n/g' | sort | uniq | wc -l`
+ localnodes=()
+ localnodecount=0
+ remotenodes=()
+ remotenodecount=0
+ nodecount=0
  
- nodecount=$(( $nodecount + 1 ))
-done
-echo total nodes: ${nodecount}
-echo local nodes: ${localnodecount}
-echo remote nodes: ${remotenodecount}
-echo dc count: ${dccount}
-sleep 5
+ for i in ${nodes[@]}; do
+  echo $i is in ${dcs[$nodecount]}
+  if [ "${dcs[$nodecount]}" = "$localdc" ]; then
+   localnodes[$localnodecount]=$i
+   localnodecount=$(( $localnodecount + 1 ))
+  else
+   remotenodes[$remotenodecount]=$i
+   remotenodecount=$(( $remotenodecount + 1 ))
+  fi
+  
+  nodecount=$(( $nodecount + 1 ))
+ done
+ echo total nodes: ${nodecount}
+ echo local nodes: ${localnodecount}
+ echo remote nodes: ${remotenodecount}
+ echo dc count: ${dccount}
+}
 
 kill_node () {
  ssh -oStrictHostKeyChecking=no -i $keyfile $2@$1 "sudo pkill -9 -f dse.jar" > /dev/null
@@ -45,14 +47,32 @@ recover_node () {
  #curl -X POST http://$lcm:$lcmport/$clustername/ops/start/$1
 }
 
+interact () {
+ if [ $interactive -eq 1 ]; then
+  echo -n "[Interactive] Press enter to continue"
+  read tempvar
+ fi
+}
+
 while [ 1 ]; do
+detect
+sleep 3
 
 clear
-echo "Randomly selecting scenario.."
-sleep 1
-seed=$((1 + RANDOM % 5))
-#seed=5
-#echo $seed
+if [ $interactive = 1 ]; then
+ echo "Interactive mode!"
+ echo "1) Single local node failure"
+ echo "2) Dual local node failure"
+ echo "3) Dual remote node failure"
+ echo "4) Total local DC failure"
+ echo "5) Total local DC failure during maintenance"
+ echo -n "Select scenario to run: "
+ read seed
+ clear
+else
+ echo "Randomly selecting scenario.."
+ seed=$((1 + RANDOM % 5))
+fi
 
 if [ $seed = 1 ]; then
  #kill local node
@@ -69,6 +89,7 @@ if [ $seed = 1 ]; then
  kill_node $crash $username
  echo "  Step: Resting.."
  sleep 45
+ interact
  echo "  Step: Restarting $crash"
  recover_node $crash $username
 fi
@@ -105,6 +126,7 @@ if [ $seed = 2 ]; then
  kill_node $crash2 $username
  echo "  Step: Resting.."
  sleep 45
+ interact
  echo "  Step: Restarting nodes"
  sleep 1
  echo "        $crash1"
@@ -114,7 +136,7 @@ if [ $seed = 2 ]; then
  recover_node $crash2 $username
 fi
 
-if [ $seed = 3 ]; then
+if [ $seed = 4 ]; then
  #kill local node
  echo "Scenario: Total local DC failure!"
  sleep 1
@@ -125,6 +147,7 @@ if [ $seed = 3 ]; then
  done
  echo "  Step: Resting.."
  sleep 45
+ interact
  echo "  Step: Restarting local nodes"
  for n in ${localnodes[@]}; do
   echo "        $n"
@@ -132,7 +155,7 @@ if [ $seed = 3 ]; then
  done
 fi
 
-if [ $seed = 4 ]; then
+if [ $seed = 3 ]; then
  echo "Scenario: Dual remote node failure"
  sleep 1
  echo "  Step: Selecting nodes to crash.."
@@ -163,6 +186,7 @@ if [ $seed = 4 ]; then
  kill_node $crash2 $username
  echo "  Step: Resting.."
  sleep 45
+ interact
  echo "  Step: Restarting nodes"
  sleep 1
  echo "        $crash1"
@@ -195,6 +219,7 @@ if [ $seed = 5 ]; then
  done
  echo "  Step: Resting.."
  sleep 45
+ interact
  echo "  Step: Restart remote node $crash"
  sleep 1
  recover_node $crash $username
