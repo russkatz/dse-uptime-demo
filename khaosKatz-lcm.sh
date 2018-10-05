@@ -55,9 +55,6 @@ interact () {
 }
 
 while [ 1 ]; do
-detect
-sleep 3
-
 clear
 if [ $interactive = 1 ]; then
  echo "Interactive mode!"
@@ -73,6 +70,10 @@ else
  echo "Randomly selecting scenario.."
  seed=$((1 + RANDOM % 5))
 fi
+
+detect
+sleep 2
+clear
 
 if [ $seed = 1 ]; then
  #kill local node
