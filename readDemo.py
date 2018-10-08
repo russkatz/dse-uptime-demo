@@ -53,7 +53,7 @@ while 1:
     future = session.execute_async (query, trace=True )
     result = future.result()
     try:
-     trace = future.get_query_trace()
+     trace = future.get_query_trace( 1 )
      coordinator =  trace.coordinator
     except:
      coordinator = last_c

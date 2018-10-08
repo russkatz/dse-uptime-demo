@@ -43,7 +43,7 @@ while 1:
    data3 = randint(1,100)
    current = time.localtime()
    bucket = str(current.tm_year) + str(current.tm_mon) + str(current.tm_mday) + str(current.tm_hour) + str(current.tm_min)
-   d = time.strftime('%a, %d %b %Y %H:%M:%S', current)
+   d = time.strftime('%Y-%m-%dT%H:%M:%S', current)
    query = """ INSERT INTO demo.table1 (bucket, ts, d, data1, data2, data3) VALUES ('%s', now(), '%s', %s, %s, %s) """ % (str(bucket), str(d), int(data1), int(data2), int(data3))
    session.execute (query)
    ts = int(time.time() * 1000)
