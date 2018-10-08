@@ -11,7 +11,7 @@ from dse import ConsistencyLevel
 
 #Configuration
 contactpoints = ['40.78.69.234', '104.42.194.135']
-localDC = "Azure"
+localDC = "Google"
 CL = ConsistencyLevel.ONE
 #CL = ConsistencyLevel.ALL
 auth_provider = PlainTextAuthProvider (username='user1', password='password1')
@@ -41,7 +41,10 @@ while 1:
    ts = int(time.time() * 1000)
 
    query = """ select * from demo.table1 where bucket = '%s' limit 1 """ % (bucket)
-   results = session.execute (query)
+   try:
+    results = session.execute (query)
+   except: 
+    error = 1
    for r in results:
     d = r.d
    while ts + 30 > int(time.time() * 1000):

@@ -12,8 +12,13 @@ from dse import ConsistencyLevel
 #Configuration
 contactpoints = ['172.31.2.63', '172.31.9.65']
 localDC = "AWS"
+cross_dc_latency_ms = 30
 CL = ConsistencyLevel.ONE
 #CL = ConsistencyLevel.ALL
+ks_query = """ CREATE KEYSPACE IF NOT EXISTS demo WITH replication = {'class': 'NetworkTopologyStrategy', 'AWS': 3} """
+
+
+#End configuration section
 auth_provider = PlainTextAuthProvider (username='user1', password='password1')
 profile1 = ExecutionProfile( load_balancing_policy=DCAwareRoundRobinPolicy(local_dc=localDC, used_hosts_per_remote_dc=3),
                             speculative_execution_policy=ConstantSpeculativeExecutionPolicy(.05, 20),
@@ -29,7 +34,7 @@ cluster = Cluster( contact_points=contactpoints,
 
 session = cluster.connect()
 
-session.execute (""" CREATE KEYSPACE IF NOT EXISTS demo WITH replication = {'class': 'NetworkTopologyStrategy', 'AWS': 3} """)
+session.execute (ks_query)
 session.execute (""" CREATE TABLE IF NOT EXISTS  demo.table1 (     bucket text,     ts timeuuid,     d text,     data1 int,     data2 int,     data3 int,     PRIMARY KEY (bucket, ts)) WITH CLUSTERING ORDER BY (ts desc) """)
 
 coordinator = localDC
@@ -47,7 +52,7 @@ while 1:
    query = """ INSERT INTO demo.table1 (bucket, ts, d, data1, data2, data3) VALUES ('%s', now(), '%s', %s, %s, %s) """ % (str(bucket), str(d), int(data1), int(data2), int(data3))
    session.execute (query)
    ts = int(time.time() * 1000)
-   while ts + 30 > int(time.time() * 1000):
+   while ts + cross_dc_latency_ms > int(time.time() * 1000):
     t1 = 0
    c = c + 1
    x = x + 1
