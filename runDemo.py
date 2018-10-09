@@ -8,10 +8,11 @@ from dse.cluster import Cluster, ExecutionProfile, EXEC_PROFILE_DEFAULT
 from dse.auth import PlainTextAuthProvider
 from dse.policies import DCAwareRoundRobinPolicy,TokenAwarePolicy, ConstantSpeculativeExecutionPolicy
 from dse import ConsistencyLevel
+from ssl import PROTOCOL_TLSv1, CERT_REQUIRED, CERT_OPTIONAL
 
 #Configuration
-contactpoints = ['172.31.2.63', '172.31.9.65']
-localDC = "AWS"
+contactpoints = ['13.68.201.227', '52.91.211.124']
+localDC = "multicloud-aws"
 CL = ConsistencyLevel.ONE
 #CL = ConsistencyLevel.ALL
 auth_provider = PlainTextAuthProvider (username='user1', password='password1')
@@ -24,7 +25,7 @@ ssl_opts = None
 #ssl_opts = {
 #    'ca_certs': '/path/to/my/ca.certs',
 #    'ssl_version': PROTOCOL_TLSv1,
-#    'cert_reqs': CERT_REQUIRED  # Certificates are required and validated
+#    'cert_reqs':  CERT_OPTIONAL
 #}
 
 print "Connecting to cluster"
