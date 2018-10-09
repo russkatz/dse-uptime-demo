@@ -20,17 +20,25 @@ profile1 = ExecutionProfile( load_balancing_policy=DCAwareRoundRobinPolicy(local
                             consistency_level = CL
                             )
 
+ssl_opts = None
+#ssl_opts = {
+#    'ca_certs': '/path/to/my/ca.certs',
+#    'ssl_version': PROTOCOL_TLSv1,
+#    'cert_reqs': CERT_REQUIRED  # Certificates are required and validated
+#}
+
 print "Connecting to cluster"
 
 cluster = Cluster( contact_points=contactpoints,
                    auth_provider=auth_provider,
+                   ssl_options=ssl_opts,
                    execution_profiles={EXEC_PROFILE_DEFAULT: profile1},
                    )
 
 session = cluster.connect()
 
 #session.execute (""" CREATE KEYSPACE IF NOT EXISTS stats WITH replication = {'class': 'NetworkTopologyStrategy', 'dc1': '3', 'dc2': '3'}  AND durable_writes = true """)
-session.execute (""" CREATE KEYSPACE IF NOT EXISTS stats WITH replication = {'class': 'NetworkTopologyStrategy', 'AWS': '3', 'Google': '3'}  AND durable_writes = true """)
+session.execute (""" CREATE KEYSPACE IF NOT EXISTS stats WITH replication = {'class': 'NetworkTopologyStrategy', 'AWS': '3'}  AND durable_writes = true """)
 session.execute (""" CREATE TABLE IF NOT EXISTS  stats.player_stats ( name text, game text, ts timeuuid, stat1 int, stat2 int, stat3 int, PRIMARY KEY ((name, game), ts)) """)
 
 c = 0
