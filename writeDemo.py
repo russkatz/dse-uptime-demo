@@ -9,10 +9,12 @@ from dse.auth import PlainTextAuthProvider
 from dse.policies import DCAwareRoundRobinPolicy,TokenAwarePolicy, ConstantSpeculativeExecutionPolicy
 from dse import ConsistencyLevel
 
+
 #Configuration
 contactpoints = ['172.31.2.63', '172.31.9.65']
-localDC = "AWS"
+localDC = "OnPrem-DC1"
 cross_dc_latency_ms = 30
+rowcount = 10
 CL = ConsistencyLevel.ONE
 #CL = ConsistencyLevel.ALL
 ks_query = """ CREATE KEYSPACE IF NOT EXISTS demo WITH replication = {'class': 'NetworkTopologyStrategy', 'AWS': 3} """
@@ -51,12 +53,14 @@ while 1:
    d = time.strftime('%Y-%m-%dT%H:%M:%S', current)
    query = """ INSERT INTO demo.table1 (bucket, ts, d, data1, data2, data3) VALUES ('%s', now(), '%s', %s, %s, %s) """ % (str(bucket), str(d), int(data1), int(data2), int(data3))
    session.execute (query)
+   #session.execute_async (query)
    ts = int(time.time() * 1000)
    while ts + cross_dc_latency_ms > int(time.time() * 1000):
     t1 = 0
    c = c + 1
    x = x + 1
-   if(x == 10):
+   #print ".",
+   if(x == rowcount):
     last_c = coordinator
     future = session.execute_async (query, trace=True )
     result = future.result()

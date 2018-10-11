@@ -11,9 +11,12 @@ from dse import ConsistencyLevel
 
 #Configuration
 contactpoints = ['40.78.69.234', '104.42.194.135']
-localDC = "Google"
+localDC = "OnPrem-DC1"
+#localDC = "AWS"
 CL = ConsistencyLevel.ONE
 #CL = ConsistencyLevel.ALL
+cross_dc_latency = 30
+rowcount = 10
 auth_provider = PlainTextAuthProvider (username='user1', password='password1')
 profile1 = ExecutionProfile( load_balancing_policy=DCAwareRoundRobinPolicy(local_dc=localDC, used_hosts_per_remote_dc=3),
                             speculative_execution_policy=ConstantSpeculativeExecutionPolicy(.05, 20),
@@ -47,15 +50,15 @@ while 1:
     error = 1
    for r in results:
     d = r.d
-   while ts + 30 > int(time.time() * 1000):
+   while ts + cross_dc_latency > int(time.time() * 1000):
     t1 = 0
    c = c + 1
    x = x + 1
-   if(x == 10):
+   if(x == rowcount):
     last_c = coordinator
     future = session.execute_async (query, trace=True )
-    result = future.result()
     try:
+     result = future.result()
      trace = future.get_query_trace( 1 )
      coordinator =  trace.coordinator
     except:

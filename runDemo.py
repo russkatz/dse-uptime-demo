@@ -15,18 +15,18 @@ contactpoints = ['13.68.201.227', '52.91.211.124']
 localDC = "multicloud-aws"
 CL = ConsistencyLevel.ONE
 #CL = ConsistencyLevel.ALL
-auth_provider = PlainTextAuthProvider (username='user1', password='password1')
+auth_provider = PlainTextAuthProvider (username='cassandra', password='cassandra')
 profile1 = ExecutionProfile( load_balancing_policy=DCAwareRoundRobinPolicy(local_dc=localDC, used_hosts_per_remote_dc=3),
                             speculative_execution_policy=ConstantSpeculativeExecutionPolicy(.05, 20),
                             consistency_level = CL
                             )
 
-ssl_opts = None
-#ssl_opts = {
-#    'ca_certs': '/path/to/my/ca.certs',
-#    'ssl_version': PROTOCOL_TLSv1,
-#    'cert_reqs':  CERT_OPTIONAL
-#}
+#ssl_opts = None
+ssl_opts = {
+    'ca_certs': '/tmp/ca.crt',
+    'ssl_version': PROTOCOL_TLSv1,
+    'cert_reqs':  CERT_OPTIONAL
+}
 
 print "Connecting to cluster"
 
