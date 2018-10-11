@@ -3,10 +3,12 @@
 lcm=127.0.0.1
 lcmport=8888
 clustername=Demo
-localdc=AWS
+localdc=OnPrem-DC1
 username=opsc
 keyfile=./priv.key
-interactive=1
+interactive=0
+rolling_restart_delay=10 #seconds between nodes during the rolling restart scenario
+random_kill_percent=33 #Percentage chance each node gets killed in the random scenario
 
 detect () {
  nodes=(`curl -s http://${lcm}:${lcmport}/${clustername}/nodes | jq -rc ".[].node_ip" | paste -s`)
@@ -63,12 +65,14 @@ if [ $interactive = 1 ]; then
  echo "3) Dual remote node failure"
  echo "4) Total local DC failure"
  echo "5) Total local DC failure during maintenance"
+ echo "6) Rolling Restart"
+ echo "7) Random kill!"
  echo -n "Select scenario to run: "
  read seed
  clear
 else
  echo "Randomly selecting scenario.."
- seed=$((1 + RANDOM % 5))
+ seed=$((1 + RANDOM % 7))
 fi
 
 detect
@@ -231,8 +235,53 @@ if [ $seed = 5 ]; then
  done
 fi
 
+if [ $seed = 6 ]; then
+ #rolling restart
+ echo "Scenario: Rolling Restart"
+ for n in ${nodes[@]}; do 
+  echo "  Restarting $n"
+  kill_node $n $username
+  recover_node $n $username
+  sleep $rolling_restart_delay
+ done
+fi
+ 
+if [ $seed = 7 ]; then
+ echo "Scenario: Kill random nodes!"
+ echo "Percent chance a node will be killed: ${random_kill_percent}%"
+ nodeskilled=""
+ safeguard=0
+ for n in ${nodes[@]}; do 
+  killit=0
+  echo -n "  ${n}: "
+  killrnd=$((1 + RANDOM % 100))
+  if [ $killrnd -le $random_kill_percent ]; then
+   killit=1
+  fi
+  if [ $safeguard -eq 0 ]; then
+   safeguard=1
+   killit=0
+  fi
+  sleep 1
+  if [ $killit -eq 1 ]; then
+   echo "Killed!"
+   kill_node $n $username
+   nodeskilled="$nodeskilled $n"
+  else
+   echo "Spared."
+  fi
+ done
+ echo "  Step: Resting.."
+ sleep 45
+ interact
+ echo "  Step: Restart killed nodes"
+ for n in `echo $nodeskilled`; do
+  echo "      $n"
+  recover_node $n $username
+ done
+fi
 
-
+  
 
 
 
