@@ -14,7 +14,7 @@ from ssl import PROTOCOL_TLSv1, CERT_REQUIRED, CERT_OPTIONAL
 #Configuration
 contactpoints = ['52.53.193.214', '40.83.216.171', '35.199.175.52','52.53.249.100']
 localDC = "OnPrem-DC1"
-cross_dc_latency_ms = 3
+cross_dc_latency_ms = 30
 rowcount = 10
 CL = ConsistencyLevel.ONE
 #CL = ConsistencyLevel.ALL
