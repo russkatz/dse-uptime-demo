@@ -1,13 +1,13 @@
 #!/bin/bash
 
+interactive=0
 lcm=127.0.0.1
 lcmport=8888
 clustername=Demo
 localdc=OnPrem-DC1
-username=opsc
+username=ubuntu
 keyfile=./priv.key
-interactive=0
-rolling_restart_delay=10 #seconds between nodes during the rolling restart scenario
+rolling_restart_delay=1 #seconds between nodes during the rolling restart scenario
 random_kill_percent=33 #Percentage chance each node gets killed in the random scenario
 
 detect () {
