@@ -8,9 +8,10 @@ from dse.cluster import Cluster, ExecutionProfile, EXEC_PROFILE_DEFAULT
 from dse.auth import PlainTextAuthProvider
 from dse.policies import DCAwareRoundRobinPolicy,TokenAwarePolicy, ConstantSpeculativeExecutionPolicy
 from dse import ConsistencyLevel
+from ssl import PROTOCOL_TLSv1, CERT_REQUIRED, CERT_OPTIONAL
 
 #Configuration
-contactpoints = ['40.78.69.234', '104.42.194.135']
+contactpoints = ['52.53.193.214', '40.83.216.171', '35.199.175.52','52.53.249.100']
 localDC = "OnPrem-DC1"
 #localDC = "AWS"
 CL = ConsistencyLevel.ONE
@@ -18,6 +19,16 @@ CL = ConsistencyLevel.ONE
 cross_dc_latency = 30
 rowcount = 10
 auth_provider = PlainTextAuthProvider (username='user1', password='password1')
+ssl_opts = None
+#ssl_opts = {
+#    'ca_certs': '/path/to/ca.crt',
+#    'ssl_version': PROTOCOL_TLSv1,
+#    'cert_reqs':  CERT_OPTIONAL
+#}
+
+
+
+#End Configuration
 profile1 = ExecutionProfile( load_balancing_policy=DCAwareRoundRobinPolicy(local_dc=localDC, used_hosts_per_remote_dc=3),
                             speculative_execution_policy=ConstantSpeculativeExecutionPolicy(.05, 20),
                             consistency_level = CL
@@ -27,6 +38,7 @@ print "Connecting to cluster"
 
 cluster = Cluster( contact_points=contactpoints,
                    auth_provider=auth_provider,
+                   ssl_options=ssl_opts,
                    execution_profiles={EXEC_PROFILE_DEFAULT: profile1},
                    )
 
