@@ -15,7 +15,7 @@ fi
 echo "THIS WILL REMOVE THE ENTIRE $1 DC! PRESS ENTER TO CONTINE!"
 read waitforenter
 
-for i in `curl -s http://${lcm}:${lcmport}/${clustername}/nodes | jq  -rc '.[].node_ip + "^" + .[].dc' | grep -i "$1$" | awk -F^ '{print $1}'`; do
+for i in `curl -s http://${lcm}:${lcmport}/${clustername}/nodes | jq -rc '.[] | {dc, node_ip}' | grep -i $1 | jq '.' | grep node_ip | awk '{print $2}' | sed 's/"//g'`; do
  echo "Running decommission and data reset on $i"
  ssh -oStrictHostKeyChecking=no -i $keyfile $username@$i "sudo nodetool decommission -f"
  ssh -oStrictHostKeyChecking=no -i $keyfile $username@$i "sudo pkill -9 -f dse.jar"
