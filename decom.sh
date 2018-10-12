@@ -1,6 +1,8 @@
 #!/bin/bash
 
-filename=expansion.ips
+lcm=127.0.0.1
+lcmport=8888
+clustername=Demo
 keyfile=./priv.key
 username=opsc
 
@@ -10,9 +12,12 @@ if [ -z "$1" ]; then
  exit 0
 fi
 
-for i in `cat $filename | grep -i "$1$" | awk '{print $1}'`; do
+echo "THIS WILL REMOVE THE ENTIRE $1 DC! PRESS ENTER TO CONTINE!"
+read waitforenter
+
+for i in `curl -s http://${lcm}:${lcmport}/${clustername}/nodes | jq  -rc '.[].node_ip + "^" + .[].dc' | grep -i "$1$" | awk -F^ '{print $1}'`; do
  echo "Running decommission and data reset on $i"
- ssh -oStrictHostKeyChecking=no -i $keyfile $username@$i "sudo nodetool decommission"
+ ssh -oStrictHostKeyChecking=no -i $keyfile $username@$i "sudo nodetool decommission -f"
  ssh -oStrictHostKeyChecking=no -i $keyfile $username@$i "sudo pkill -9 -f dse.jar"
  ssh -oStrictHostKeyChecking=no -i $keyfile $username@$i "sudo rm -rf /var/lib/cassandra/commitlog"
  ssh -oStrictHostKeyChecking=no -i $keyfile $username@$i "sudo rm -rf /var/lib/cassandra/data"
