@@ -1,0 +1,8 @@
+ebdse/logs/
+hugo_0.27_macOS-64bit.tar.gz
+nohup.out
+.idea/
+node_modules/
+target/
+.DS_Store
+*.iml
