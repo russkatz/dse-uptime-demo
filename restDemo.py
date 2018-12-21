@@ -260,22 +260,17 @@ def read():
 
       session = cluster.connect()
 
-
-
-
       x = 0
       y = 0
       while x <= count:
          current = time.localtime()
          bucket = str(current.tm_year) + str(current.tm_mon) + str(current.tm_mday) + str(current.tm_hour) + str(current.tm_min)
          d = time.strftime('%Y-%m-%dT%H:%M:%S', current)
-         query = """ select * from demo.table1 where bucket = '%s' limit 1 """ % (bucket)
-         try:
-            results = session.execute (query)
-         except:
-            error = 1
+         query = """ select * from demo.table2 where bucket = '%s' limit 1 """ % (bucket)
+         results = session.execute (query)
          for r in results:
             d = r.d
+            print d
 
          if(y == rowcount):
             y = 0
@@ -291,11 +286,11 @@ def read():
                   if h.address == coordinator:
                      used_dc = h.datacenter
                #yield """Rows Written %s (%s) - %s\n""" %(x, used_dc,  str(d))
-               yield """{"count": %s, "dc": "%s", "d": "%s"}\n""" %(x, used_dc,  str(d))
+               yield """{"count": %s, "dc": "%s", "d": "%s"}\n""" %(x, used_dc,  str(dt))
             except:
-               print("Cluster Shutdown")
-               cluster.shutdown() 
-               x = count + 1
+               print("Read Missed")
+               #cluster.shutdown() 
+               #x = count + 1
                 
 
          time.sleep(.03)  # an artificial delay
