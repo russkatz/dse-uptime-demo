@@ -165,7 +165,7 @@ def writev0():
       coordinator = dc
       last_c = coordinator
       used_dc = dc
-      current = time.localtime()
+      #current = time.localtime()
 
       profile1 = ExecutionProfile( load_balancing_policy=DCAwareRoundRobinPolicy(local_dc=dc, used_hosts_per_remote_dc=3),
                             speculative_execution_policy=ConstantSpeculativeExecutionPolicy(.05, 20),
@@ -185,14 +185,32 @@ def writev0():
       x = 0
       y = 0
       while x <= count:
+         r = {} #Results Dictionary
          current = time.localtime()
          bucket = str(current.tm_year) + str(current.tm_mon) + str(current.tm_mday) + str(current.tm_hour) + str(current.tm_min)
-         d = time.strftime('%Y-%m-%dT%H:%M:%S', current)
+         r["d"] = time.strftime('%Y-%m-%dT%H:%M:%S', current)
          data1 = randint(1,100)
          data2 = randint(1,100)
          data3 = randint(1,100)
-         query = """ INSERT INTO demo.table2 (bucket, ts, d, data1, data2, data3) VALUES ('%s', now(), '%s', '%s', '%s', '%s') """ % (str(bucket), str(d), str(data1), str(data2), str(data3))
-         session.execute(query)
+         query = """ INSERT INTO demo.table2 (bucket, ts, d, data1, data2, data3) VALUES ('%s', now(), '%s', '%s', '%s', '%s') """ % (str(bucket), str(r["d"]), str(data1), str(data2), str(data3))
+         writefail = 0
+         r["result"] = "Successful"
+         try:
+            session.execute(query)
+         except Exception as e:
+            print ("Write failed.")
+            writefail = 1
+            for i in e:
+               errormsg = i
+               errormsg = str(errormsg).replace('"', '')
+            r["count"] = x
+            r["dc"] = used_dc
+            r["result"] = errormsg
+            yield json.dumps(r) + "\r\n"
+         if writefail == 1:
+            cluster.shutdown() 
+            return
+            yield
          if(y == rowcount):
             y = 0
             try:
@@ -206,17 +224,25 @@ def writev0():
                for h in session.hosts:
                   if h.address == coordinator:
                      used_dc = h.datacenter
-               #yield """Rows Written %s (%s) - %s\n""" %(x, used_dc,  str(d))
-               yield """{"count": %s, "dc": "%s", "d": "%s"}\n""" %(x, used_dc,  str(d))
-            except:
-               print("Cluster Shutdown")
+               r["count"] = x
+               r["dc"] = used_dc
+               yield json.dumps(r) + "\r\n"
+            except Exception as e:
+               for i in e:
+                  errormsg = i
+                  errormsg = str(errormsg).replace('"', '')
+               print ("Trace failed.")
+               r["count"] = x
+               r["dc"] = used_dc
+               r["result"] = errormsg
+               yield json.dumps(r) + "\r\n"
                cluster.shutdown() 
 
          time.sleep(.03)  # an artificial delay
          x = x + 1
          y = y + 1
       cluster.shutdown()
-   return Response(writeStream(), content_type='text/event-stream')
+   return Response(writeStream(), content_type='application/stream+json')
 
 
 @app.route('/demo/read', methods=['POST'])
@@ -264,38 +290,66 @@ def read():
       x = 0
       y = 0
       while x <= count:
+         r = {} #Results Dictionary
          current = time.localtime()
          bucket = str(current.tm_year) + str(current.tm_mon) + str(current.tm_mday) + str(current.tm_hour) + str(current.tm_min)
-         d = time.strftime('%Y-%m-%dT%H:%M:%S', current)
+         #r["d"] = time.strftime('%Y-%m-%dT%H:%M:%S', current)
          query = """ select * from demo.table2 where bucket = '%s' limit 1 """ % (bucket)
-         results = session.execute (query)
-         for r in results:
-            d = r.d
+         readfail = 0
+         r["result"] = "Successful"
+         try:
+            results = session.execute (query)
+         except Exception as e:
+            print ("Read failed.")
+            readfail = 1
+            for i in e:
+               errormsg = i
+               errormsg = str(errormsg).replace('"', '')
+            r["count"] = x
+            r["dc"] = used_dc
+            r["result"] = errormsg
+            r["d"] = "00:00:00"
+            yield json.dumps(r) + "\r\n"
+         if readfail == 1:
+            cluster.shutdown()
+            return
+            yield
+
+         for row in results:
+            r["d"] = row.d
 
          if(y == rowcount):
             y = 0
-            future = session.execute_async (query, trace=True )
-            result = future.result()
             try:
-               trace = future.get_query_trace( 1 )
-               coordinator =  trace.coordinator
-            except:
-               print "trace failed"
-               coordinator = last_c
-            for h in session.hosts:
-               if h.address == coordinator:
-                  used_dc = h.datacenter
-            #yield """Rows Written %s (%s) - %s\n""" %(x, used_dc,  str(d))
-            yield """{"count": %s, "dc": "%s", "d": "%s"}\n""" %(x, used_dc,  str(d))
-            #cluster.shutdown() 
-            #x = count + 1
-                
+               future = session.execute_async (query, trace=True )
+               result = future.result()
+               try:
+                  trace = future.get_query_trace( 1 )
+                  coordinator =  trace.coordinator
+               except:
+                  coordinator = last_c
+               for h in session.hosts:
+                  if h.address == coordinator:
+                     used_dc = h.datacenter
+               r["count"] = x
+               r["dc"] = used_dc
+               yield json.dumps(r) + "\r\n"
+            except Exception as e:
+               for i in e:
+                  errormsg = i
+                  errormsg = str(errormsg).replace('"', '')
+               print ("Read trace failed.")
+               r["count"] = x
+               r["dc"] = used_dc
+               r["result"] = errormsg
+               yield json.dumps(r) + "\r\n"
+               cluster.shutdown()
 
          time.sleep(.03)  # an artificial delay
          x = x + 1
          y = y + 1
       cluster.shutdown()
-   return Response(readStream(), content_type='text/event-stream')
+   return Response(readStream(), content_type='application/stream+json')
 
 
 @app.route('/demo/recover', methods=['POST'])
