@@ -243,6 +243,7 @@ def read():
       last_c = coordinator
       used_dc = dc
       current = time.localtime()
+      bucket = str(current.tm_year) + str(current.tm_mon) + str(current.tm_mday) + str(current.tm_hour) + str(current.tm_min)
 
       profile1 = ExecutionProfile( load_balancing_policy=DCAwareRoundRobinPolicy(local_dc=dc, used_hosts_per_remote_dc=3),
                             speculative_execution_policy=ConstantSpeculativeExecutionPolicy(.05, 20),
@@ -270,27 +271,24 @@ def read():
          results = session.execute (query)
          for r in results:
             d = r.d
-            print d
 
          if(y == rowcount):
             y = 0
+            future = session.execute_async (query, trace=True )
+            result = future.result()
             try:
-               future = session.execute_async (query, trace=True )
-               result = future.result()
-               try:
-                  trace = future.get_query_trace(1)
-                  coordinator =  trace.coordinator
-               except:
-                  coordinator = last_c
-               for h in session.hosts:
-                  if h.address == coordinator:
-                     used_dc = h.datacenter
-               #yield """Rows Written %s (%s) - %s\n""" %(x, used_dc,  str(d))
-               yield """{"count": %s, "dc": "%s", "d": "%s"}\n""" %(x, used_dc,  str(dt))
+               trace = future.get_query_trace( 1 )
+               coordinator =  trace.coordinator
             except:
-               print("Read Missed")
-               #cluster.shutdown() 
-               #x = count + 1
+               print "trace failed"
+               coordinator = last_c
+            for h in session.hosts:
+               if h.address == coordinator:
+                  used_dc = h.datacenter
+            #yield """Rows Written %s (%s) - %s\n""" %(x, used_dc,  str(d))
+            yield """{"count": %s, "dc": "%s", "d": "%s"}\n""" %(x, used_dc,  str(d))
+            #cluster.shutdown() 
+            #x = count + 1
                 
 
          time.sleep(.03)  # an artificial delay
