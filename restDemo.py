@@ -382,6 +382,17 @@ def dc():
    #dcList = dict.fromkeys("dc", dcSet)
    return json.dumps(dcList)
 
+
+@app.route('/demo/nodefull', methods=['GET'])
+def nodefull():
+   clusterInfo = []
+   nodeInfo = []
+   url = "http://%s:%s/%s/nodes""" % (lcm, lcmport, clustername)
+   response = urllib2.urlopen(url)
+   data = json.loads(response.read())
+   return json.dumps(data)
+
+
 @app.route('/demo/recover', methods=['POST'])
 def recover():
    if not request.json:
