@@ -391,6 +391,14 @@ def recover():
       recoverNode(n)
    return "ok"
 
+@app.route('/demo/killnode', methods=['POST'])
+def killnode():
+   if not request.json:
+      abort(400)
+   for n in request.json:
+      killNode(n)
+   return json.dumps(request.json)
+
 @app.route('/demo/chaos', methods=['POST'])
 def chaos():
    if not request.json or not 'dc' in request.json or not 'scenario' in request.json:
