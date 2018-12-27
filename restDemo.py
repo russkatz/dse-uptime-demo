@@ -352,6 +352,36 @@ def read():
    return Response(readStream(), content_type='application/stream+json')
 
 
+@app.route('/demo/node', methods=['GET'])
+def node():
+   nodeList = []
+   c = detectCluster()
+   for n in c:
+      addMe = 1
+      for d in nodeList:
+         if d == n[0]:
+            addMe = 0
+      if addMe == 1:
+         nodeList.append(n[0])
+   #dcSet = set(dcList)
+   #dcList = dict.fromkeys("dc", dcSet)
+   return json.dumps(nodeList)
+
+@app.route('/demo/dc', methods=['GET'])
+def dc():
+   dcList = []
+   c = detectCluster()
+   for n in c:
+      addMe = 1
+      for d in dcList:
+         if d == n[1]:
+            addMe = 0
+      if addMe == 1:
+         dcList.append(n[1])
+   #dcSet = set(dcList)
+   #dcList = dict.fromkeys("dc", dcSet)
+   return json.dumps(dcList)
+
 @app.route('/demo/recover', methods=['POST'])
 def recover():
    if not request.json:
