@@ -40,7 +40,7 @@ lcmport = config.get('CONFIG','lcmport')
 clustername = config.get('CONFIG','clustername').replace(' ','%20')
 username = config.get('CONFIG','username')
 keyfile = config.get('CONFIG','keyfile')
-rowcount = config.get('CONFIG','rowcount')
+rowcount = config.getint('CONFIG','rowcount')
 ks_query = config.get('CONFIG','ks_query')
 
 auth_provider = PlainTextAuthProvider (username='user1', password='password1')
@@ -69,6 +69,8 @@ cluster = Cluster( contact_points=contactpoints,
 
 
 session = cluster.connect()
+print "Connected to cluster"
+
 session.execute (ks_query)
 session.execute (""" CREATE TABLE IF NOT EXISTS  demo.table2 (     bucket text,     ts timeuuid,     d text,     data1 text,     data2 text,     data3 text,     PRIMARY KEY (bucket, ts)) WITH CLUSTERING ORDER BY (ts desc) """)
 cluster.shutdown()
@@ -230,6 +232,7 @@ def writev0():
             return
             yield
          if(y == rowcount):
+            print "."
             y = 0
             try:
                future = session.execute_async (query, trace=True )
