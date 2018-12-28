@@ -13,20 +13,37 @@ from dse import ConsistencyLevel
 
 from ssl import PROTOCOL_TLSv1, CERT_REQUIRED, CERT_OPTIONAL
 
+from ConfigParser import ConfigParser
+
 app = Flask(__name__)
 CORS(app)
 
+config = ConfigParser()
+config.read('demo.ini')
+
 #Configuration
-contactpoints = ['40.78.69.234', '104.42.194.135']
-localDC = "OnPrem-DC1" #Only used for schema updates
-lcm = "127.0.0.1"
-lcmport = 8888
-clustername = "Demo"
-username = "opsc"
-keyfile = "/home/ubuntu/dse-uptime-demo-working/priv.key"
-rowcount = 10
+
+#contactpoints = ['40.78.69.234', '104.42.194.135']
+#localDC = "OnPrem-DC1" #Only used for schema updates
+#lcm = "127.0.0.1"
+#lcmport = 8888
+#clustername = "Demo"
+#username = "opsc"
+#keyfile = "/home/ubuntu/dse-uptime-demo-working/priv.key"
+#rowcount = 10
+#ks_query = """CREATE KEYSPACE IF NOT EXISTS demo WITH replication = {'class': 'NetworkTopologyStrategy', 'DC1': 3}"""
+
+contactpoints = config.get('CONFIG','contactpoints').split(',')
+localDC = config.get('CONFIG','localDC')
+lcm = config.get('CONFIG','lcm')
+lcmport = config.get('CONFIG','lcmport')
+clustername = config.get('CONFIG','clustername').replace(' ','%20')
+username = config.get('CONFIG','username')
+keyfile = config.get('CONFIG','keyfile')
+rowcount = config.getint('CONFIG','rowcount')
+ks_query = config.get('CONFIG','ks_query')
+
 auth_provider = PlainTextAuthProvider (username='user1', password='password1')
-ks_query = """ CREATE KEYSPACE IF NOT EXISTS demo WITH replication = {'class': 'NetworkTopologyStrategy', 'AWS': 3} """
 ssl_opts = None
 #ssl_opts = {
 #    'ca_certs': '/path/to/ca.crt',
@@ -52,6 +69,8 @@ cluster = Cluster( contact_points=contactpoints,
 
 
 session = cluster.connect()
+print "Connected to cluster"
+
 session.execute (ks_query)
 session.execute (""" CREATE TABLE IF NOT EXISTS  demo.table2 (     bucket text,     ts timeuuid,     d text,     data1 text,     data2 text,     data3 text,     PRIMARY KEY (bucket, ts)) WITH CLUSTERING ORDER BY (ts desc) """)
 cluster.shutdown()
@@ -61,6 +80,7 @@ def detectCluster():
    clusterInfo = []
    nodeInfo = []
    url = "http://%s:%s/%s/nodes""" % (lcm, lcmport, clustername)
+   print url
    response = urllib2.urlopen(url)
    data = response.read()
    values = json.loads(data)
@@ -212,6 +232,7 @@ def writev0():
             return
             yield
          if(y == rowcount):
+            print "."
             y = 0
             try:
                future = session.execute_async (query, trace=True )
