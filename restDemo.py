@@ -23,33 +23,25 @@ config.read('demo.ini')
 
 #Configuration
 
-#contactpoints = ['40.78.69.234', '104.42.194.135']
-#localDC = "OnPrem-DC1" #Only used for schema updates
-#lcm = "127.0.0.1"
-#lcmport = 8888
-#clustername = "Demo"
-#username = "opsc"
-#keyfile = "/home/ubuntu/dse-uptime-demo-working/priv.key"
-#rowcount = 10
-#ks_query = """CREATE KEYSPACE IF NOT EXISTS demo WITH replication = {'class': 'NetworkTopologyStrategy', 'DC1': 3}"""
-
 contactpoints = config.get('CONFIG','contactpoints').split(',')
 localDC = config.get('CONFIG','localDC')
 lcm = config.get('CONFIG','lcm')
 lcmport = config.get('CONFIG','lcmport')
 clustername = config.get('CONFIG','clustername').replace(' ','%20')
-username = config.get('CONFIG','username')
-keyfile = config.get('CONFIG','keyfile')
+username = config.get('CONFIG','sshusername')
+keyfile = config.get('CONFIG','sshkeyfile')
 rowcount = config.getint('CONFIG','rowcount')
 ks_query = config.get('CONFIG','ks_query')
+auth_provider = PlainTextAuthProvider (username= config.get('CONFIG','clusteruser'), password= config.get('CONFIG','clusterpass'))
 
-auth_provider = PlainTextAuthProvider (username='user1', password='password1')
-ssl_opts = None
-#ssl_opts = {
-#    'ca_certs': '/path/to/ca.crt',
-#    'ssl_version': PROTOCOL_TLSv1,
-#    'cert_reqs':  CERT_OPTIONAL
-#}
+if config.getint('CONFIG','sslenabled') == 0:
+   ssl_opts = None
+else:
+   ssl_opts = {
+       'ca_certs':  config.get('CONFIG','sslca'),
+       'ssl_version': PROTOCOL_TLSv1,
+       'cert_reqs':  CERT_OPTIONAL
+   }
 
 
 
@@ -232,7 +224,6 @@ def writev0():
             return
             yield
          if(y == rowcount):
-            print "."
             y = 0
             try:
                future = session.execute_async (query, trace=True )
