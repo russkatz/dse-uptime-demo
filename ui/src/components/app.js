@@ -8,7 +8,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Menu from './Menu';
 import Stepper from './Stepper';
 import Dashboard from './Dashboard';
-import Readwrite from './Readwrite';
+// import Card from './Card';
 import Footer from './Footer';
 
 
@@ -39,11 +39,11 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <Grid >
+        <Grid container justify="center">
           <Menu/>
           <Stepper />
           <Dashboard />
-          <Readwrite />
+          {/* <Card /> */}
           <Footer/>
         </Grid>
       </MuiThemeProvider>

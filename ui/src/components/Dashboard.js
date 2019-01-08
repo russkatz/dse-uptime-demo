@@ -16,6 +16,7 @@ const styles = theme => ({
     },
     table: {
         width: '60%',
+        margin: 'auto',
     },
 });
 

@@ -12,9 +12,7 @@ const styles = {
     },
     stickToBottom: {
         position: 'static',
-        // bottom: "0",
         height: 47,
-        margin: '4vh 0 0 0',
     },
 };
 
