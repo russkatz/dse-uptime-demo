@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
@@ -7,6 +7,9 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 // components
 import Menu from './Menu';
 import Stepper from './Stepper';
+import Dashboard from './Dashboard';
+
+import Footer from './Footer';
 
 
 
@@ -39,6 +42,8 @@ class App extends Component {
         <Grid >
           <Menu/>
           <Stepper />
+          <Dashboard />
+          <Footer/>
         </Grid>
       </MuiThemeProvider>
     );

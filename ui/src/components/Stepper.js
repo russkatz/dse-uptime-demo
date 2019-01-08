@@ -6,12 +6,12 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
+// import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
     root: {
         width: '80%',
-        flexGrow: 1,
+        marginTop: '20px',
     },
     backButton: {
         marginRight: theme.spacing.unit,
@@ -70,14 +70,14 @@ class HorizontalLabelPositionBelowStepper extends React.Component {
 
     return (
         <div className={classes.root}>
-            <Stepper activeStep={activeStep} alternativeLabel>
-            {steps.map(label => {
-                return (
-                <Step key={label}>
-                    <StepLabel>{label}</StepLabel>
-                </Step>
-                );
-            })}
+            <Stepper container spacing={24} activeStep={activeStep} alternativeLabel>
+                {steps.map(label => {
+                    return (
+                    <Step key={label}>
+                        <StepLabel>{label}</StepLabel>
+                    </Step>
+                    );
+                })}
             </Stepper>
             <div>
             {this.state.activeStep === steps.length ? (
