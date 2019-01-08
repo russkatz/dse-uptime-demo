@@ -1,12 +1,13 @@
 import {connect} from 'react-redux';
 import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 
 // components
 import Menu from './Menu';
+import Stepper from './Stepper';
 
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 
 const theme = createMuiTheme({
@@ -35,8 +36,9 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <Grid>
+        <Grid >
           <Menu/>
+          <Stepper />
         </Grid>
       </MuiThemeProvider>
     );
