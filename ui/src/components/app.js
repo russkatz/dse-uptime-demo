@@ -8,7 +8,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Menu from './Menu';
 import Stepper from './Stepper';
 import Dashboard from './Dashboard';
-
+import Readwrite from './Readwrite';
 import Footer from './Footer';
 
 
@@ -43,6 +43,7 @@ class App extends Component {
           <Menu/>
           <Stepper />
           <Dashboard />
+          <Readwrite />
           <Footer/>
         </Grid>
       </MuiThemeProvider>
