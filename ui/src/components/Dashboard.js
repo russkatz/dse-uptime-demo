@@ -35,7 +35,7 @@ function SimpleTable(props) {
 
     return (
         <div className={classes.root}>
-            <Paper style={{ backgroundColor: 'white', width: '60%', padding: '50px 30px 30px 30px', margin: '0 auto'}}>
+            <Paper style={{ backgroundColor: 'white', width: '65%', padding: '50px 30px 30px 30px', margin: '0 auto'}}>
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>

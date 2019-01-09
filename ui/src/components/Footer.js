@@ -11,8 +11,19 @@ const styles = {
     flexGrow: 1,
     },
     stickToBottom: {
-        position: 'static',
-        height: 47,
+        position: 'fixed',
+        marginTop: '95vh'
+    },
+    footerTitle: {
+        margin: 'auto',
+    },
+    font: {
+        fontSize: '18px',
+        color: 'white',
+    },
+    fontSymbol: {
+        fontSize: '12px',
+        color: 'white',
     },
 };
 
@@ -21,9 +32,12 @@ function Footer(props) {
     return (
         <div className={classes.root}>
             <AppBar className={classes.stickToBottom}>
-                <Toolbar variant="dense">
-                    <Typography variant="h6" color="inherit">@DigitalStax</Typography>
-                </Toolbar>
+                <div className={classes.footerTitle}>
+                    <Toolbar variant="dense">
+                        <Typography className={classes.fontSymbol}>©</Typography>
+                        <Typography className={classes.font}>DigitalStax</Typography>
+                    </Toolbar>
+                </div>
             </AppBar>
         </div>
     );
