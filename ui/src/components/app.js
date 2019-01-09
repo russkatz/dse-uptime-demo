@@ -5,11 +5,11 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 
 // components
-import Menu from './Menu';
 import Stepper from './Stepper';
 import Dashboard from './Dashboard';
-// import Card from './Card';
+import ReadWriteCard from './ReadWriteCard';
 import Footer from './Footer';
+import MenuContainer from './Menu';
 
 
 
@@ -22,6 +22,7 @@ const theme = createMuiTheme({
       main: '#ca5f14',
     },
   },
+
 });
 
 class App extends Component {
@@ -40,10 +41,10 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <Grid container justify="center">
-          <Menu/>
+          <MenuContainer/>
           <Stepper />
           <Dashboard />
-          {/* <Card /> */}
+          <ReadWriteCard />
           <Footer/>
         </Grid>
       </MuiThemeProvider>

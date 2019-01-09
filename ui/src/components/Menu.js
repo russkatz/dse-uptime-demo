@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -9,6 +9,8 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+
+import {drawerToggle, changeScreen} from '../actions/NavigationActions'
 
 const styles = theme => ({
   root: {
@@ -70,39 +72,63 @@ const styles = theme => ({
   },
 });
 
-function Menu(props) {
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-            <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-            DSE Uptime UI - Chaos Katz
-          </Typography>
-          <div className={classes.grow} />
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+class Menu extends React.Component{
+  render({classes} = this.props){
+    
+    return (
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton onClick={() => { this.props.drawerToggle(!this.props.drawerOpen)}} className={classes.menuButton} color="inherit" aria-label="Open drawer">
+              <MenuIcon />
+            </IconButton>
+            <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+              DSE Uptime UI - Chaos Katz
+            </Typography>
+            <div className={classes.grow} />
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+              />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-            />
-          </div>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
 }
 
-Menu.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
-export default withStyles(styles)(Menu);
+const mapStateToProps = (state, ownProps) => {
+  return {
+    drawerOpen: state.NavigationReducer.drawerOpen,
+    page: state.NavigationReducer.page,
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    init: () => {
+    },
+    drawerToggle: (drawerOpen) => {
+      dispatch(drawerToggle(drawerOpen))
+    },
+    changeScreen: (page) => {
+      dispatch(changeScreen(page))
+      dispatch(drawerToggle(false))
+    }
+  }
+}
+
+const MenuContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Menu))
+export default MenuContainer

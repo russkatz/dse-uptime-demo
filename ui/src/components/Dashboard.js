@@ -14,10 +14,6 @@ const styles = theme => ({
         marginTop: theme.spacing.unit * 11,
         overflowX: 'auto',
     },
-    table: {
-        width: '60%',
-        margin: 'auto',
-    },
 });
 
 let id = 0;
@@ -38,34 +34,36 @@ function SimpleTable(props) {
     const { classes } = props;
 
     return (
-        <Paper className={classes.root}>
-            <Table className={classes.table}>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>DATA CENTER</TableCell>
-                        <TableCell align="right">NORMAL</TableCell>
-                        <TableCell align="right">MEDIUM</TableCell>
-                        <TableCell align="right">HIGH</TableCell>
-                        <TableCell align="right">DOWN</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map(row => {
-                        return (
-                        <TableRow key={row.id}>
-                            <TableCell component="th" scope="row">
-                            {row.name}
-                            </TableCell>
-                            <TableCell align="right">{row.normal}</TableCell>
-                            <TableCell align="right">{row.medium}</TableCell>
-                            <TableCell align="right">{row.high}</TableCell>
-                            <TableCell align="right">{row.down}</TableCell>
+        <div className={classes.root}>
+            <Paper style={{ backgroundColor: 'white', width: '60%', padding: '50px 30px 30px 30px', margin: '0 auto'}}>
+                <Table className={classes.table}>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>DATA CENTER</TableCell>
+                            <TableCell align="right">NORMAL</TableCell>
+                            <TableCell align="right">MEDIUM</TableCell>
+                            <TableCell align="right">HIGH</TableCell>
+                            <TableCell align="right">DOWN</TableCell>
                         </TableRow>
-                        );
-                    })}
-                </TableBody>
-            </Table>
-        </Paper>
+                    </TableHead>
+                    <TableBody>
+                        {rows.map(row => {
+                            return (
+                            <TableRow key={row.id}>
+                                <TableCell component="th" scope="row">
+                                {row.name}
+                                </TableCell>
+                                <TableCell align="right">{row.normal}</TableCell>
+                                <TableCell align="right">{row.medium}</TableCell>
+                                <TableCell align="right">{row.high}</TableCell>
+                                <TableCell align="right">{row.down}</TableCell>
+                            </TableRow>
+                            );
+                        })}
+                    </TableBody>
+                </Table>
+            </Paper>
+        </div>
     );
 }
 
