@@ -10,28 +10,20 @@ import Grid from '@material-ui/core/Grid';
 const styles = theme => ({
     root: {
         flexGrow: 1,
-    },
-    paper: {
-        height: 140,
-        width: 100,
-    },
-    control: {
-        padding: theme.spacing.unit * 2,
+        justifyContent: 'center',
     },
 });
 
 class ReadWriteCard extends React.Component {
 
-    state = {
-        spacing: '16',
-    };
-
     render() {
     const { classes } = this.props;
-    const { spacing } = this.state;
         return (
-            <Grid container className={classes.root} spacing={16}>
-                <Grid item xs={6}>
+            <Grid container 
+            className={classes.root} 
+            style={{marginTop: '40px'}}
+            >
+                <Grid item xs={4}>
                     <Grid container>
                         <Card style={{width: "20rem"}}>
                             <CardHeader color="primary">ROWS WRITTEN</CardHeader>
@@ -42,7 +34,7 @@ class ReadWriteCard extends React.Component {
                         </Card>
                     </Grid>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={4}>
                     <Grid container>
                         <Card style={{width: "20rem"}}>
                             <CardHeader color="warning">ROWS WRITTEN</CardHeader>

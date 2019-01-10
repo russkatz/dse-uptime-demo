@@ -45,8 +45,8 @@ class App extends Component {
           <Stepper />
           <Dashboard />
           <ReadWriteCard />
-          <Footer/>
         </Grid>
+          <Footer/>
       </MuiThemeProvider>
     );
   }

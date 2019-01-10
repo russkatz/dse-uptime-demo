@@ -1,13 +1,12 @@
-.paper {
-    margin: 5%;
-}
-
 body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
     overflow-y: scroll;
     overflow-x: hidden;
+}
+.paper {
+    margin: 5%;
 }
 
 html {
@@ -17,3 +16,4 @@ html {
 #root {
     height: 100%;
 }
+

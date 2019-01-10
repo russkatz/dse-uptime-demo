@@ -9,8 +9,22 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import Drawer from '@material-ui/core/Drawer';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import HomeIcon from '@material-ui/icons/Home';
+import GraphIcon from '@material-ui/icons/ScatterPlot';
 
 import {drawerToggle, changeScreen} from '../actions/NavigationActions'
+
+import classNames from 'classnames';
+
+const drawerWidth = 300;
 
 const styles = theme => ({
   root: {
@@ -18,6 +32,21 @@ const styles = theme => ({
   },
   grow: {
     flexGrow: 1,
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   menuButton: {
     marginLeft: -12,
@@ -29,47 +58,85 @@ const styles = theme => ({
       display: 'block',
     },
   },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
+  hide: {
+    display: 'none',
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+  },
+  drawerOpen: {
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawerClose: {
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflowX: 'hidden',
+    width: theme.spacing.unit * 7 + 1,
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing.unit,
-      width: 'auto',
+      width: theme.spacing.unit * 9 + 1,
     },
   },
-  searchIcon: {
-    width: theme.spacing.unit * 9,
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
+  toolbar: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
+    padding: '0 8px',
+    ...theme.mixins.toolbar,
   },
-  inputRoot: {
-    color: 'inherit',
-    width: '100%',
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing.unit * 3,
   },
-  inputInput: {
-    paddingTop: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 10,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: 120,
-      '&:focus': {
-        width: 200,
+
+    search: {
+      position: 'relative',
+      borderRadius: theme.shape.borderRadius,
+      backgroundColor: fade(theme.palette.common.white, 0.15),
+      '&:hover': {
+        backgroundColor: fade(theme.palette.common.white, 0.25),
+      },
+      marginLeft: 0,
+      width: '100%',
+      [theme.breakpoints.up('sm')]: {
+        marginLeft: theme.spacing.unit,
+        width: 'auto',
       },
     },
-  },
+    searchIcon: {
+      width: theme.spacing.unit * 9,
+      height: '100%',
+      position: 'absolute',
+      pointerEvents: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    inputRoot: {
+      color: 'inherit',
+      width: '100%',
+    },
+    inputInput: {
+      paddingTop: theme.spacing.unit,
+      paddingRight: theme.spacing.unit,
+      paddingBottom: theme.spacing.unit,
+      paddingLeft: theme.spacing.unit * 10,
+      transition: theme.transitions.create('width'),
+      width: '100%',
+      [theme.breakpoints.up('sm')]: {
+        width: 120,
+        '&:focus': {
+          width: 200,
+        },
+      },
+    },
 });
 
 class Menu extends React.Component{
@@ -100,11 +167,54 @@ class Menu extends React.Component{
             </div>
           </Toolbar>
         </AppBar>
+        <Drawer
+        variant="permanent"
+        className={classNames(classes.drawer, {
+          [classes.drawerOpen]: this.props.drawerOpen,
+          [classes.drawerClose]: !this.props.drawerOpen,
+        })}
+        classes={{
+          paper: classNames({
+            [classes.drawerOpen]: this.props.drawerOpen,
+            [classes.drawerClose]: !this.props.drawerOpen,
+          }),
+        }}
+        open={this.props.drawerOpen}
+      >
+        <div className={classes.toolbar}>
+          <IconButton onClick={() => { this.props.drawerToggle(!this.props.drawerOpen)}}>
+            { !this.props.drawerOpen ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          </IconButton>
+        </div>
+        <Divider />
+        <List>
+          {['Home', 'Single Local Node Failure', 'Dual Local Node Failure'].map((text, index) => (
+            <ListItem button key={text} onClick={(e) => { this.props.changeScreen(text)}}>
+              <ListItemIcon>
+                {index === 0 ? <HomeIcon /> : index === 1 ? <GraphIcon /> : <GraphIcon/>}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        {/* <Divider /> */}
+        {/* <List>
+          {['Geo Spatial'].map((text, index) => (
+            <ListItem button key={text} onClick={(e) => { this.props.changeScreen(text)}}>
+              <ListItemIcon>{index === 0 ? <GeoSpatialIcon /> : null }</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List> */}
+      </Drawer>
       </div>
     );
   }
-}
+  componentDidMount(){
+    this.props.init()
+  }
 
+}
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -126,6 +236,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
   }
 }
+
+
 
 const MenuContainer = connect(
   mapStateToProps,

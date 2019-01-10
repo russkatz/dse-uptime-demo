@@ -15,9 +15,13 @@ export const middlewares = [
 
 export const enhancers = [applyMiddleware(...middlewares)];
 
-const initialState = {};
+var initialState = {
+  NavigationReducer: {
+    drawerOpen: false,
+    page: "Home"
+  }
+}
 
-// add redux devtools
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default createStore(
