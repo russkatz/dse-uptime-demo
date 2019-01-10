@@ -37,7 +37,7 @@ class ReadWriteCard extends React.Component {
                 <Grid item xs={4}>
                     <Grid container>
                         <Card style={{width: "20rem"}}>
-                            <CardHeader color="warning">ROWS WRITTEN</CardHeader>
+                            <CardHeader color="warning">ROWS READ</CardHeader>
                             <CardBody>
                                 <h4>**dc**</h4>
                                 <h4>**timestamp**</h4>

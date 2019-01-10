@@ -10,6 +10,9 @@ import Dashboard from './Dashboard';
 import ReadWriteCard from './ReadWriteCard';
 import Footer from './Footer';
 import MenuContainer from './Menu';
+import HomePage from './Homepage'
+import SingleLocalNodeFail from './SingleLocalNodeFail';
+import DualLocalNodeFail from './DualLocalNodeFail';
 
 
 
@@ -42,6 +45,26 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
         <Grid container justify="center">
           <MenuContainer/>
+          <Grid className="basepage">
+        {
+        this.props.NavigationReducer.page === 'Home' ?
+          <HomePage/>
+        :
+        null
+        }
+        {
+        this.props.NavigationReducer.page === 'Single Local Node Failure' ?
+          <SingleLocalNodeFail/>
+        :
+        null
+        }
+        {
+        this.props.NavigationReducer.page === 'Dual Local Node Failure' ?
+          <DualLocalNodeFail/>
+        :
+        null
+        }
+        </Grid>
           <Stepper />
           <Dashboard />
           <ReadWriteCard />
