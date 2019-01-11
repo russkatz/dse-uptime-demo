@@ -19,6 +19,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import GraphIcon from '@material-ui/icons/ScatterPlot';
+import Build from '@material-ui/icons/Build';
+import Groupwork from '@material-ui/icons/GroupWork';
 
 import {drawerToggle, changeScreen} from '../actions/NavigationActions'
 
@@ -95,53 +97,51 @@ const styles = theme => ({
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
   },
-
-    search: {
-      position: 'relative',
-      borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.common.white, 0.15),
-      '&:hover': {
-        backgroundColor: fade(theme.palette.common.white, 0.25),
-      },
-      marginLeft: 0,
-      width: '100%',
-      [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing.unit,
-        width: 'auto',
-      },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    searchIcon: {
-      width: theme.spacing.unit * 9,
-      height: '100%',
-      position: 'absolute',
-      pointerEvents: 'none',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing.unit,
+      width: 'auto',
     },
-    inputRoot: {
-      color: 'inherit',
-      width: '100%',
-    },
-    inputInput: {
-      paddingTop: theme.spacing.unit,
-      paddingRight: theme.spacing.unit,
-      paddingBottom: theme.spacing.unit,
-      paddingLeft: theme.spacing.unit * 10,
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('sm')]: {
-        width: 120,
-        '&:focus': {
-          width: 200,
-        },
+  },
+  searchIcon: {
+    width: theme.spacing.unit * 9,
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+    width: '100%',
+  },
+  inputInput: {
+    paddingTop: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 10,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: 120,
+      '&:focus': {
+        width: 200,
       },
     },
+  },
 });
 
 class Menu extends React.Component{
   render({classes} = this.props){
-    
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -150,10 +150,10 @@ class Menu extends React.Component{
               <MenuIcon />
             </IconButton>
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-              DSE Uptime UI - Chaos Katz
+              {this.props.page}
             </Typography>
             <div className={classes.grow} />
-            <div className={classes.search}>
+            {/* <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
@@ -164,9 +164,10 @@ class Menu extends React.Component{
                   input: classes.inputInput,
                 }}
               />
-            </div>
+            </div> */}
           </Toolbar>
         </AppBar>
+
         <Drawer
         variant="permanent"
         className={classNames(classes.drawer, {
@@ -186,26 +187,20 @@ class Menu extends React.Component{
             { !this.props.drawerOpen ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
+
         <Divider />
+
         <List>
-          {['Home', 'Single Local Node Failure', 'Dual Local Node Failure'].map((text, index) => (
+          {['Home', 'Single Local Node Failure', 'Dual Remote Node Failure', 'Total Local Data Center Failure'].map((text, index) => (
             <ListItem button key={text} onClick={(e) => { this.props.changeScreen(text)}}>
               <ListItemIcon>
-                {index === 0 ? <HomeIcon /> : index === 1 ? <GraphIcon /> : <GraphIcon/>}
+                {index === 0 ? <HomeIcon /> : index === 1 ? <Build /> : <GraphIcon/>}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>
-        {/* <Divider /> */}
-        {/* <List>
-          {['Geo Spatial'].map((text, index) => (
-            <ListItem button key={text} onClick={(e) => { this.props.changeScreen(text)}}>
-              <ListItemIcon>{index === 0 ? <GeoSpatialIcon /> : null }</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List> */}
+
       </Drawer>
       </div>
     );

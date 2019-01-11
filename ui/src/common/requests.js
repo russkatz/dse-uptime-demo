@@ -11,7 +11,7 @@ function uuidv4() {
     )
 }
 
-export function get({url, params, success, error, dispatch, auth = true} = {}) {
+export function get({url, params, success, error, dispatch, auth = "true"} = {}) {
     var key = uuidv4()
     var request = axios.get(url, {
         headers: {},

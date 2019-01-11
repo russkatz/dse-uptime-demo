@@ -2,21 +2,18 @@ import {connect} from 'react-redux';
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-
-
-// components
-import Stepper from './Stepper';
-import Dashboard from './Dashboard';
-import ReadWriteCard from './ReadWriteCard';
 import Footer from './Footer';
 import MenuContainer from './Menu';
 import HomePage from './Homepage'
 import SingleLocalNodeFail from './SingleLocalNodeFail';
-import DualLocalNodeFail from './DualLocalNodeFail';
-
+import DualRemoteNodeFail from './DualRemoteNodeFail';
+import TotalLocalDcFail from './TotalLocalDcFail';
 
 
 const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
   palette: {
     primary: {
       main: '#1AB5E0',
@@ -25,7 +22,6 @@ const theme = createMuiTheme({
       main: '#ca5f14',
     },
   },
-
 });
 
 class App extends Component {
@@ -46,28 +42,31 @@ class App extends Component {
         <Grid container justify="center">
           <MenuContainer/>
           <Grid className="basepage">
-        {
-        this.props.NavigationReducer.page === 'Home' ?
-          <HomePage/>
-        :
-        null
-        }
-        {
-        this.props.NavigationReducer.page === 'Single Local Node Failure' ?
-          <SingleLocalNodeFail/>
-        :
-        null
-        }
-        {
-        this.props.NavigationReducer.page === 'Dual Local Node Failure' ?
-          <DualLocalNodeFail/>
-        :
-        null
-        }
-        </Grid>
-          <Stepper />
-          <Dashboard />
-          <ReadWriteCard />
+            {
+            this.props.NavigationReducer.page === 'Home' ?
+              <HomePage/>
+            :
+            null
+            }
+            {
+            this.props.NavigationReducer.page === 'Single Local Node Failure' ?
+              <SingleLocalNodeFail/>
+            :
+            null
+            }
+            {
+            this.props.NavigationReducer.page === 'Dual Remote Node Failure' ?
+              <DualRemoteNodeFail/>
+            :
+            null
+            }
+            {
+            this.props.NavigationReducer.page === 'Total Local Data Center Failure' ?
+              <TotalLocalDcFail/>
+            :
+            null
+            }
+          </Grid>
         </Grid>
           <Footer/>
       </MuiThemeProvider>
