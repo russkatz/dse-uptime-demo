@@ -1,6 +1,5 @@
 import React from "react";
 import { withStyles } from '@material-ui/core/styles';
-import cardTitle from 'material-kit-react/assets/jss/material-kit-react';
 import Card from 'material-kit-react/components/Card/Card';
 import CardHeader from 'material-kit-react/components/Card/CardHeader';
 import CardBody from 'material-kit-react/components/Card/CardBody';

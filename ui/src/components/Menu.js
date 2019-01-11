@@ -20,7 +20,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import GraphIcon from '@material-ui/icons/ScatterPlot';
 import Build from '@material-ui/icons/Build';
-import Groupwork from '@material-ui/icons/GroupWork';
 
 import {drawerToggle, changeScreen} from '../actions/NavigationActions'
 
