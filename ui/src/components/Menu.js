@@ -18,7 +18,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
-import GraphIcon from '@material-ui/icons/ScatterPlot';
 import Filter1 from '@material-ui/icons/Filter1';
 import Filter2 from '@material-ui/icons/Filter2';
 import Filter3 from '@material-ui/icons/Filter3';

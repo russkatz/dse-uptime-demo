@@ -69,7 +69,7 @@ class HorizontalLabelPositionBelowStepper extends React.Component {
 
     return (
         <div className={classes.root}>
-            <Stepper container spacing={24} activeStep={activeStep} alternativeLabel>
+            <Stepper container='true' spacing={24} activeStep={activeStep} alternativeLabel>
                 {steps.map(label => {
                     return (
                     <Step key={label}>

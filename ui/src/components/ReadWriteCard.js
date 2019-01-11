@@ -19,7 +19,7 @@ class ReadWriteCard extends React.Component {
     const { classes } = this.props;
         return (
             <Grid container 
-            className={classes.root} 
+            className={classes.root}
             style={{marginTop: '40px'}}
             >
                 <Grid item xs={4}>

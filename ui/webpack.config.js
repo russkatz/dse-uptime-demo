@@ -57,6 +57,10 @@ const CONFIG = {
           { loader: "css-loader" },
         ],
       }
+      // {
+      //   test: /\.svg$/,
+      //   loader: 'svg-inline-loader'
+      // }
       /*
       {
         test: /\.css$/,
@@ -66,7 +70,7 @@ const CONFIG = {
         loader: 'css-loader',
         query: {
           modules: true,
-         // localIdentName: '[name]__[local]___[hash:base64:5]'
+          // localIdentName: '[name]__[local]___[hash:base64:5]'
         }
       }
       */
@@ -93,6 +97,15 @@ const PROD = {
 
   module: {
     rules: [
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {},
+          },
+        ],
+      },
       {
         test: /\.js$/,
         loader: 'babel-loader',
@@ -132,6 +145,8 @@ const PROD = {
     fs: 'empty'
   },
 };
+
+
 
 // This line enables bundling against src in this repo rather than installed deck.gl module
 //module.exports = [CONFIG, PROD];

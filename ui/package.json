@@ -36,7 +36,9 @@
     "classnames": "^2.2.6",
     "css-loader": "^2.1.0",
     "d3-force": "^1.1.0",
+    "file-loader": "^3.0.1",
     "style-loader": "^0.23.1",
+    "url-loader": "^1.1.2",
     "webpack": "^2.4.0",
     "webpack-dev-server": "^2.11.3"
   }
