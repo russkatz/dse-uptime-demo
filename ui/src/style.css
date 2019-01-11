@@ -5,13 +5,6 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
 }
-.paper {
-    margin: 5%;
-}
-
-html {
-    height: 100%;
-}
 
 #root {
     height: 100%;

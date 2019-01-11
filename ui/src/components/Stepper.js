@@ -10,7 +10,8 @@ import Typography from '@material-ui/core/Typography';
 const styles = theme => ({
     root: {
         width: '80%',
-        marginTop: '30px',
+        marginTop: '20px',
+        margin: 'auto',
     },
     backButton: {
         marginRight: theme.spacing.unit,

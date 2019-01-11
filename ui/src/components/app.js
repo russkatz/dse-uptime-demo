@@ -11,6 +11,9 @@ import TotalLocalDcFail from './TotalLocalDcFail';
 
 
 const theme = createMuiTheme({
+  root: {
+    height: '100vh',
+  },
   typography: {
     useNextVariants: true,
   },
@@ -39,9 +42,8 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <Grid container justify="center">
           <MenuContainer/>
-          <Grid className="basepage">
+          <Grid>
             {
             this.props.NavigationReducer.page === 'Home' ?
               <HomePage/>
@@ -67,7 +69,6 @@ class App extends Component {
             null
             }
           </Grid>
-        </Grid>
           <Footer/>
       </MuiThemeProvider>
     );

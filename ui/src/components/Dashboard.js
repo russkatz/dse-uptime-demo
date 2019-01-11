@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 const styles = theme => ({
     root: {
         width: '100%',
-        marginTop: theme.spacing.unit * 11,
+        marginTop: theme.spacing.unit * 5,
         overflowX: 'auto',
     },
 });
@@ -27,7 +27,6 @@ const rows = [
     createData('Azure', 5, 0, 0, 0),
     createData('GCP', 4, 1, 0, 0),
     createData('Onprem-DC1', 3, 0, 2, 0),
-    // createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
 function SimpleTable(props) {

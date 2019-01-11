@@ -1,27 +1,40 @@
-import React, {PureComponent} from 'react';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
+import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Stepper from './Stepper';
 import Dashboard from './Dashboard';
 import ReadWriteCard from './ReadWriteCard';
 
-export default class HomePage extends PureComponent {
+const theme = createMuiTheme({
+    root: {
+        width: '100%',
+    },
+    typography: {
+        useNextVariants: true,
+    },
+    palette: {
+        primary: {
+            main: '#1AB5E0',
+        },
+        secondary: {
+            main: '#ca5f14',
+        },
+    },
+});
+
+class HomePage extends Component {
 
     render() {
         return (
-            <Paper className="paper" elevation={1}>
-            <div className="container">
-            {/* <Typography variant="h6" color="inherit" noWrap>
-                Dual Remote Node Failure
-            </Typography> */}
-            </div>
-            <Grid>
-                <Stepper />
-                <Dashboard />
-                <ReadWriteCard />
-            </Grid>
-            </Paper>
+            <MuiThemeProvider theme={theme}>
+                <Grid>
+                    <Stepper />
+                    <Dashboard />
+                    <ReadWriteCard />
+                </Grid>
+            </MuiThemeProvider>
         );
     }
 }
+
+export default HomePage;

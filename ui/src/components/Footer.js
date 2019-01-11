@@ -12,7 +12,7 @@ const styles = {
     },
     stickToBottom: {
         position: 'fixed',
-        marginTop: '95vh'
+        marginTop: '94vh'
     },
     footerTitle: {
         margin: 'auto',

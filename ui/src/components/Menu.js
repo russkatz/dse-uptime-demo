@@ -27,7 +27,7 @@ import {drawerToggle, changeScreen} from '../actions/NavigationActions'
 
 import classNames from 'classnames';
 
-const drawerWidth = 300;
+const drawerWidth = 320;
 
 const styles = theme => ({
   root: {
