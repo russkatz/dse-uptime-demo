@@ -1,6 +1,22 @@
 import React, {PureComponent} from 'react';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
+
+const theme = createMuiTheme({
+    typography: {
+      useNextVariants: true,
+    },
+    palette: {
+      primary: {
+        main: '#1AB5E0',
+      },
+      secondary: {
+        main: '#ca5f14',
+      },
+    },
+  });
 
 export default class HomePage extends PureComponent {
 

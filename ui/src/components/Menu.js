@@ -19,7 +19,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import GraphIcon from '@material-ui/icons/ScatterPlot';
-import Build from '@material-ui/icons/Build';
+import Filter1 from '@material-ui/icons/Filter1';
+import Filter2 from '@material-ui/icons/Filter2';
+import Filter3 from '@material-ui/icons/Filter3';
 
 import {drawerToggle, changeScreen} from '../actions/NavigationActions'
 
@@ -193,7 +195,7 @@ class Menu extends React.Component{
           {['Home', 'Single Local Node Failure', 'Dual Remote Node Failure', 'Total Local Data Center Failure'].map((text, index) => (
             <ListItem button key={text} onClick={(e) => { this.props.changeScreen(text)}}>
               <ListItemIcon>
-                {index === 0 ? <HomeIcon /> : index === 1 ? <Build /> : <GraphIcon/>}
+                {index === 0 ? <HomeIcon /> : index === 1 ? <Filter1 /> : index === 2 ? <Filter2 /> : <Filter3/>}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>

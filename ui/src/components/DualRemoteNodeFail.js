@@ -12,9 +12,9 @@ export default class HomePage extends PureComponent {
         return (
             <Paper className="paper" elevation={1}>
             <div className="container">
-            <Typography variant="h6" color="inherit" noWrap>
+            {/* <Typography variant="h6" color="inherit" noWrap>
                 Dual Remote Node Failure
-            </Typography>
+            </Typography> */}
             </div>
             <Grid>
                 <Stepper />
