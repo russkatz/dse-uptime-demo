@@ -35,7 +35,7 @@ function Footer(props) {
                 <div className={classes.footerTitle}>
                     <Toolbar variant="dense">
                         <Typography className={classes.fontSymbol}>©</Typography>
-                        <Typography className={classes.font}>DigitalStax</Typography>
+                        <Typography className={classes.font}>DataStax</Typography>
                     </Toolbar>
                 </div>
             </AppBar>

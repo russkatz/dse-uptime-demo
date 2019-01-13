@@ -5,9 +5,10 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Footer from './Footer';
 import MenuContainer from './Menu';
 import HomePage from './Homepage'
-import SingleLocalNodeFail from './SingleLocalNodeFail';
-import DualRemoteNodeFail from './DualRemoteNodeFail';
-import TotalLocalDcFail from './TotalLocalDcFail';
+import SingleLocalNodeFail from './LocalNodeSim';
+import DualRemoteNodeFail from './RemoteNodeSim';
+import TotalLocalDcFail from './LocalDataCenterSim';
+import CustomSim from './CustomSim'
 
 
 const theme = createMuiTheme({
@@ -51,20 +52,26 @@ class App extends Component {
             null
             }
             {
-            this.props.NavigationReducer.page === 'Single Local Node Failure' ?
+            this.props.NavigationReducer.page === 'Local Node Simulation' ?
               <SingleLocalNodeFail/>
             :
             null
             }
             {
-            this.props.NavigationReducer.page === 'Dual Remote Node Failure' ?
+            this.props.NavigationReducer.page === 'Remote Node Simulation' ?
               <DualRemoteNodeFail/>
             :
             null
             }
             {
-            this.props.NavigationReducer.page === 'Total Local Data Center Failure' ?
+            this.props.NavigationReducer.page === 'Local Data Center Simulation' ?
               <TotalLocalDcFail/>
+            :
+            null
+            }
+                        {
+            this.props.NavigationReducer.page === 'Custom Event Simulation' ?
+              <CustomSim />
             :
             null
             }

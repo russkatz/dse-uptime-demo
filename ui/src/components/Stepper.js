@@ -22,6 +22,10 @@ const styles = theme => ({
     },
 });
 
+const stepperStyle = {
+    padding: '6px',
+}
+
 function getSteps() {
     return ['Healthy System Started', 'Datacenter Affected', 'Recovery Achieve'];
 }
@@ -69,7 +73,7 @@ class HorizontalLabelPositionBelowStepper extends React.Component {
 
     return (
         <div className={classes.root}>
-            <Stepper container='true' spacing={24} activeStep={activeStep} alternativeLabel>
+            <Stepper container='true' spacing={24} activeStep={activeStep} style={stepperStyle} alternativeLabel>
                 {steps.map(label => {
                     return (
                     <Step key={label}>
@@ -78,7 +82,7 @@ class HorizontalLabelPositionBelowStepper extends React.Component {
                     );
                 })}
             </Stepper>
-            <div>
+        <div>
             {this.state.activeStep === steps.length ? (
                 <div>
                 <Typography className={classes.instructions}>Node Rerouting Completed</Typography>

@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
+// import InputBase from '@material-ui/core/InputBase';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -21,12 +21,13 @@ import HomeIcon from '@material-ui/icons/Home';
 import Filter1 from '@material-ui/icons/Filter1';
 import Filter2 from '@material-ui/icons/Filter2';
 import Filter3 from '@material-ui/icons/Filter3';
+import Filter4 from '@material-ui/icons/Filter4';
 
 import {drawerToggle, changeScreen} from '../actions/NavigationActions'
 
 import classNames from 'classnames';
 
-const drawerWidth = 320;
+const drawerWidth = 300;
 
 const styles = theme => ({
   root: {
@@ -140,8 +141,10 @@ const styles = theme => ({
   },
 });
 
+
 class Menu extends React.Component{
   render({classes} = this.props){
+
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -155,60 +158,56 @@ class Menu extends React.Component{
             <div className={classes.grow} />
             {/* <div className={classes.search}>
               <div className={classes.searchIcon}>
-                <SearchIcon />
+              <SearchIcon />
               </div>
               <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
               />
             </div> */}
           </Toolbar>
         </AppBar>
-
-        <Drawer
-        variant="permanent"
-        className={classNames(classes.drawer, {
-          [classes.drawerOpen]: this.props.drawerOpen,
-          [classes.drawerClose]: !this.props.drawerOpen,
-        })}
-        classes={{
-          paper: classNames({
+          <Drawer
+          variant="permanent"
+          className={classNames(classes.drawer, {
             [classes.drawerOpen]: this.props.drawerOpen,
             [classes.drawerClose]: !this.props.drawerOpen,
-          }),
-        }}
-        open={this.props.drawerOpen}
-      >
-        <div className={classes.toolbar}>
-          <IconButton onClick={() => { this.props.drawerToggle(!this.props.drawerOpen)}}>
-            { !this.props.drawerOpen ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </div>
-
-        <Divider />
-
-        <List>
-          {['Home', 'Single Local Node Failure', 'Dual Remote Node Failure', 'Total Local Data Center Failure'].map((text, index) => (
-            <ListItem button key={text} onClick={(e) => { this.props.changeScreen(text)}}>
-              <ListItemIcon>
-                {index === 0 ? <HomeIcon /> : index === 1 ? <Filter1 /> : index === 2 ? <Filter2 /> : <Filter3/>}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-
-      </Drawer>
+          })}
+          classes={{
+            paper: classNames({
+              [classes.drawerOpen]: this.props.drawerOpen,
+              [classes.drawerClose]: !this.props.drawerOpen,
+            }),
+          }}
+          open={this.props.drawerOpen}
+          >
+          <div className={classes.toolbar}>
+            <IconButton onClick={() => { this.props.drawerToggle(!this.props.drawerOpen)}}>
+              { !this.props.drawerOpen ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            </IconButton>
+          </div>
+          <Divider />
+            <List>
+              {['Home', 'Local Node Simulation', 'Remote Node Simulation', 'Local Data Center Simulation', 'Custom Event Simulation'].map((text, index) => (
+                <ListItem button key={text} onClick={(e) => { this.props.changeScreen(text)}}>
+                  <ListItemIcon>
+                    {index === 0 ? <HomeIcon /> : index === 1 ? <Filter1 /> : index === 2 ? <Filter2 /> : index === 3 ? <Filter3/> : <Filter4/>}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
+            </List>
+        </Drawer>
       </div>
     );
   }
+
   componentDidMount(){
     this.props.init()
   }
-
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -231,8 +230,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
   }
 }
-
-
 
 const MenuContainer = connect(
   mapStateToProps,

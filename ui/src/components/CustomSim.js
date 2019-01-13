@@ -8,7 +8,6 @@ import DataCenterMap from './DataCenterMap'
 
 const theme = createMuiTheme({
     root: {
-        width: '100%',
     },
     typography: {
         useNextVariants: true,
@@ -24,16 +23,15 @@ const theme = createMuiTheme({
 });
 
 class HomePage extends Component {
-
-    render() {
+    render () {
         return (
             <MuiThemeProvider theme={theme}>
-                <Grid>
+                <div style={{width: '100%', marginLeft: '40px'}}>
                     <Stepper />
                     {/* <Dashboard /> */}
                     <DataCenterMap />
                     <ReadWriteCard />
-                </Grid>
+                </div>
             </MuiThemeProvider>
         );
     }

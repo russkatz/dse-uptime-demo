@@ -8,7 +8,6 @@ const styles = theme => ({
     root: {
         width: '100%',
         marginTop: theme.spacing.unit * 3,
-        overflowX: 'auto',
     }
 });
 
@@ -18,7 +17,7 @@ const DataCenterMap = (props) => {
 
     return (
         <div className={classes.root}>
-            <Paper style={{ backgroundColor: 'white', width: '80%', height: '450px', margin: '0 auto'}}>
+            <Paper style={{ backgroundColor: 'white', width: '70%', height: '500px', margin: '0 auto'}}>
                 <img style={{ width: '100%' }} src={require('../images/worldmap.png')} />
             </Paper>
         </div>
