@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 const styles = theme => ({
     root: {
         width: '100%',
-        marginTop: theme.spacing.unit * 5,
+        marginTop: theme.spacing.unit * 3,
     }
 });
 
@@ -17,8 +17,8 @@ const DataCenterMap = (props) => {
 
     return (
         <div className={classes.root}>
-            <Paper style={{ backgroundColor: 'white', width: '90%', height: '400px', margin: '0 auto'}}>
-                <img style={{ width: '100%', height: '400px' }} src={require('../images/worldmap.png')} />
+            <Paper style={{ backgroundColor: 'white', width: '90%', height: '375px', margin: '0 auto'}}>
+                <img style={{ width: '100%', height: '375px' }} src={require('../images/worldmap.png')} />
             </Paper>
         </div>
     );

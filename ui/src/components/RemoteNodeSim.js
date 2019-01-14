@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Stepper from './Stepper';
-// import Dashboard from './Dashboard';
+import Dashboard from './Dashboard';
 import ReadWriteCard from './ReadWriteCard';
 import DataCenterMap from './DataCenterMap';
-import Footer from './Footer';
+
 
 const theme = createMuiTheme({
     root: {
@@ -29,12 +29,11 @@ class HomePage extends Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <div style={{width: '100%', marginLeft: '40px'}}>
-                    <Stepper />
-                    {/* <Dashboard /> */}
-                    <DataCenterMap />
+                    <Dashboard />
+                    {/* <DataCenterMap /> */}
                     <ReadWriteCard />
                 </div>
-                <Footer />
+                <Stepper />
             </MuiThemeProvider>
         );
     }

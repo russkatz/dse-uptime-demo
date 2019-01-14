@@ -4,7 +4,7 @@ import Stepper from './Stepper';
 // import Dashboard from './Dashboard';
 import ReadWriteCard from './ReadWriteCard';
 import DataCenterMap from './DataCenterMap'
-import Footer from './Footer';
+// import Footer from './Footer';
 
 const theme = createMuiTheme({
     root: {
@@ -29,12 +29,12 @@ class HomePage extends Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <div style={{width: '100%', marginLeft: '40px'}}>
-                    <Stepper />
+                    {/* <Stepper /> */}
                     {/* <Dashboard /> */}
                     <DataCenterMap />
                     <ReadWriteCard />
                 </div>
-                <Footer />
+                <Stepper />
             </MuiThemeProvider>
         );
     }

@@ -4,8 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-// import Button from '@material-ui/core/Button';
-// import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
     root: {
@@ -13,13 +13,13 @@ const styles = theme => ({
         marginTop: '10px',
         margin: 'auto',
     },
-    // backButton: {
-    //     marginRight: theme.spacing.unit,
-    // },
-    // instructions: {
-    //     marginTop: theme.spacing.unit,
-    //     marginBottom: theme.spacing.unit,
-    // },
+    backButton: {
+        marginRight: theme.spacing.unit,
+    },
+    instructions: {
+        marginTop: theme.spacing.unit,
+        marginBottom: theme.spacing.unit,
+    },
 });
 
 const stepperStyle = {
@@ -27,23 +27,23 @@ const stepperStyle = {
 }
 
 function getSteps() {
-    return ['Healthy System Started', 'Datacenter Affected', 'Recovery Achieve'];
+    return ['Action One', 'Action Two', 'Action Three', 'Action Four', 'Action Five'];
 }
 
-// function getStepContent(stepIndex) {
-//     switch (stepIndex) {
-//         case 0:
-//         return 'Viewing a healthy datacenter...';
-//         case 1:
-//         return 'Two nodes have been compromised...';
-//         case 2:
-//         return 'Data read/writes routed to new cluster...';
-//         default:
-//         return 'Unknown stepIndex';
-//     }
-// }
+function getStepContent(stepIndex) {
+    switch (stepIndex) {
+        case 0:
+        return 'Viewing a healthy datacenter...';
+        case 1:
+        return 'Two nodes have been compromised...';
+        case 2:
+        return 'Data read/writes routed to new cluster...';
+        default:
+        return 'Unknown stepIndex';
+    }
+}
 
-class stepperBar extends React.Component {
+class StepperBar extends React.Component {
     state = {
         activeStep: 0,
     };
@@ -82,7 +82,7 @@ class stepperBar extends React.Component {
                     );
                 })}
             </Stepper>
-            {/* <div>
+            <div>
                 {this.state.activeStep === steps.length ? (
                     <div>
                     <Typography className={classes.instructions}>Node Rerouting Completed</Typography>
@@ -105,14 +105,14 @@ class stepperBar extends React.Component {
                         </div>
                     </div>
                 )}
-            </div> */}
+            </div>
         </div>
         );
     }
 }
 
-stepperBar.propTypes = {
+StepperBar.propTypes = {
     classes: PropTypes.object,
 };
 
-export default withStyles(styles)(stepperBar);
+export default withStyles(styles)(StepperBar);

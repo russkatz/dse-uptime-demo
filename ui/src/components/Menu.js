@@ -153,7 +153,7 @@ class Menu extends React.Component{
               <MenuIcon />
             </IconButton>
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-              {this.props.page}
+              CHAOS IN THE CLOUDS:  {this.props.page}
             </Typography>
             <div className={classes.grow} />
             {/* <div className={classes.search}>
