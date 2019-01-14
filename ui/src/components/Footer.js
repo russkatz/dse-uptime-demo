@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Stepper from './Stepper';
 
 
 const styles = theme => ({
     root: {
     flexGrow: 1,
-    marginLeft: '80px'
+    marginLeft: '100px'
     },
     backButton: {
         marginRight: theme.spacing.unit,
@@ -70,7 +71,7 @@ class Footer extends React.Component {
             <div className={classes.root}>
                 {this.state.activeStep === steps.length ? (
                     <div>
-                    <Typography className={classes.instructions}>Node Rerouting Completed</Typography>
+                    <Typography>Node Rerouting Completed</Typography>
                     <Button onClick={this.handleReset}>Reset</Button>
                     </div>
                 ) : (

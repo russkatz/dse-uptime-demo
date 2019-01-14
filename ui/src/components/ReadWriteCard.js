@@ -26,20 +26,18 @@ class ReadWriteCard extends React.Component {
         return (
             <Grid container className={classes.root}>
                 <Grid item xs={6}>
-                    <Card style={{width: "45rem"}}>
+                    <Card style={{width: "45rem", marginBottom: "12px"}}>
                         <CardHeader color="primary" className={classes.cardFont}>PURCHASES</CardHeader>
-                        <CardBody>
-                            <h4>**dc**</h4>
-                            <h4>**timestamp**</h4>
+                        <CardBody style={{height: "80px"}}>
+                            <h4>...purchase data will load here</h4>
                         </CardBody>
                     </Card>
                 </Grid>
                 <Grid item xs={6}>
-                    <Card style={{width: "45rem"}}>
+                    <Card style={{width: "45rem", marginBottom: "12px"}}>
                         <CardHeader color="warning" className={classes.cardFont}>EVENT LOG</CardHeader>
-                        <CardBody>
-                            <h4>**dc**</h4>
-                            <h4>**timestamp**</h4>
+                        <CardBody style={{height: "80px"}}>
+                            <h4>...event logging data will load here</h4>
                         </CardBody>
                     </Card>
                 </Grid>
