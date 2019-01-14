@@ -8,9 +8,15 @@ import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
     root: {
-        flexGrow: 1,
-        justifyContent: 'center',
+        marginTop: '10px',
+        marginLeft: '30px',
+        width: '95%',
     },
+    cardFont: {
+        textAlign: 'right',
+        fontSize: '24px',
+        padding: '7px',
+    }
 });
 
 class ReadWriteCard extends React.Component {
@@ -18,31 +24,24 @@ class ReadWriteCard extends React.Component {
     render() {
     const { classes } = this.props;
         return (
-            <Grid container 
-            className={classes.root}
-            style={{marginTop: '40px'}}
-            >
-                <Grid item xs={4}>
-                    <Grid container>
-                        <Card style={{width: "20rem"}}>
-                            <CardHeader color="primary">ROWS WRITTEN</CardHeader>
-                            <CardBody>
-                                <h4>**dc**</h4>
-                                <h4>**timestamp**</h4>
-                            </CardBody>
-                        </Card>
-                    </Grid>
+            <Grid container className={classes.root}>
+                <Grid item xs={6}>
+                    <Card style={{width: "45rem"}}>
+                        <CardHeader color="primary" className={classes.cardFont}>PURCHASES</CardHeader>
+                        <CardBody>
+                            <h4>**dc**</h4>
+                            <h4>**timestamp**</h4>
+                        </CardBody>
+                    </Card>
                 </Grid>
-                <Grid item xs={4}>
-                    <Grid container>
-                        <Card style={{width: "20rem"}}>
-                            <CardHeader color="warning">ROWS READ</CardHeader>
-                            <CardBody>
-                                <h4>**dc**</h4>
-                                <h4>**timestamp**</h4>
-                            </CardBody>
-                        </Card>
-                    </Grid>
+                <Grid item xs={6}>
+                    <Card style={{width: "45rem"}}>
+                        <CardHeader color="warning" className={classes.cardFont}>EVENT LOG</CardHeader>
+                        <CardBody>
+                            <h4>**dc**</h4>
+                            <h4>**timestamp**</h4>
+                        </CardBody>
+                    </Card>
                 </Grid>
             </Grid>
         );

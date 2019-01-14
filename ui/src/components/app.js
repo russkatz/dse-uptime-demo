@@ -2,7 +2,6 @@ import {connect} from 'react-redux';
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import Footer from './Footer';
 import MenuContainer from './Menu';
 import HomePage from './Homepage'
 import SingleLocalNodeFail from './LocalNodeSim';
@@ -76,7 +75,6 @@ class App extends Component {
             null
             }
           </Grid>
-          <Footer/>
       </MuiThemeProvider>
     );
   }
