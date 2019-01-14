@@ -9,9 +9,9 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
     root: {
-        width: '80%',
-        marginTop: '10px',
-        margin: 'auto',
+        width: '100%',
+        marginTop: '30px',
+        margin: '0 auto',
     },
     backButton: {
         marginRight: theme.spacing.unit,
@@ -27,17 +27,21 @@ const stepperStyle = {
 }
 
 function getSteps() {
-    return ['Action One', 'Action Two', 'Action Three', 'Action Four', 'Action Five'];
+    return ['Action One Goes Here', 'Action Two Goes Here', 'Action Three Goes Here', 'Action Four Goes Here', 'Action Five Goes Here'];
 }
 
 function getStepContent(stepIndex) {
     switch (stepIndex) {
         case 0:
-        return 'Viewing a healthy datacenter...';
+        return 'describing action one here...';
         case 1:
-        return 'Two nodes have been compromised...';
+        return 'describing action two here...';
         case 2:
-        return 'Data read/writes routed to new cluster...';
+        return 'describing action three here...';
+        case 3:
+        return 'describing action four here...';
+        case 4:
+        return 'describing action five here...';
         default:
         return 'Unknown stepIndex';
     }

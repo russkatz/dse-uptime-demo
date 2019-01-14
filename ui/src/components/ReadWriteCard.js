@@ -8,9 +8,9 @@ import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
     root: {
-        marginTop: '10px',
-        marginLeft: '100px',
-        width: '95%',
+        // marginTop: '5px',
+        marginLeft: '140px',
+        width: '85%',
     },
     cardFont: {
         textAlign: 'right',
@@ -27,8 +27,8 @@ class ReadWriteCard extends React.Component {
             <Grid container className={classes.root}>
                 <Grid item xs={6}>
                     <Card style={{width: "37rem", marginBottom: "12px"}}>
-                        <CardHeader color="primary" className={classes.cardFont}>"PURCHASES"</CardHeader>
-                        <CardBody style={{height: "120px"}}>
+                        <CardHeader color="warning" className={classes.cardFont}>"PURCHASES"</CardHeader>
+                        <CardBody style={{height: "140px"}}>
                             <h4>...purchase data will load here</h4>
                         </CardBody>
                     </Card>
@@ -36,7 +36,7 @@ class ReadWriteCard extends React.Component {
                 <Grid item xs={6}>
                     <Card style={{width: "37rem", marginBottom: "12px"}}>
                         <CardHeader color="warning" className={classes.cardFont}>EVENT LOG</CardHeader>
-                        <CardBody style={{height: "120px"}}>
+                        <CardBody style={{height: "140px"}}>
                             <h4>...event logging data will load here</h4>
                         </CardBody>
                     </Card>

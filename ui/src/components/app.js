@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import MenuContainer from './Menu';
-import HomePage from './Homepage'
 import SingleLocalNodeFail from './LocalNodeSim';
 import DualRemoteNodeFail from './RemoteNodeSim';
 import TotalLocalDcFail from './LocalDataCenterSim';
@@ -44,12 +43,6 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
           <MenuContainer/>
           <Grid>
-            {
-            this.props.NavigationReducer.page === 'Home' ?
-              <HomePage/>
-            :
-            null
-            }
             {
             this.props.NavigationReducer.page === 'Local Node Simulation' ?
               <SingleLocalNodeFail/>

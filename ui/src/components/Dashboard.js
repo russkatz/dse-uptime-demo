@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,6 +7,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+
+import {getDataCenter} from '../actions/actions'
+
 
 const styles = theme => ({
     root: {
@@ -29,9 +32,15 @@ const rows = [
     createData('Onprem-DC1', 3, 0, 2, 0),
 ];
 
-function SimpleTable(props) {
-    const { classes } = props;
 
+
+class Dashboard extends React.Component {
+    componentDidMount() {
+        this.props.init();
+    }
+    render (
+        { classes } = this.props
+    ){
     return (
         <div className={classes.root}>
             <Paper style={{ backgroundColor: 'white', width: '65%', padding: '50px 30px 30px 30px', margin: '0 auto'}}>
@@ -65,9 +74,32 @@ function SimpleTable(props) {
         </div>
     );
 }
+}
 
-SimpleTable.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
+const mapStateToProps = (state, ownProps) => {
+    return {
+        drawerOpen: state.NavigationReducer.drawerOpen,
+        page: state.NavigationReducer.page,
+    }
+}
 
-export default withStyles(styles)(SimpleTable);
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+    init: () => {
+        dispatch(getDataCenter('http://52.53.185.6:8080/demo/dc'))
+    },
+    drawerToggle: (drawerOpen) => {
+        dispatch(drawerToggle(drawerOpen))
+    },
+    changeScreen: (page) => {
+        dispatch(changeScreen(page))
+        dispatch(drawerToggle(false))
+    }
+    }
+}
+
+const DashboardContainer = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withStyles(styles)(Dashboard))
+export default DashboardContainer
