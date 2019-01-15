@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import Stepper from './Stepper';
 import DashboardContainer from './Dashboard';
 import ReadWriteCard from './ReadWriteCard';
 import DataCenterMap from './DataCenterMap'
-// import Footer from './Footer';
+import Stepper from './Stepper';
 
 const theme = createMuiTheme({
     root: {
@@ -29,9 +28,7 @@ class LocalNodeSim extends Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <div style={{width: '100%', marginLeft: '40px'}}>
-                    {/* <Stepper /> */}
-                    <DashboardContainer />
-                    {/* <DataCenterMap /> */}
+                    <DataCenterMap />
                     <ReadWriteCard />
                 </div>
                 <Stepper />

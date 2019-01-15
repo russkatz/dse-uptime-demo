@@ -29,8 +29,8 @@ class RemoteNodeSim extends Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <div style={{width: '100%', marginLeft: '40px'}}>
-                    <DashboardContainer />
-                    {/* <DataCenterMap /> */}
+                    {/* <DashboardContainer /> */}
+                    <DataCenterMap />
                     <ReadWriteCard />
                 </div>
                 <Stepper />

@@ -43,7 +43,6 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
           <MenuContainer/>
           <Grid>
-            <LocalNodeSim />
             {
             this.props.NavigationReducer.page === 'Local Node Simulation' ?
               <LocalNodeSim />

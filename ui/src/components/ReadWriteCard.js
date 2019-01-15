@@ -8,15 +8,17 @@ import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
     root: {
-        // marginTop: '5px',
-        marginLeft: '140px',
-        width: '85%',
+        marginTop: '15px',
+        marginLeft: '80px',
+        width: '89%',
     },
     cardFont: {
         textAlign: 'right',
         fontSize: '24px',
         padding: '7px',
+        color: 'white'
     }
+
 });
 
 class ReadWriteCard extends React.Component {
@@ -26,17 +28,17 @@ class ReadWriteCard extends React.Component {
         return (
             <Grid container className={classes.root}>
                 <Grid item xs={6}>
-                    <Card style={{width: "37rem", marginBottom: "12px"}}>
-                        <CardHeader color="warning" className={classes.cardFont}>"PURCHASES"</CardHeader>
-                        <CardBody style={{height: "140px"}}>
+                    <Card style={{width: "39rem", marginBottom: "12px"}}>
+                        <CardHeader style={{backgroundColor: '#4fc3f7'}} className={classes.cardFont}>"PURCHASES"</CardHeader>
+                        <CardBody style={{height: "180px"}}>
                             <h4>...purchase data will load here</h4>
                         </CardBody>
                     </Card>
                 </Grid>
                 <Grid item xs={6}>
-                    <Card style={{width: "37rem", marginBottom: "12px"}}>
-                        <CardHeader color="warning" className={classes.cardFont}>EVENT LOG</CardHeader>
-                        <CardBody style={{height: "140px"}}>
+                    <Card style={{width: "39rem", marginBottom: "12px"}}>
+                        <CardHeader style={{backgroundColor: '#4fc3f7'}} className={classes.cardFont}>EVENT LOG</CardHeader>
+                        <CardBody style={{height: "180px"}}>
                             <h4>...event logging data will load here</h4>
                         </CardBody>
                     </Card>

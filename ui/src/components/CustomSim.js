@@ -26,8 +26,7 @@ class CustomSim extends Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <div style={{width: '100%', marginLeft: '40px'}}>
-                    <DashboardContainer />
-                    {/* <DataCenterMap /> */}
+                    <DataCenterMap />
                     <ReadWriteCard />
                 </div>
                 <Stepper />

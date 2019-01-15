@@ -9,9 +9,9 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
     root: {
-        width: '100%',
-        marginTop: '30px',
-        margin: '0 auto',
+        width: '90%',
+        marginTop: '10px',
+        marginLeft: '110px'
     },
     backButton: {
         marginRight: theme.spacing.unit,
@@ -89,12 +89,12 @@ class StepperBar extends React.Component {
             <div>
                 {this.state.activeStep === steps.length ? (
                     <div>
-                    <Typography className={classes.instructions}>Node Rerouting Completed</Typography>
+                    {/* <Typography className={classes.instructions}>Node Rerouting Completed</Typography> */}
                     <Button onClick={this.handleReset}>Reset</Button>
                     </div>
                 ) : (
                     <div>
-                        <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+                        {/* <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography> */}
                         <div>
                             <Button
                             disabled={activeStep === 0}
