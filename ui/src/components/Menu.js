@@ -156,6 +156,9 @@ class Menu extends React.Component{
               CHAOS IN THE CLOUDS:  {this.props.page}
             </Typography>
             <div className={classes.grow} />
+            <div>
+                  <img style={{height: '100px'}}src={require('../images/logo.png')} />
+            </div>
             {/* <div className={classes.search}>
               <div className={classes.searchIcon}>
               <SearchIcon />
