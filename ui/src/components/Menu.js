@@ -17,11 +17,11 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import HomeIcon from '@material-ui/icons/Home';
 import Filter1 from '@material-ui/icons/Filter1';
 import Filter2 from '@material-ui/icons/Filter2';
 import Filter3 from '@material-ui/icons/Filter3';
 import Filter4 from '@material-ui/icons/Filter4';
+import Filter5 from '@material-ui/icons/Filter5';
 
 import {drawerToggle, changeScreen} from '../actions/NavigationActions'
 
@@ -191,10 +191,10 @@ class Menu extends React.Component{
           </div>
           <Divider />
             <List>
-              {['Home', 'Local Node Simulation', 'Remote Node Simulation', 'Local Data Center Simulation', 'Custom Event Simulation'].map((text, index) => (
+              {['Local Node Simulation', 'Remote Node Simulation', 'Local Data Center Simulation', 'Custom Event Simulation'].map((text, index) => (
                 <ListItem button key={text} onClick={(e) => { this.props.changeScreen(text)}}>
                   <ListItemIcon>
-                    {index === 0 ? <HomeIcon /> : index === 1 ? <Filter1 /> : index === 2 ? <Filter2 /> : index === 3 ? <Filter3/> : <Filter4/>}
+                    {index === 0 ? <Filter1 /> : index === 1 ? <Filter2 /> : index === 2 ? <Filter3 /> : index === 3 ? <Filter4/> : <Filter5/>}
                   </ListItemIcon>
                   <ListItemText primary={text} />
                 </ListItem>

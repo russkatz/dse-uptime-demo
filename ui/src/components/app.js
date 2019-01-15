@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import MenuContainer from './Menu';
-import SingleLocalNodeFail from './LocalNodeSim';
-import DualRemoteNodeFail from './RemoteNodeSim';
-import TotalLocalDcFail from './LocalDataCenterSim';
 import CustomSim from './CustomSim'
+import LocalNodeSim from './LocalNodeSim';
+import RemoteNodeSim from './RemoteNodeSim'
+import LocalDataCenterSim from './LocalDataCenterSim';
 
 
 const theme = createMuiTheme({
@@ -43,21 +43,22 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
           <MenuContainer/>
           <Grid>
+            <LocalNodeSim />
             {
             this.props.NavigationReducer.page === 'Local Node Simulation' ?
-              <SingleLocalNodeFail/>
+              <LocalNodeSim />
             :
             null
             }
             {
             this.props.NavigationReducer.page === 'Remote Node Simulation' ?
-              <DualRemoteNodeFail/>
+              <RemoteNodeSim />
             :
             null
             }
             {
             this.props.NavigationReducer.page === 'Local Data Center Simulation' ?
-              <TotalLocalDcFail/>
+              <LocalDataCenterSim />
             :
             null
             }

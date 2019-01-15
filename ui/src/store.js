@@ -18,7 +18,7 @@ export const enhancers = [applyMiddleware(...middlewares)];
 var initialState = {
   NavigationReducer: {
     drawerOpen: false,
-    page: "Home"
+    page: "Local Node Simulation"
   }
 }
 

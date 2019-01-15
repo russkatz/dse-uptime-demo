@@ -21,7 +21,7 @@ const theme = createMuiTheme({
     },
 });
 
-class HomePage extends Component {
+class LocalDataCenterSim extends Component {
     render() {
 
 
@@ -38,4 +38,4 @@ class HomePage extends Component {
     }
 }
 
-export default HomePage;
+export default LocalDataCenterSim;

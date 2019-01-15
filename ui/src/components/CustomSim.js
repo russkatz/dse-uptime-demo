@@ -21,7 +21,7 @@ const theme = createMuiTheme({
     },
 });
 
-class HomePage extends Component {
+class CustomSim extends Component {
     render() {
         return (
             <MuiThemeProvider theme={theme}>
@@ -36,4 +36,4 @@ class HomePage extends Component {
     }
 }
 
-export default HomePage;
+export default CustomSim;

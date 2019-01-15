@@ -22,7 +22,7 @@ const theme = createMuiTheme({
     },
 });
 
-class HomePage extends Component {
+class RemoteNodeSim extends Component {
     render() {
 
 
@@ -39,4 +39,4 @@ class HomePage extends Component {
     }
 }
 
-export default HomePage;
+export default RemoteNodeSim;
