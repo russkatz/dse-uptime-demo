@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import Stepper from './Stepper';
+import DashboardContainer from './Dashboard';
 import ReadWriteCard from './ReadWriteCard';
 import DataCenterMap from './DataCenterMap';
-import DashboardContainer from './Dashboard';
 
 
 const theme = createMuiTheme({
@@ -24,16 +23,13 @@ const theme = createMuiTheme({
 
 class RemoteNodeSim extends Component {
     render() {
-
-
         return (
             <MuiThemeProvider theme={theme}>
                 <div style={{width: '100%', marginLeft: '40px'}}>
-                    {/* <DashboardContainer /> */}
-                    <DataCenterMap />
+                    <DashboardContainer />
+                    {/* <DataCenterMap /> */}
                     <ReadWriteCard />
                 </div>
-                <Stepper />
             </MuiThemeProvider>
         );
     }

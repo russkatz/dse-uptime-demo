@@ -25,12 +25,7 @@ function createData(name, normal, medium, high, down) {
     return { id, name, normal, medium, high, down };
 }
 
-const rows = [
-    createData('AWS', 3, 2, 0, 0),
-    createData('Azure', 5, 0, 0, 0),
-    createData('GCP', 4, 1, 0, 0),
-    createData('Onprem-DC1', 3, 0, 2, 0),
-];
+
 
 
 
@@ -55,16 +50,16 @@ class Dashboard extends React.Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map(row => {
+                        {this.props.dcList.map(datacenter => {
                             return (
-                            <TableRow key={row.id}>
+                            <TableRow key={datacenter}>
                                 <TableCell component="th" scope="row">
-                                {row.name}
+                                {datacenter}
                                 </TableCell>
-                                <TableCell align="right">{row.normal}</TableCell>
-                                <TableCell align="right">{row.medium}</TableCell>
-                                <TableCell align="right">{row.high}</TableCell>
-                                <TableCell align="right">{row.down}</TableCell>
+                                <TableCell align="right">{0}</TableCell>
+                                <TableCell align="right">{0}</TableCell>
+                                <TableCell align="right">{0}</TableCell>
+                                <TableCell align="right">{0}</TableCell>
                             </TableRow>
                             );
                         })}
@@ -80,13 +75,14 @@ const mapStateToProps = (state, ownProps) => {
     return {
         drawerOpen: state.NavigationReducer.drawerOpen,
         page: state.NavigationReducer.page,
+        dcList: state.app.dcList
     }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
     init: () => {
-        dispatch(getDataCenter('http://52.53.185.6:8080/demo/dc'))
+        dispatch(getDataCenter('http://52.53.185.6:8080/demo/nodefull'))
     },
     drawerToggle: (drawerOpen) => {
         dispatch(drawerToggle(drawerOpen))
