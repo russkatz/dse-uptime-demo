@@ -62,3 +62,34 @@ export function remove({url, success, error, dispatch} = {}) {
     })
     dispatch(addRequest(key, request))
 }
+
+export function streamingRequest({url, params, success, error, dispatch, method} = {}) {
+    var key = uuidv4()
+    var payload = {
+        method: method,
+        cache: "no-cache",
+        mode: "cors",
+        headers: {
+            "accept": "application/octet-stream",
+            "content-type": "application/json",
+            "cache-control": "no-cache"
+        },
+    };
+
+    if (params != null){
+        payload["body"] = params;
+    }
+    var request = fetch(url, payload).then(function(response) {
+        success(response);
+    })
+    .catch(error || function (error) {
+        console.log(error);
+        if(error.response.status === 504 || error.response.status == 401)
+            logout();
+            window.location.href = './';
+    })
+    .then(function(){
+        dispatch(removeRequest(key))
+    })
+    dispatch(addRequest(key, request))
+ }

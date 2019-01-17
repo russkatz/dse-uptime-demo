@@ -4,7 +4,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-// import InputBase from '@material-ui/core/InputBase';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -149,15 +148,16 @@ class Menu extends React.Component{
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton onClick={() => { this.props.drawerToggle(!this.props.drawerOpen)}} className={classes.menuButton} color="inherit" aria-label="Open drawer">
+            {/* <IconButton onClick={() => { this.props.drawerToggle(!this.props.drawerOpen)}} className={classes.menuButton} color="inherit" aria-label="Open drawer">
               <MenuIcon />
-            </IconButton>
+            </IconButton> */}
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-              CHAOS IN THE CLOUDS:  {this.props.page}
+              CHAOS IN THE CLOUDS
+              {/* CHAOS IN THE CLOUDS:  {this.props.page} */}
             </Typography>
             <div className={classes.grow} />
             <div>
-                  <img style={{height: '100px'}}src={require('../images/logo.png')} />
+                  <img style={{height: '80px'}}src={require('../images/logo.png')} />
             </div>
             {/* <div className={classes.search}>
               <div className={classes.searchIcon}>
@@ -173,7 +173,7 @@ class Menu extends React.Component{
             </div> */}
           </Toolbar>
         </AppBar>
-          <Drawer
+          {/* <Drawer
           variant="permanent"
           className={classNames(classes.drawer, {
             [classes.drawerOpen]: this.props.drawerOpen,
@@ -203,7 +203,7 @@ class Menu extends React.Component{
                 </ListItem>
               ))}
             </List>
-        </Drawer>
+        </Drawer> */}
       </div>
     );
   }

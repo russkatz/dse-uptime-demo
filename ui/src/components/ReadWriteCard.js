@@ -23,6 +23,8 @@ const styles = theme => ({
 
 class ReadWriteCard extends React.Component {
 
+    
+
     render() {
     const { classes } = this.props;
         return (

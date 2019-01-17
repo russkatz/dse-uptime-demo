@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import {getDataCenter} from '../actions/actions'
+import {getDataCenter, writeApi} from '../actions/actions'
 
 
 const styles = theme => ({
@@ -20,9 +20,9 @@ const styles = theme => ({
 });
 
 let id = 0;
-function createData(name, normal, medium, high, down) {
+function createData(name, normal, down) {
     id += 1;
-    return { id, name, normal, medium, high, down };
+    return { id, name, normal, down };
 }
 
 
@@ -38,14 +38,12 @@ class Dashboard extends React.Component {
     ){
     return (
         <div className={classes.root}>
-            <Paper style={{ backgroundColor: 'white', width: '65%', padding: '50px 30px 30px 30px', margin: '0 auto'}}>
+            <Paper style={{ backgroundColor: 'white', width: '40%', padding: '50px 30px 30px 30px', margin: '0 auto'}}>
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
                             <TableCell>DATA CENTER</TableCell>
                             <TableCell align="right">NORMAL</TableCell>
-                            <TableCell align="right">MEDIUM</TableCell>
-                            <TableCell align="right">HIGH</TableCell>
                             <TableCell align="right">DOWN</TableCell>
                         </TableRow>
                     </TableHead>
@@ -56,8 +54,6 @@ class Dashboard extends React.Component {
                                 <TableCell component="th" scope="row">
                                 {datacenter}
                                 </TableCell>
-                                <TableCell align="right">{0}</TableCell>
-                                <TableCell align="right">{0}</TableCell>
                                 <TableCell align="right">{0}</TableCell>
                                 <TableCell align="right">{0}</TableCell>
                             </TableRow>
@@ -83,7 +79,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
     init: () => {
         dispatch(getDataCenter('http://52.53.185.6:8080/demo/nodefull'))
+        dispatch(writeApi())
     },
+
     drawerToggle: (drawerOpen) => {
         dispatch(drawerToggle(drawerOpen))
     },

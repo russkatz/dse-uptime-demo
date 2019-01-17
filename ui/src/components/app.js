@@ -7,6 +7,7 @@ import CustomSim from './CustomSim'
 import LocalNodeSim from './LocalNodeSim';
 import RemoteNodeSim from './RemoteNodeSim'
 import LocalDataCenterSim from './LocalDataCenterSim';
+import BottomMenu from './BottomMenu';
 
 
 const theme = createMuiTheme({
@@ -68,6 +69,7 @@ class App extends Component {
             null
             }
           </Grid>
+          <BottomMenu />
       </MuiThemeProvider>
     );
   }

@@ -1,27 +1,96 @@
 import {createAction} from 'redux-actions';
 import requestActions from './requestActions.js';
 import {get} from '../common/requests.js';
-import post from 'axios';
+// import post from 'axios';
+import {streamingRequest} from '../common/requests.js';
 
 
-export function readApi() {
+// export function readApi() {
+//     return(dispatch, getState) => {
+//         axios.post('http://52.53.185.6:8080/demo/read', {
+//             "dc": "AWS",
+//             "count": 5000,
+
+//         }, {
+//             headers: {"Content-Type": "application/json"}
+//         })
+//         .then((res) => {
+            
+//         }).catch((err) => {
+            
+//         });
+
+
+//     }
+// }
+
+export function writeApi() {
+    var data = '{"dc": "AWS", "count": 5000, "cl": "ONE"}';
+
     return(dispatch, getState) => {
-        axios.post('http://52.53.185.6:8080/demo/read', {
-            "dc": "AWS",
-            "count": 5000,
-
-        }, {
-            headers: {"Content-Type": "application/json"}
+        const url = 'http://52.53.185.6:8080/demo/write';
+        streamingRequest({
+            url: url,
+            params: data,
+            success: function(response){
+                var reader = response.body.getReader();
+            },
+            dispatch: dispatch,
+            method: "POST"
         })
-        .then((res) => {
-            
-        }).catch((err) => {
-            
+    }
+
+}
+
+export function readChunk(reader, id, i, dispatch, command, removeRequest, key, runWhenDone, args){
+    reader.read().then(function(result){
+        var decoder = new TextDecoder();
+        var chunk = decoder.decode(result.value || new Uint8Array, {stream: !result.done});
+        chunk.split("\n").forEach((chunkedLine) => {
+            if (chunkedLine.trim().length != 0){
+                var chunkObject = {
+                    "source" : id,
+                    "index" : i,
+                    "msg": chunkedLine,
+                    "command": command
+                }
+                i = i + 1;
+
+                //console.log(chunkedLine);
+
+                if (chunkedLine.indexOf(STATUS_DELIMITER) != -1){
+                    status = chunkedLine.substr(12);
+                    chunkObject.msg = command + " exited with Status code " + status;
+                    if (status == 0){
+                        dispatch(notify(command + " Succeeded", "Success"))
+                    }
+                    else if (status == 1){
+                        dispatch(notify(command + " Not Found", "Error"))
+                    }
+                    else {
+                        dispatch(notify(command + " Failed", "Error"))
+                    }
+                }
+
+                dispatch(updateLog(chunkObject));
+
+            }
         });
 
-
-    }
+        if (result.done) {
+            dispatch(removeRequest(key))
+            if (args == null){
+                dispatch(runWhenDone())
+            }else {
+                dispatch(runWhenDone(args))
+            }
+            return;
+        } else {
+            return readChunk(reader, id, i, dispatch, command, removeRequest, key, runWhenDone, args);
+        }
+    });
 }
+
 
 
 export function getDataCenter(url) {
@@ -33,13 +102,15 @@ export function getDataCenter(url) {
                 // console.log(res.data[3].dc)
 
                 //TODO: Get the data centers from res.data and assign them to:
-                var rawList = []
+                let rawList = []
                 rawList = res.data.map((data) => {
                     if(data.dc) {
                         return data.dc
                     }
                 });
                 let dcList = [...new Set(rawList)]
+                // let dcList = [];
+                // dcList = data.
                 console.log(dcList)
                 dispatch(updateValue('dcList', dcList))
             },
