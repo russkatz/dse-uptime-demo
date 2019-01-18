@@ -77,6 +77,10 @@ const styles = theme => ({
     },
     button: {
         margin: theme.spacing.unit,
+    },
+    controlContainer: {
+        width: '100%',
+        display: 'flex',
     }
 });
 
@@ -101,9 +105,14 @@ class BottomMenu extends React.Component{
         return (
             <div className={classes.root}>
                 <AppBar position="fixed" color="primary" className={classes.appBar} style={{flexDirection: 'row'}}>
+                    <Toolbar>
                     <IconButton onClick={() => { this.props.drawerToggle(!this.props.drawerOpen)}} className={classes.menuButton} color="inherit" aria-label="Open drawer">
                         <MenuIcon />
                     </IconButton>
+                    <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+                    Control Board
+                    </Typography>
+                    </Toolbar>
                 </AppBar>
 
                 <Drawer
@@ -123,22 +132,37 @@ class BottomMenu extends React.Component{
                     }}
                     open={this.props.drawerOpen}
                     >
-                    <div className={classes.toolbar}>
+                    {/* <div className={classes.toolbar}>
                         <IconButton onClick={() => { this.props.drawerToggle(!this.props.drawerOpen)}}>
                         { !this.props.drawerOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                         </IconButton>
-                    </div>
+                    </div> */}
                     {/* <Divider /> */}
                     <Paper square className={classes.paper}>
-                        <Typography className={classes.text} variant="h5" gutterBottom>
-                        Controls
-                        </Typography>
-                        <Button variant="contained" className={classes.button}>
-                        START
-                        </Button>
-                        <Button variant="contained" color="primary" className={classes.button}>
-                        STOP
-                        </Button>
+                        <div className={classes.controlContainer}>
+                            <div>
+                                <Typography className={classes.text} variant="h6" gutterBottom>
+                                Write Commands
+                                </Typography>
+                                <Button variant="contained" className={classes.button}>
+                                START
+                                </Button>
+                                <Button variant="contained" color="primary" className={classes.button}>
+                                STOP
+                                </Button>
+                            </div>
+                            <div>
+                                <Typography className={classes.text} variant="h6" gutterBottom>
+                                Read Commands
+                                </Typography>
+                                <Button variant="contained" className={classes.button}>
+                                START
+                                </Button>
+                                <Button variant="contained" color="primary" className={classes.button}>
+                                STOP
+                                </Button>
+                            </div>
+                        </div>
                     </Paper>
                 </Drawer>
             </div>

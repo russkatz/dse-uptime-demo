@@ -17,8 +17,8 @@ const DataCenterMap = (props) => {
 
     return (
         <div className={classes.root}>
-            <Paper style={{ backgroundColor: 'white', width: '90%', height: '470px', margin: '0 auto'}}>
-                <img style={{ width: '100%', height: '470px' }} src={require('../images/worldmap.png')} />
+            <Paper style={{ backgroundColor: 'white', width: '90%', height: '420px', margin: '0 auto'}}>
+                <img style={{ width: '100%', height: '420px' }} src={require('../images/worldmap2.png')} />
             </Paper>
         </div>
     );

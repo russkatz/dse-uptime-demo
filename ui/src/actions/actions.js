@@ -71,9 +71,7 @@ export function readChunk(reader, id, i, dispatch, command, removeRequest, key, 
                         dispatch(notify(command + " Failed", "Error"))
                     }
                 }
-
                 dispatch(updateLog(chunkObject));
-
             }
         });
 
@@ -99,8 +97,6 @@ export function getDataCenter(url) {
             url: url, 
             success: function(res){
                 dispatch(updateValue('nodeList', res.data))
-                // console.log(res.data[3].dc)
-
                 //TODO: Get the data centers from res.data and assign them to:
                 let rawList = []
                 rawList = res.data.map((data) => {
@@ -109,9 +105,6 @@ export function getDataCenter(url) {
                     }
                 });
                 let dcList = [...new Set(rawList)]
-                // let dcList = [];
-                // dcList = data.
-                console.log(dcList)
                 dispatch(updateValue('dcList', dcList))
             },
             dispatch: dispatch

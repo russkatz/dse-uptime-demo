@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import TopMenu from './TopMenu';
+import MenuContainer from './TopMenu';
 import CustomSim from './CustomSim'
 import LocalNodeSim from './LocalNodeSim';
 import RemoteNodeSim from './RemoteNodeSim'
@@ -42,7 +42,7 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-          <TopMenu/>
+          <MenuContainer />
           <Grid>
             {
             this.props.NavigationReducer.page === 'Local Node Simulation' ?

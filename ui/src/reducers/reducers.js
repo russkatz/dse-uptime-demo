@@ -9,7 +9,9 @@ import NavigationReducer from './NavigationReducer';
 const initialAppState = {
     appName: 'DSE Uptime UI',
     nodeList: [],
-    dcList: []
+    dcList: [],
+    writeStream: [],
+    readStream: []
 };
 
 const reducers = combineReducers({
