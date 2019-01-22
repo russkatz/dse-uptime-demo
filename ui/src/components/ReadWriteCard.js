@@ -48,16 +48,6 @@ class ReadWriteCard extends React.Component {
                         </CardBody>
                     </Card>
                 </Grid>
-                <Grid item xs={6}>
-                    <Card style={{width: "39rem", marginBottom: "12px"}}>
-                        <CardHeader style={{backgroundColor: '#4fc3f7'}} className={classes.cardFont}>EVENT LOG</CardHeader>
-                        <CardBody style={{height: "150px"}}>
-                            <div>
-                                <h4>...event log will load here</h4>
-                            </div>
-                        </CardBody>
-                    </Card>
-                </Grid>
             </Grid>
         );
 

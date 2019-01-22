@@ -26,9 +26,6 @@ function createData(name, normal, down) {
 }
 
 
-
-
-
 class Dashboard extends React.Component {
     componentDidMount() {
         this.props.init();
