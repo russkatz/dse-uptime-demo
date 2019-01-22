@@ -26,7 +26,6 @@ const drawerWidth = '100%';
 
 const styles = theme => ({
     root: {
-        width: '100%',
     },
     grow: {
         flexGrow: 1,
@@ -155,7 +154,7 @@ class BottomMenu extends React.Component{
                                 <CardBody style={{whiteSpace: 'normal'}}>
                                 <h4 className={classes.cardTitle}>PURCHASE DATA</h4>
                                 <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pharetra vitae sem sed mattis.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                 </p>
                                 <Button color="default" variant="contained" color="default" className={classes.button}>START</Button>
                                 <Button color="primary" variant="contained" color="primary" className={classes.button}>STOP</Button>
@@ -165,7 +164,7 @@ class BottomMenu extends React.Component{
                                 <CardBody style={{whiteSpace: 'normal'}}>
                                 <h4 className={classes.cardTitle}>EVENTS DATA</h4>
                                 <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pharetra vitae sem sed mattis.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                 </p>
                                 <Button color="default" variant="contained" color="default" className={classes.button}>START</Button>
                                 <Button color="primary" variant="contained" color="primary" className={classes.button}>STOP</Button>
@@ -175,17 +174,7 @@ class BottomMenu extends React.Component{
                                 <CardBody style={{whiteSpace: 'normal'}}>
                                 <h4 className={classes.cardTitle}>EVENTS DATA</h4>
                                 <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pharetra vitae sem sed mattis.
-                                </p>
-                                <Button color="default" variant="contained" color="default" className={classes.button}>START</Button>
-                                <Button color="primary" variant="contained" color="primary" className={classes.button}>STOP</Button>
-                                </CardBody>
-                            </Card>
-                            <Card style={{width: "20rem"}}>
-                                <CardBody style={{whiteSpace: 'normal'}}>
-                                <h4 className={classes.cardTitle}>EVENTS DATA</h4>
-                                <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pharetra vitae sem sed mattis.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                 </p>
                                 <Button color="default" variant="contained" color="default" className={classes.button}>START</Button>
                                 <Button color="primary" variant="contained" color="primary" className={classes.button}>STOP</Button>

@@ -11,44 +11,41 @@ import {writeApi} from '../actions/actions';
 
 const styles = theme => ({
     root: {
-        marginTop: '15px',
-        marginLeft: '140px',
-        width: '89%',
-        display: 'flex',
+
     },
-    cardFont: {
-        textAlign: 'right',
-        fontSize: '24px',
-        padding: '7px',
-        color: 'white'
+    card: {
+        marginBottom: 0,
     },
-    displayBlock: {
-        margin: 0,
-        width: '100%',
-        height: '140px',
-        color: 'black',
-        border: '2px solid blue',
+    cardheader: {
+        backgroundColor: 'lightgrey',
+        fontSize: '25px',
+        color: 'white',
+        padding: '10px',
+        textAlign: 'right'
+    },
+    cardbody: {
+        padding: '10px',
+    },
+    cardtext: {
+        height: '150px',
+        border: '2px solid blue'
     }
 });
 
-class ReadWriteCard extends React.Component {
+class ReadCard extends React.Component {
     render() {
     const { classes } = this.props;
         return (
-            <Grid container className={classes.root}>
-                <Grid item xs={6}>
-                    <Card style={{width: "39rem", marginBottom: "12px"}}>
-                        <CardHeader style={{backgroundColor: '#4fc3f7'}} className={classes.cardFont}>PURCHASES</CardHeader>
-                        <CardBody style={{height: "150px"}}>
-                            <div className={classes.displayBlock}>
-
-                            {/* {this.props.writes} */}
-
-                            </div>
-                        </CardBody>
-                    </Card>
-                </Grid>
-            </Grid>
+            <div className={classes.root}>
+                <Card className={classes.card}>
+                    <CardHeader className={classes.cardheader}>EVENT LOG</CardHeader>
+                    <CardBody className={classes.cardbody}>
+                    <p className={classes.cardtext}>
+                    {/* {this.props.writes} */}
+                    </p>
+                    </CardBody>
+                </Card>
+            </div>
         );
 
     }
@@ -80,8 +77,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
 }
 
-const ReadWriteCardContainer = connect(
+const ReadCardContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(withStyles(styles)(ReadWriteCard))
-export default ReadWriteCardContainer;
+)(withStyles(styles)(ReadCard))
+export default ReadCardContainer;

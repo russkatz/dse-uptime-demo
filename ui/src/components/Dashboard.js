@@ -13,8 +13,6 @@ import {getDataCenter, writeApi} from '../actions/actions'
 
 const styles = theme => ({
     root: {
-        width: '100%',
-        marginTop: theme.spacing.unit * 3,
         overflowX: 'auto',
     },
 });
@@ -35,30 +33,28 @@ class Dashboard extends React.Component {
     ){
     return (
         <div className={classes.root}>
-            <Paper style={{ backgroundColor: 'white', width: '40%', padding: '50px 30px 30px 30px', margin: '0 auto'}}>
-                <Table className={classes.table}>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>DATA CENTER</TableCell>
-                            <TableCell align="right">NORMAL</TableCell>
-                            <TableCell align="right">DOWN</TableCell>
+            <Table className={classes.table}>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>DATA CENTER</TableCell>
+                        <TableCell align="right">NORMAL</TableCell>
+                        <TableCell align="right">DOWN</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {this.props.dcList.map(datacenter => {
+                        return (
+                        <TableRow key={datacenter}>
+                            <TableCell component="th" scope="row">
+                            {datacenter}
+                            </TableCell>
+                            <TableCell align="right">{0}</TableCell>
+                            <TableCell align="right">{0}</TableCell>
                         </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {this.props.dcList.map(datacenter => {
-                            return (
-                            <TableRow key={datacenter}>
-                                <TableCell component="th" scope="row">
-                                {datacenter}
-                                </TableCell>
-                                <TableCell align="right">{0}</TableCell>
-                                <TableCell align="right">{0}</TableCell>
-                            </TableRow>
-                            );
-                        })}
-                    </TableBody>
-                </Table>
-            </Paper>
+                        );
+                    })}
+                </TableBody>
+            </Table>
         </div>
     );
 }
