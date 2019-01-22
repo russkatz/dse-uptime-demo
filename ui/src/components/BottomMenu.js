@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
@@ -10,11 +9,15 @@ import Paper from '@material-ui/core/Paper';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
+import Card from 'material-kit-react/components/Card/Card';
+import CardBody from 'material-kit-react/components/Card/CardBody';
+
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import Divider from '@material-ui/core/Divider';
 
-import {drawerToggle} from '../actions/NavigationActions'
+
+import {drawerToggle} from '../actions/NavigationActions';
+import {cardTitle} from 'material-kit-react/assets/jss/material-kit-react';
 
 import classNames from 'classnames';
 
@@ -34,7 +37,8 @@ const styles = theme => ({
         paddingRight: theme.spacing.unit * 2,
     },
     paper: {
-        paddingBottom: 120,
+        paddingBottom: 45,
+        backgroundColor: '#f4f4f4',
     },
     appBar: {
         top: 'auto',
@@ -81,7 +85,14 @@ const styles = theme => ({
     controlContainer: {
         width: '100%',
         display: 'flex',
-    }
+        justifyContent: 'space-around',
+    },
+    button: {
+        margin: theme.spacing.unit,
+    },
+    input: {
+        display: 'none',
+    },
 });
 
 
@@ -110,7 +121,7 @@ class BottomMenu extends React.Component{
                         <MenuIcon />
                     </IconButton>
                     <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                    Control Board
+                    Control Panel
                     </Typography>
                     </Toolbar>
                 </AppBar>
@@ -140,28 +151,47 @@ class BottomMenu extends React.Component{
                     {/* <Divider /> */}
                     <Paper square className={classes.paper}>
                         <div className={classes.controlContainer}>
-                            <div>
-                                <Typography className={classes.text} variant="h6" gutterBottom>
-                                Write Commands
-                                </Typography>
-                                <Button variant="contained" className={classes.button}>
-                                START
-                                </Button>
-                                <Button variant="contained" color="primary" className={classes.button}>
-                                STOP
-                                </Button>
-                            </div>
-                            <div>
-                                <Typography className={classes.text} variant="h6" gutterBottom>
-                                Read Commands
-                                </Typography>
-                                <Button variant="contained" className={classes.button}>
-                                START
-                                </Button>
-                                <Button variant="contained" color="primary" className={classes.button}>
-                                STOP
-                                </Button>
-                            </div>
+                            <Card style={{width: "20rem"}}>
+                                <CardBody style={{whiteSpace: 'normal'}}>
+                                <h4 className={classes.cardTitle}>PURCHASE DATA</h4>
+                                <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pharetra vitae sem sed mattis.
+                                </p>
+                                <Button color="default" variant="contained" color="default" className={classes.button}>START</Button>
+                                <Button color="primary" variant="contained" color="primary" className={classes.button}>STOP</Button>
+                                </CardBody>
+                            </Card>
+                            <Card style={{width: "20rem"}}>
+                                <CardBody style={{whiteSpace: 'normal'}}>
+                                <h4 className={classes.cardTitle}>EVENTS DATA</h4>
+                                <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pharetra vitae sem sed mattis.
+                                </p>
+                                <Button color="default" variant="contained" color="default" className={classes.button}>START</Button>
+                                <Button color="primary" variant="contained" color="primary" className={classes.button}>STOP</Button>
+                                </CardBody>
+                            </Card>
+                            <Card style={{width: "20rem"}}>
+                                <CardBody style={{whiteSpace: 'normal'}}>
+                                <h4 className={classes.cardTitle}>EVENTS DATA</h4>
+                                <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pharetra vitae sem sed mattis.
+                                </p>
+                                <Button color="default" variant="contained" color="default" className={classes.button}>START</Button>
+                                <Button color="primary" variant="contained" color="primary" className={classes.button}>STOP</Button>
+                                </CardBody>
+                            </Card>
+                            <Card style={{width: "20rem"}}>
+                                <CardBody style={{whiteSpace: 'normal'}}>
+                                <h4 className={classes.cardTitle}>EVENTS DATA</h4>
+                                <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas pharetra vitae sem sed mattis.
+                                </p>
+                                <Button color="default" variant="contained" color="default" className={classes.button}>START</Button>
+                                <Button color="primary" variant="contained" color="primary" className={classes.button}>STOP</Button>
+                                </CardBody>
+                            </Card>
+
                         </div>
                     </Paper>
                 </Drawer>

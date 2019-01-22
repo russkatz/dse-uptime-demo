@@ -34,6 +34,7 @@ export function writeApi() {
             params: data,
             success: function(response){
                 var reader = response.body.getReader();
+                readChunk(reader, dispatch)
             },
             dispatch: dispatch,
             method: "POST"
@@ -42,37 +43,41 @@ export function writeApi() {
 
 }
 
-export function readChunk(reader, id, i, dispatch, command, removeRequest, key, runWhenDone, args){
+export function readChunk(reader, dispatch, command, removeRequest, key, runWhenDone, args){
     reader.read().then(function(result){
         var decoder = new TextDecoder();
         var chunk = decoder.decode(result.value || new Uint8Array, {stream: !result.done});
         chunk.split("\n").forEach((chunkedLine) => {
             if (chunkedLine.trim().length != 0){
-                var chunkObject = {
-                    "source" : id,
-                    "index" : i,
-                    "msg": chunkedLine,
-                    "command": command
-                }
-                i = i + 1;
+                const purchasesData = JSON.parse(chunkedLine);
+                dispatch(appendValue('writes', purchasesData));
+        
+        //         var chunkObject = {
+        //             "source" : id,
+        //             "index" : i,
+        //             "msg": chunkedLine,
+        //             "command": command
+            }
+        //         i = i + 1;
 
                 //console.log(chunkedLine);
 
-                if (chunkedLine.indexOf(STATUS_DELIMITER) != -1){
-                    status = chunkedLine.substr(12);
-                    chunkObject.msg = command + " exited with Status code " + status;
-                    if (status == 0){
-                        dispatch(notify(command + " Succeeded", "Success"))
-                    }
-                    else if (status == 1){
-                        dispatch(notify(command + " Not Found", "Error"))
-                    }
-                    else {
-                        dispatch(notify(command + " Failed", "Error"))
-                    }
-                }
-                dispatch(updateLog(chunkObject));
-            }
+                // if (chunkedLine.indexOf(STATUS_DELIMITER) != -1){
+                //     status = chunkedLine.substr(12);
+                //     chunkObject.msg = command + " exited with Status code " + status;
+                //     if (status == 0){
+                //         dispatch(notify(command + " Succeeded", "Success"))
+                //     }
+                //     else if (status == 1){
+                //         dispatch(notify(command + " Not Found", "Error"))
+                //     }
+                //     else {
+                //         dispatch(notify(command + " Failed", "Error"))
+                //     }
+                // }
+                // dispatch(updateLog(chunkObject));
+        //             console.log(chunkObject)
+        //     }
         });
 
         if (result.done) {
@@ -84,7 +89,7 @@ export function readChunk(reader, id, i, dispatch, command, removeRequest, key, 
             }
             return;
         } else {
-            return readChunk(reader, id, i, dispatch, command, removeRequest, key, runWhenDone, args);
+            return readChunk(reader, dispatch, command, removeRequest, key, runWhenDone, args);
         }
     });
 }
@@ -116,7 +121,16 @@ export function updateValue(key, value){
     return(dispatch, getState) => {
             dispatch(updateData("UPDATE", {"key": key, "value": value}))
     }
- }
+}
+
+export function appendValue(key, value) {
+    return(dispatch, getState) => {
+        const state = getState();
+        var currentKeyState = state.app[key]
+        currentKeyState.push(value)
+        dispatch(updateData("UPDATE", {"key": key, "value": currentKeyState}))
+    }
+}
 
 export const updateData = (type, data) => {
     return {
@@ -125,4 +139,4 @@ export const updateData = (type, data) => {
     }
 }
 
-export default {updateData, getDataCenter};
+export default {updateData, getDataCenter, writeApi, readChunk, updateValue, appendValue};
