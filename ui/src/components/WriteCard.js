@@ -11,10 +11,11 @@ import {writeApi} from '../actions/actions';
 
 const styles = theme => ({
     root: {
-
+        display: 'flex',
     },
     card: {
         marginBottom: 0,
+        display: 'flex'
     },
     cardheader: {
         backgroundColor: 'lightgrey',
@@ -28,11 +29,17 @@ const styles = theme => ({
     },
     cardtext: {
         height: '150px',
-        border: '2px solid red'
+        overflow: 'scroll',
+        padding: '4px',
+        marginLeft: '10px',
+        fontSize: '12px'
     }
 });
 
 class WriteCard extends React.Component {
+    componentDidMount() {
+        this.props.init();
+    }
     render() {
     const { classes } = this.props;
         return (
@@ -40,9 +47,9 @@ class WriteCard extends React.Component {
                 <Card className={classes.card}>
                     <CardHeader className={classes.cardheader}>PURCHASES</CardHeader>
                     <CardBody className={classes.cardbody}>
-                    <p className={classes.cardtext}>
-                    {/* {this.props.writes} */}
-                    </p>
+                    <div className={classes.cardtext}>
+                    {JSON.stringify(this.props.writes)}
+                    </div>
                     </CardBody>
                 </Card>
             </div>
@@ -63,7 +70,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
     init: () => {
-        dispatch(getDataCenter('http://52.53.185.6:8080/demo/nodefull'))
+        // dispatch(getDataCenter('http://52.53.185.6:8080/demo/nodefull'))
         dispatch(writeApi('http://52.53.185.6:8080/demo/write'))
     },
 

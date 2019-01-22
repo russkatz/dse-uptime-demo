@@ -172,7 +172,7 @@ class BottomMenu extends React.Component{
                             </Card>
                             <Card style={{width: "20rem"}}>
                                 <CardBody style={{whiteSpace: 'normal'}}>
-                                <h4 className={classes.cardTitle}>EVENTS DATA</h4>
+                                <h4 className={classes.cardTitle}>OTHER</h4>
                                 <p>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                 </p>
