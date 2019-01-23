@@ -157,7 +157,6 @@ class BottomMenu extends React.Component{
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                 </p>
                                 <Button color="default" variant="contained" color="default" className={classes.button}>START</Button>
-                                <Button color="primary" variant="contained" color="primary" className={classes.button}>STOP</Button>
                                 </CardBody>
                             </Card>
                             <Card style={{width: "20rem"}}>
@@ -167,20 +166,8 @@ class BottomMenu extends React.Component{
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                 </p>
                                 <Button color="default" variant="contained" color="default" className={classes.button}>START</Button>
-                                <Button color="primary" variant="contained" color="primary" className={classes.button}>STOP</Button>
                                 </CardBody>
                             </Card>
-                            <Card style={{width: "20rem"}}>
-                                <CardBody style={{whiteSpace: 'normal'}}>
-                                <h4 className={classes.cardTitle}>OTHER</h4>
-                                <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </p>
-                                <Button color="default" variant="contained" color="default" className={classes.button}>START</Button>
-                                <Button color="primary" variant="contained" color="primary" className={classes.button}>STOP</Button>
-                                </CardBody>
-                            </Card>
-
                         </div>
                     </Paper>
                 </Drawer>

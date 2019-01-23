@@ -42,6 +42,24 @@ export function writeApi() {
     }
 
 }
+export function readApi() {
+    var data = '{"dc": "AWS", "count": 5000"}';
+
+    return(dispatch, getState) => {
+        const url = 'http://52.53.185.6:8080/demo/read';
+        streamingRequest({
+            url: url,
+            params: data,
+            success: function(response){
+                var reader = response.body.getReader();
+                readChunk(reader, dispatch)
+            },
+            dispatch: dispatch,
+            method: "POST"
+        })
+    }
+
+}
 
 export function readChunk(reader, dispatch, command, removeRequest, key, runWhenDone, args){
     reader.read().then(function(result){
@@ -139,4 +157,4 @@ export const updateData = (type, data) => {
     }
 }
 
-export default {updateData, getDataCenter, writeApi, readChunk, updateValue, appendValue};
+export default {updateData, getDataCenter, writeApi, readApi, readChunk, updateValue, appendValue};

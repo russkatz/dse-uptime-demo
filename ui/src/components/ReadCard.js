@@ -6,43 +6,50 @@ import CardHeader from 'material-kit-react/components/Card/CardHeader';
 import CardBody from 'material-kit-react/components/Card/CardBody';
 import Grid from '@material-ui/core/Grid';
 
-import {writeApi} from '../actions/actions';
+import {readApi} from '../actions/actions';
 
 
 const styles = theme => ({
     root: {
-
+        
     },
     card: {
-        marginBottom: 0,
+
     },
     cardheader: {
         backgroundColor: 'lightgrey',
         fontSize: '25px',
         color: 'white',
         padding: '10px',
-        textAlign: 'right'
+        textAlign: 'right',
     },
     cardbody: {
-        padding: '10px',
+        padding: 0,
+        marginLeft: '7px'
     },
     cardtext: {
         height: '150px',
-        border: '2px solid blue'
+        overflow: 'scroll',
+        fontSize: '17px',
+        margin: '5px',
     }
 });
 
 class ReadCard extends React.Component {
+    componentDidMount() {
+        this.props.init();
+    }
     render() {
     const { classes } = this.props;
         return (
             <div className={classes.root}>
                 <Card className={classes.card}>
-                    <CardHeader className={classes.cardheader}>EVENT LOG</CardHeader>
+                    <CardHeader className={classes.cardheader}>EVENTS</CardHeader>
                     <CardBody className={classes.cardbody}>
-                    <p className={classes.cardtext}>
-                    {/* {this.props.writes} */}
-                    </p>
+                    <div className={classes.cardtext}>
+
+                    {JSON.stringify(this.props.reads)}
+                    </div>
                     </CardBody>
                 </Card>
             </div>
@@ -53,27 +60,15 @@ class ReadCard extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        drawerOpen: state.NavigationReducer.drawerOpen,
-        page: state.NavigationReducer.page,
-        dcList: state.app.dcList,
-        writes: state.app.writes
+        reads: state.app.reads
     }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
     init: () => {
-        dispatch(getDataCenter('http://52.53.185.6:8080/demo/nodefull'))
-        dispatch(writeApi('http://52.53.185.6:8080/demo/write'))
+        dispatch(readApi('http://52.53.185.6:8080/demo/read'))
     },
-
-    drawerToggle: (drawerOpen) => {
-        dispatch(drawerToggle(drawerOpen))
-    },
-    changeScreen: (page) => {
-        dispatch(changeScreen(page))
-        dispatch(drawerToggle(false))
-    }
     }
 }
 

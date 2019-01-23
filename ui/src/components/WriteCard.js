@@ -11,28 +11,27 @@ import {writeApi} from '../actions/actions';
 
 const styles = theme => ({
     root: {
-        display: 'flex',
+        
     },
     card: {
-        marginBottom: 0,
-        display: 'flex'
+        
     },
     cardheader: {
         backgroundColor: 'lightgrey',
         fontSize: '25px',
         color: 'white',
         padding: '10px',
-        textAlign: 'right'
+        textAlign: 'right',
     },
     cardbody: {
-        padding: '10px',
+        padding: 0,
+        marginLeft: '7px'
     },
     cardtext: {
         height: '150px',
         overflow: 'scroll',
-        padding: '4px',
-        marginLeft: '10px',
-        fontSize: '12px'
+        fontSize: '17px',
+        margin: '5px',
     }
 });
 
@@ -48,6 +47,7 @@ class WriteCard extends React.Component {
                     <CardHeader className={classes.cardheader}>PURCHASES</CardHeader>
                     <CardBody className={classes.cardbody}>
                     <div className={classes.cardtext}>
+
                     {JSON.stringify(this.props.writes)}
                     </div>
                     </CardBody>
@@ -60,9 +60,6 @@ class WriteCard extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        drawerOpen: state.NavigationReducer.drawerOpen,
-        page: state.NavigationReducer.page,
-        dcList: state.app.dcList,
         writes: state.app.writes
     }
 }
@@ -70,17 +67,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
     init: () => {
-        // dispatch(getDataCenter('http://52.53.185.6:8080/demo/nodefull'))
         dispatch(writeApi('http://52.53.185.6:8080/demo/write'))
     },
-
-    drawerToggle: (drawerOpen) => {
-        dispatch(drawerToggle(drawerOpen))
-    },
-    changeScreen: (page) => {
-        dispatch(changeScreen(page))
-        dispatch(drawerToggle(false))
-    }
     }
 }
 

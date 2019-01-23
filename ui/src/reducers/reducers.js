@@ -10,7 +10,8 @@ const initialAppState = {
     appName: 'DSE Uptime UI',
     nodeList: [],
     dcList: [],
-    writes: []
+    writes: [],
+    reads: [],
 };
 
 const reducers = combineReducers({
