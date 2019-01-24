@@ -15,7 +15,7 @@ import Button from '@material-ui/core/Button';
 
 
 import {drawerToggle} from '../actions/NavigationActions';
-import { writeApi } from '../actions/actions';
+import { writeApi, readApi } from '../actions/actions';
 
 import classNames from 'classnames';
 
@@ -23,6 +23,9 @@ import classNames from 'classnames';
 const drawerWidth = '100%';
 
 const styles = theme => ({
+    root: {
+        
+    },
     grow: {
         flexGrow: 1,
     },
@@ -74,10 +77,12 @@ const styles = theme => ({
     controlContainer: {
         width: '100%',
         display: 'flex',
-        justifyContent: 'space-around',
+        marginBottom: '20px',
+        // justifyContent: 'space-around',
     },
     card: {
-        minWidth: 275,
+        width: '20rem',
+        marginTop: '10px',
     },
     title: {
         fontSize: 14,
@@ -85,7 +90,13 @@ const styles = theme => ({
     pos: {
         marginBottom: 12,
         whiteSpace: 'normal',
-    }
+    },
+    button: {
+        margin: theme.spacing.unit,
+    },
+    input: {
+    display: 'none',
+    },
 });
 
 
@@ -113,8 +124,8 @@ class BottomMenu extends React.Component{
                     <IconButton onClick={() => { this.props.drawerToggle(!this.props.drawerOpen)}} className={classes.menuButton} color="inherit" aria-label="Open drawer">
                         <MenuIcon />
                     </IconButton>
-                    <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                    Control Panel
+                    <Typography className={classes.title} variant="h5" component="h2" color="textPrimary" color="inherit" noWrap>
+                    CONTROL CONSOLE
                     </Typography>
                     </Toolbar>
                 </AppBar>
@@ -138,7 +149,7 @@ class BottomMenu extends React.Component{
                     >
                     <Paper square className={classes.paper}>
                         <div className={classes.controlContainer}>
-                            <Card className={classes.card} style={{width: "20rem"}}>
+                            <Card className={classes.card}>
                                 <CardContent>
                                     <Typography variant="h5" component="h2" color="textPrimary" gutterBottom>
                                         PURCHASES DATA
@@ -148,7 +159,20 @@ class BottomMenu extends React.Component{
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                <Button size="small" onClick={() => {this.props.getWrites()}}>BEGIN PURCHASE TRANSACTIONS</Button>
+                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getWrites()}}>BEGIN PURCHASE TRANSACTIONS</Button>
+                                </CardActions>
+                            </Card>
+                            <Card className={classes.card}>
+                                <CardContent>
+                                    <Typography variant="h5" component="h2" color="textPrimary" gutterBottom>
+                                        EVENTS DATA
+                                    </Typography>
+                                    <Typography className={classes.pos} color="textSecondary">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    </Typography>
+                                </CardContent>
+                                <CardActions>
+                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getReads()}}>BEGIN EVENT TRANSACTIONS</Button>
                                 </CardActions>
                             </Card>
                         </div>
@@ -169,6 +193,7 @@ const mapStateToProps = (state, ownProps) => {
         drawerOpen: state.NavigationReducer.drawerOpen,
         page: state.NavigationReducer.page,
         writes: state.app.writes,
+        reads: state.app.reads,
     }
 }
 
@@ -179,6 +204,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         getWrites: () => {
         dispatch(writeApi('http://52.53.185.6:8080/demo/write'))
+        },
+        getReads: () => {
+        dispatch(readApi('http://52.53.185.6:8080/demo/read'))
         },
         drawerToggle: (drawerOpen) => {
         dispatch(drawerToggle(drawerOpen))

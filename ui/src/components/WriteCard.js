@@ -4,18 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from 'material-kit-react/components/Card/Card';
 import CardHeader from 'material-kit-react/components/Card/CardHeader';
 import CardBody from 'material-kit-react/components/Card/CardBody';
-import Grid from '@material-ui/core/Grid';
-
-import {writeApi} from '../actions/actions';
 
 
 const styles = theme => ({
-    root: {
-        
-    },
-    card: {
-        
-    },
     cardheader: {
         backgroundColor: 'lightgrey',
         fontSize: '25px',
@@ -49,7 +40,7 @@ class WriteCard extends React.Component {
                     <div className={classes.cardtext}>
 
                     {JSON.stringify(this.props.writes)}
-                    
+
                     </div>
                     </CardBody>
                 </Card>

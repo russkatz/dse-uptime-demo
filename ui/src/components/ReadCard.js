@@ -4,18 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from 'material-kit-react/components/Card/Card';
 import CardHeader from 'material-kit-react/components/Card/CardHeader';
 import CardBody from 'material-kit-react/components/Card/CardBody';
-import Grid from '@material-ui/core/Grid';
-
-import {readApi} from '../actions/actions';
 
 
 const styles = theme => ({
-    root: {
-        
-    },
-    card: {
-
-    },
     cardheader: {
         backgroundColor: 'lightgrey',
         fontSize: '25px',
@@ -48,7 +39,8 @@ class ReadCard extends React.Component {
                     <CardBody className={classes.cardbody}>
                     <div className={classes.cardtext}>
 
-                    {/* {JSON.stringify(this.props.reads)} */}
+                    {JSON.stringify(this.props.reads)}
+
                     </div>
                     </CardBody>
                 </Card>
@@ -67,7 +59,6 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
     init: () => {
-        // dispatch(readApi('http://52.53.185.6:8080/demo/read'))
     },
     }
 }

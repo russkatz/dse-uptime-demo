@@ -1,8 +1,8 @@
 import {createAction} from 'redux-actions';
 import requestActions from './requestActions.js';
 import {get} from '../common/requests.js';
-// import post from 'axios';
 import {streamingRequest} from '../common/requests.js';
+// import post from 'axios';
 
 
 // export function readApi() {
