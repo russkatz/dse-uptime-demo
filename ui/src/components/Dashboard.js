@@ -72,7 +72,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
     init: () => {
         dispatch(getDataCenter('http://52.53.185.6:8080/demo/nodefull'))
-        dispatch(writeApi())
+        // dispatch(writeApi())
     },
 
     drawerToggle: (drawerOpen) => {

@@ -34,7 +34,7 @@ export function writeApi() {
             params: data,
             success: function(response){
                 var reader = response.body.getReader();
-                readChunk(reader, dispatch)
+                readChunk(reader, dispatch, "writes")
             },
             dispatch: dispatch,
             method: "POST"
@@ -43,7 +43,7 @@ export function writeApi() {
 
 }
 export function readApi() {
-    var data = '{"dc": "AWS", "count": 5000"}';
+    var data = '{"dc": "AWS", "count": 5000, "cl": "ONE"}';
 
     return(dispatch, getState) => {
         const url = 'http://52.53.185.6:8080/demo/read';
@@ -52,7 +52,7 @@ export function readApi() {
             params: data,
             success: function(response){
                 var reader = response.body.getReader();
-                readChunk(reader, dispatch)
+                readChunk(reader, dispatch, "reads")
             },
             dispatch: dispatch,
             method: "POST"
@@ -61,41 +61,18 @@ export function readApi() {
 
 }
 
-export function readChunk(reader, dispatch, command, removeRequest, key, runWhenDone, args){
+export function readChunk(reader, dispatch, valueKey, command, removeRequest, key, runWhenDone, args){
     reader.read().then(function(result){
         var decoder = new TextDecoder();
         var chunk = decoder.decode(result.value || new Uint8Array, {stream: !result.done});
         chunk.split("\n").forEach((chunkedLine) => {
             if (chunkedLine.trim().length != 0){
-                const purchasesData = JSON.parse(chunkedLine);
-                dispatch(appendValue('writes', purchasesData));
-        
-        //         var chunkObject = {
-        //             "source" : id,
-        //             "index" : i,
-        //             "msg": chunkedLine,
-        //             "command": command
+                const incomingApiData = JSON.parse(chunkedLine);
+                dispatch(appendValue(valueKey, incomingApiData));
+
+                // console.log(allValues)
+                console.log(incomingApiData)
             }
-        //         i = i + 1;
-
-                //console.log(chunkedLine);
-
-                // if (chunkedLine.indexOf(STATUS_DELIMITER) != -1){
-                //     status = chunkedLine.substr(12);
-                //     chunkObject.msg = command + " exited with Status code " + status;
-                //     if (status == 0){
-                //         dispatch(notify(command + " Succeeded", "Success"))
-                //     }
-                //     else if (status == 1){
-                //         dispatch(notify(command + " Not Found", "Error"))
-                //     }
-                //     else {
-                //         dispatch(notify(command + " Failed", "Error"))
-                //     }
-                // }
-                // dispatch(updateLog(chunkObject));
-        //             console.log(chunkObject)
-        //     }
         });
 
         if (result.done) {
@@ -107,7 +84,7 @@ export function readChunk(reader, dispatch, command, removeRequest, key, runWhen
             }
             return;
         } else {
-            return readChunk(reader, dispatch, command, removeRequest, key, runWhenDone, args);
+            return readChunk(reader, dispatch, valueKey, command, removeRequest, key, runWhenDone, args);
         }
     });
 }
