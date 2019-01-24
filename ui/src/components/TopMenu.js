@@ -76,8 +76,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-const MenuContainer = connect(
+const TopMenuContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(withStyles(styles)(TopMenu))
-export default MenuContainer
+export default TopMenuContainer

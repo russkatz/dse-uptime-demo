@@ -8,6 +8,7 @@ import NavigationReducer from './NavigationReducer';
 // INITIAL_APP_STATE
 const initialAppState = {
     appName: 'DSE Uptime UI',
+    events: [],
     nodeList: [],
     dcList: [],
     writes: [],

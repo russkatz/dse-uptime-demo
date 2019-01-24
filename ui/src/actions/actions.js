@@ -19,14 +19,12 @@ import {streamingRequest} from '../common/requests.js';
 //         }).catch((err) => {
             
 //         });
-
-
 //     }
 // }
 
 export function writeApi() {
     var data = '{"dc": "AWS", "count": 5000, "cl": "ONE"}';
-
+    // debugger
     return(dispatch, getState) => {
         const url = 'http://52.53.185.6:8080/demo/write';
         streamingRequest({
@@ -61,7 +59,7 @@ export function readApi() {
 
 }
 
-export function readChunk(reader, dispatch, valueKey, command, removeRequest, key, runWhenDone, args){
+export function readChunk(reader, dispatch, valueKey){
     reader.read().then(function(result){
         var decoder = new TextDecoder();
         var chunk = decoder.decode(result.value || new Uint8Array, {stream: !result.done});
@@ -84,7 +82,7 @@ export function readChunk(reader, dispatch, valueKey, command, removeRequest, ke
             }
             return;
         } else {
-            return readChunk(reader, dispatch, valueKey, command, removeRequest, key, runWhenDone, args);
+            return readChunk(reader, dispatch, valueKey);
         }
     });
 }

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {addRequest, removeRequest} from '../actions/requestActions.js'
+import { appendValue } from '../actions/actions.js'
 
 /*
  * https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
@@ -26,6 +27,7 @@ export function get({url, params, success, error, dispatch, auth = "true"} = {})
         dispatch(removeRequest(key))
     })
     dispatch(addRequest(key, request))
+    dispatch(appendValue("events", url))
 }
 
 export function post({url, params, success, error, dispatch} = {}) {
@@ -43,6 +45,7 @@ export function post({url, params, success, error, dispatch} = {}) {
         dispatch(removeRequest(key))
     })
     dispatch(addRequest(key, request))
+    dispatch(appendValue("events", url))
 
 }
 
@@ -61,6 +64,7 @@ export function remove({url, success, error, dispatch} = {}) {
         dispatch(removeRequest(key))
     })
     dispatch(addRequest(key, request))
+    dispatch(appendValue("events", url))
 }
 
 export function streamingRequest({url, params, success, error, dispatch, method} = {}) {
@@ -92,4 +96,5 @@ export function streamingRequest({url, params, success, error, dispatch, method}
         dispatch(removeRequest(key))
     })
     dispatch(addRequest(key, request))
- }
+    dispatch(appendValue("events", url))
+}

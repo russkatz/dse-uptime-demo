@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
@@ -7,26 +7,22 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 import MenuIcon from '@material-ui/icons/Menu';
-import Button from '@material-ui/core/Button';
 import Drawer from '@material-ui/core/Drawer';
-import Card from 'material-kit-react/components/Card/Card';
-import CardBody from 'material-kit-react/components/Card/CardBody';
-
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
 
 
 import {drawerToggle} from '../actions/NavigationActions';
-import {cardTitle} from 'material-kit-react/assets/jss/material-kit-react';
+import { writeApi } from '../actions/actions';
 
 import classNames from 'classnames';
 
+
 const drawerWidth = '100%';
 
-
 const styles = theme => ({
-    root: {
-    },
     grow: {
         flexGrow: 1,
     },
@@ -52,9 +48,6 @@ const styles = theme => ({
         marginLeft: 0,
         marginRight: 28,
     },
-    // hide: {
-    //     display: 'none',
-    // },
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
@@ -78,20 +71,21 @@ const styles = theme => ({
           height: theme.spacing.unit * 5 + 1,
         },
     },
-    button: {
-        margin: theme.spacing.unit,
-    },
     controlContainer: {
         width: '100%',
         display: 'flex',
         justifyContent: 'space-around',
     },
-    button: {
-        margin: theme.spacing.unit,
+    card: {
+        minWidth: 275,
     },
-    input: {
-        display: 'none',
+    title: {
+        fontSize: 14,
     },
+    pos: {
+        marginBottom: 12,
+        whiteSpace: 'normal',
+    }
 });
 
 
@@ -109,8 +103,8 @@ class BottomMenu extends React.Component{
             });
         };
 
-
-    render({classes} = this.props) {
+        render() {
+            const { classes } = this.props;
 
         return (
             <div className={classes.root}>
@@ -142,31 +136,20 @@ class BottomMenu extends React.Component{
                     }}
                     open={this.props.drawerOpen}
                     >
-                    {/* <div className={classes.toolbar}>
-                        <IconButton onClick={() => { this.props.drawerToggle(!this.props.drawerOpen)}}>
-                        { !this.props.drawerOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                        </IconButton>
-                    </div> */}
-                    {/* <Divider /> */}
                     <Paper square className={classes.paper}>
                         <div className={classes.controlContainer}>
-                            <Card style={{width: "20rem"}}>
-                                <CardBody style={{whiteSpace: 'normal'}}>
-                                <h4 className={classes.cardTitle}>PURCHASE DATA</h4>
-                                <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </p>
-                                <Button color="default" variant="contained" color="default" className={classes.button}>START</Button>
-                                </CardBody>
-                            </Card>
-                            <Card style={{width: "20rem"}}>
-                                <CardBody style={{whiteSpace: 'normal'}}>
-                                <h4 className={classes.cardTitle}>EVENTS DATA</h4>
-                                <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </p>
-                                <Button color="default" variant="contained" color="default" className={classes.button}>START</Button>
-                                </CardBody>
+                            <Card className={classes.card} style={{width: "20rem"}}>
+                                <CardContent>
+                                    <Typography variant="h5" component="h2" color="textPrimary" gutterBottom>
+                                        PURCHASES DATA
+                                    </Typography>
+                                    <Typography className={classes.pos} color="textSecondary">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    </Typography>
+                                </CardContent>
+                                <CardActions>
+                                <Button size="small" onClick={() => {this.props.getWrites()}}>BEGIN PURCHASE TRANSACTIONS</Button>
+                                </CardActions>
                             </Card>
                         </div>
                     </Paper>
@@ -175,24 +158,27 @@ class BottomMenu extends React.Component{
         );
     }
 
-
     componentDidMount(){
-        this.props.init()
+    this.props.init()
     }
 }
-
 
 
 const mapStateToProps = (state, ownProps) => {
     return {
         drawerOpen: state.NavigationReducer.drawerOpen,
-        page: state.NavigationReducer.page
+        page: state.NavigationReducer.page,
+        writes: state.app.writes,
     }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         init: () => {
+
+        },
+        getWrites: () => {
+        dispatch(writeApi('http://52.53.185.6:8080/demo/write'))
         },
         drawerToggle: (drawerOpen) => {
         dispatch(drawerToggle(drawerOpen))

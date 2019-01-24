@@ -2,9 +2,9 @@ import {connect} from 'react-redux';
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import MenuContainer from './TopMenu';
+import TopMenu from './TopMenu';
 import LocalNodePage from './LocalNodePage';
-import BottomMenuContainer from './BottomMenu';
+import BottomMenu from './BottomMenu';
 
 
 const theme = createMuiTheme({
@@ -39,7 +39,7 @@ class App extends Component {
     render() {
         return (
         <MuiThemeProvider theme={theme}>
-            <MenuContainer />
+            <TopMenu />
             <LocalNodePage />
             {/* <Grid>
                 {
@@ -67,7 +67,7 @@ class App extends Component {
                 null
                 }
             </Grid> */}
-            <BottomMenuContainer />
+            <BottomMenu />
         </MuiThemeProvider>
         );
     }

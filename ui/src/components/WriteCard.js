@@ -49,6 +49,7 @@ class WriteCard extends React.Component {
                     <div className={classes.cardtext}>
 
                     {JSON.stringify(this.props.writes)}
+                    
                     </div>
                     </CardBody>
                 </Card>
@@ -67,7 +68,6 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
     init: () => {
-        dispatch(writeApi('http://52.53.185.6:8080/demo/write'))
     },
     }
 }

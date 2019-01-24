@@ -48,7 +48,7 @@ class ReadCard extends React.Component {
                     <CardBody className={classes.cardbody}>
                     <div className={classes.cardtext}>
 
-                    {JSON.stringify(this.props.reads)}
+                    {/* {JSON.stringify(this.props.reads)} */}
                     </div>
                     </CardBody>
                 </Card>
@@ -67,7 +67,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
     init: () => {
-        dispatch(readApi('http://52.53.185.6:8080/demo/read'))
+        // dispatch(readApi('http://52.53.185.6:8080/demo/read'))
     },
     }
 }
