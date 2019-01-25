@@ -67,9 +67,6 @@ export function readChunk(reader, dispatch, valueKey){
             if (chunkedLine.trim().length != 0){
                 const incomingApiData = JSON.parse(chunkedLine);
                 dispatch(appendValue(valueKey, incomingApiData));
-
-                // console.log(allValues)
-                console.log(incomingApiData)
             }
         });
 

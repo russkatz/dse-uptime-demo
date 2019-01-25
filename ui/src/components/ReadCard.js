@@ -39,7 +39,7 @@ class ReadCard extends React.Component {
                     <CardBody className={classes.cardbody}>
                     <div className={classes.cardtext}>
 
-                    {JSON.stringify(this.props.reads)}
+                    {JSON.stringify([...this.props.reads].reverse())}
 
                     </div>
                     </CardBody>

@@ -31,6 +31,7 @@ class WriteCard extends React.Component {
         this.props.init();
     }
     render() {
+        
     const { classes } = this.props;
         return (
             <div className={classes.root}>
@@ -38,9 +39,9 @@ class WriteCard extends React.Component {
                     <CardHeader className={classes.cardheader}>PURCHASES</CardHeader>
                     <CardBody className={classes.cardbody}>
                     <div className={classes.cardtext}>
-
-                    {JSON.stringify(this.props.writes)}
-
+                    
+                    {JSON.stringify([...this.props.writes].reverse())}
+                    
                     </div>
                     </CardBody>
                 </Card>
