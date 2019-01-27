@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import {getDataCenter, writeApi} from '../actions/actions'
+import {getNodeInfo, writeApi} from '../actions/actions'
 
 
 const styles = theme => ({
@@ -37,19 +37,17 @@ class Dashboard extends React.Component {
                 <TableHead>
                     <TableRow>
                         <TableCell>DATA CENTER</TableCell>
-                        <TableCell align="right">NORMAL</TableCell>
-                        <TableCell align="right">DOWN</TableCell>
+                        <TableCell>ONLINE</TableCell>
+                        <TableCell>DOWN</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {this.props.dcList.map(datacenter => {
                         return (
                         <TableRow key={datacenter}>
-                            <TableCell component="th" scope="row">
-                            {datacenter}
-                            </TableCell>
-                            <TableCell align="right">{0}</TableCell>
-                            <TableCell align="right">{0}</TableCell>
+                            <TableCell component="th" scope="row">{datacenter}</TableCell>
+                            <TableCell align="right"></TableCell>
+                            <TableCell align="right"></TableCell>
                         </TableRow>
                         );
                     })}
@@ -71,8 +69,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
     init: () => {
-        dispatch(getDataCenter('http://52.53.185.6:8080/demo/nodefull'))
-        // dispatch(writeApi())
+        dispatch(getNodeInfo('http://52.53.185.6:8080/demo/nodefull'))
     },
 
     drawerToggle: (drawerOpen) => {

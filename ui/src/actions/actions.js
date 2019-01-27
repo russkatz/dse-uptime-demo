@@ -86,7 +86,7 @@ export function readChunk(reader, dispatch, valueKey){
 
 
 
-export function getDataCenter(url) {
+export function getNodeInfo(url) {
     return(dispatch, getState) => {
         get({
             url: url, 
@@ -129,4 +129,4 @@ export const updateData = (type, data) => {
     }
 }
 
-export default {updateData, getDataCenter, writeApi, readApi, readChunk, updateValue, appendValue};
+export default {updateData, getNodeInfo, writeApi, readApi, readChunk, updateValue, appendValue};
