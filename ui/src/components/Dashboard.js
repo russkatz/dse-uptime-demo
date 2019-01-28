@@ -36,9 +36,11 @@ class Dashboard extends React.Component {
                 </TableHead>
                 <TableBody>
                     {this.props.nodeList.map((nodes, id) => {
+
+                        // console.log(nodes)
                         return (
                             <TableRow key={id}>
-                                <TableCell component="th" scope="row">{nodes.dc}</TableCell>
+                                <TableCell>{nodes.dc}</TableCell>
                                 <TableCell>{nodes.mode}</TableCell>
                                 <TableCell></TableCell>
                             </TableRow>

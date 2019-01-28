@@ -8,24 +8,24 @@ import {hashHistory} from 'react-router';
 import reducers from './reducers/reducers';
 
 export const middlewares = [
-  taskMiddleware,
-  routerMiddleware(hashHistory),
-  thunkMiddleware
+    taskMiddleware,
+    routerMiddleware(hashHistory),
+    thunkMiddleware
 ];
 
 export const enhancers = [applyMiddleware(...middlewares)];
 
 var initialState = {
-  NavigationReducer: {
-    drawerOpen: false,
-    page: "Local Node Simulation"
-  }
+    NavigationReducer: {
+        drawerOpen: false,
+        page: "Multi-Cloud Demonstration"
+    }
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default createStore(
-  reducers,
-  initialState,
-  composeEnhancers(...enhancers)
+    reducers,
+    initialState,
+    composeEnhancers(...enhancers)
 );

@@ -78,7 +78,7 @@ const styles = theme => ({
         width: '100%',
         display: 'flex',
         marginBottom: '20px',
-        // justifyContent: 'space-around',
+        justifyContent: 'space-around',
     },
     card: {
         width: '20rem',
@@ -154,9 +154,9 @@ class BottomMenu extends React.Component{
                                     <Typography variant="h5" component="h2" color="textPrimary" gutterBottom>
                                         PURCHASES DATA
                                     </Typography>
-                                    <Typography className={classes.pos} color="textSecondary">
+                                    {/* <Typography className={classes.pos} color="textSecondary">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    </Typography>
+                                    </Typography> */}
                                 </CardContent>
                                 <CardActions>
                                 <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getWrites()}}>BEGIN PURCHASE TRANSACTIONS</Button>
@@ -167,9 +167,9 @@ class BottomMenu extends React.Component{
                                     <Typography variant="h5" component="h2" color="textPrimary" gutterBottom>
                                         EVENTS DATA
                                     </Typography>
-                                    <Typography className={classes.pos} color="textSecondary">
+                                    {/* <Typography className={classes.pos} color="textSecondary">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    </Typography>
+                                    </Typography> */}
                                 </CardContent>
                                 <CardActions>
                                 <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getReads()}}>BEGIN EVENT TRANSACTIONS</Button>

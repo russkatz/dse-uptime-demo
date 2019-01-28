@@ -94,14 +94,14 @@ export function getNodeInfo(url) {
 
                 dispatch(updateValue('nodeList', res.data))
                 
-                // let rawList = []
-                // rawList = res.data.map((data) => {
-                //     if(data.dc) {
-                //         return data.dc
-                //     }
-                // });
-                // let dcList = [...new Set(rawList)]
-                // dispatch(updateValue('dcList', dcList))
+                let rawList = []
+                rawList = res.data.map((data) => {
+                    if(data.dc) {
+                        return data.dc
+                    }
+                });
+                let dcList = [...new Set(rawList)]
+                dispatch(updateValue('dcList', dcList))
             },
             dispatch: dispatch
         });
