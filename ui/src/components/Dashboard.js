@@ -17,13 +17,6 @@ const styles = theme => ({
     },
 });
 
-let id = 0;
-function createData(name, normal, down) {
-    id += 1;
-    return { id, name, normal, down };
-}
-
-
 class Dashboard extends React.Component {
     componentDidMount() {
         this.props.init();
@@ -42,13 +35,13 @@ class Dashboard extends React.Component {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {this.props.dcList.map(datacenter => {
+                    {this.props.nodeList.map((nodes, id) => {
                         return (
-                        <TableRow key={datacenter}>
-                            <TableCell component="th" scope="row">{datacenter}</TableCell>
-                            <TableCell align="right"></TableCell>
-                            <TableCell align="right"></TableCell>
-                        </TableRow>
+                            <TableRow key={id}>
+                                <TableCell component="th" scope="row">{nodes.dc}</TableCell>
+                                <TableCell>{nodes.mode}</TableCell>
+                                <TableCell></TableCell>
+                            </TableRow>
                         );
                     })}
                 </TableBody>
@@ -62,7 +55,8 @@ const mapStateToProps = (state, ownProps) => {
     return {
         drawerOpen: state.NavigationReducer.drawerOpen,
         page: state.NavigationReducer.page,
-        dcList: state.app.dcList
+        dcList: state.app.dcList,
+        nodeList: state.app.nodeList
     }
 }
 

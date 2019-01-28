@@ -91,16 +91,17 @@ export function getNodeInfo(url) {
         get({
             url: url, 
             success: function(res){
+
                 dispatch(updateValue('nodeList', res.data))
-                //TODO: Get the data centers from res.data and assign them to:
-                let rawList = []
-                rawList = res.data.map((data) => {
-                    if(data.dc) {
-                        return data.dc
-                    }
-                });
-                let dcList = [...new Set(rawList)]
-                dispatch(updateValue('dcList', dcList))
+                
+                // let rawList = []
+                // rawList = res.data.map((data) => {
+                //     if(data.dc) {
+                //         return data.dc
+                //     }
+                // });
+                // let dcList = [...new Set(rawList)]
+                // dispatch(updateValue('dcList', dcList))
             },
             dispatch: dispatch
         });
