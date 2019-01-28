@@ -69,9 +69,9 @@ const styles = theme => ({
         duration: theme.transitions.duration.leavingScreen,
         }),
         overflowX: 'hidden',
-        height: theme.spacing.unit * 9 + 1,
+        height: theme.spacing.unit * 7 + 1,
         [theme.breakpoints.up('sm')]: {
-          height: theme.spacing.unit * 5 + 1,
+          height: theme.spacing.unit * 4 + 1,
         },
     },
     controlContainer: {
@@ -159,7 +159,7 @@ class BottomMenu extends React.Component{
                                     </Typography> */}
                                 </CardContent>
                                 <CardActions>
-                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getWrites()}}>BEGIN PURCHASE TRANSACTIONS</Button>
+                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getWrites()}}>BEGIN PURCHASES</Button>
                                 </CardActions>
                             </Card>
                             <Card className={classes.card}>
@@ -172,7 +172,7 @@ class BottomMenu extends React.Component{
                                     </Typography> */}
                                 </CardContent>
                                 <CardActions>
-                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getReads()}}>BEGIN EVENT TRANSACTIONS</Button>
+                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getReads()}}>BEGIN EVENTS</Button>
                                 </CardActions>
                             </Card>
                         </div>
