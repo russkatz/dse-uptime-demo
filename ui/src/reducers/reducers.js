@@ -10,10 +10,6 @@ const initialAppState = {
     appName: 'DSE Uptime UI',
     events: [],
     nodeList: [],
-    // dcList: [],
-    dataCenterDetails: [],
-    // countUp: [],
-    // countDown: [],
     writes: [],
     reads: [],
 };
@@ -21,6 +17,9 @@ const initialAppState = {
 const reducers = combineReducers({
     RequestReducer,
     NavigationReducer,
+    
+    //set new reducer here to handle state reset
+
     app: handleAction(
         'UPDATE',
         (state, action) => ({

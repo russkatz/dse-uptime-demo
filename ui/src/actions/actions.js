@@ -1,26 +1,9 @@
 import {createAction} from 'redux-actions';
 import requestActions from './requestActions.js';
-import {get} from '../common/requests.js';
-import {streamingRequest} from '../common/requests.js';
-// import post from 'axios';
+import { get } from '../common/requests.js';
+import { streamingRequest } from '../common/requests.js';
+import { post } from '../common/requests.js';
 
-
-// export function readApi() {
-//     return(dispatch, getState) => {
-//         axios.post('http://52.53.185.6:8080/demo/read', {
-//             "dc": "AWS",
-//             "count": 5000,
-
-//         }, {
-//             headers: {"Content-Type": "application/json"}
-//         })
-//         .then((res) => {
-            
-//         }).catch((err) => {
-            
-//         });
-//     }
-// }
 
 export function writeApi() {
     var data = '{"dc": "AWS", "count": 5000, "cl": "ONE"}';
@@ -42,7 +25,7 @@ export function writeApi() {
 }
 export function readApi() {
     var data = '{"dc": "AWS", "count": 5000, "cl": "ONE"}';
-
+    //debugger
     return(dispatch, getState) => {
         const url = 'http://52.53.185.6:8080/demo/read';
         streamingRequest({
@@ -56,7 +39,6 @@ export function readApi() {
             method: "POST"
         })
     }
-
 }
 
 export function readChunk(reader, dispatch, valueKey){
@@ -84,29 +66,50 @@ export function readChunk(reader, dispatch, valueKey){
     });
 }
 
-
-
 export function getNodeInfo(url) {
     return(dispatch, getState) => {
         get({
             url: url, 
             success: function(res){
-
                 dispatch(updateValue('nodeList', res.data))
-                
-                let rawList = []
-                rawList = res.data.map((data) => {
-                    if(data.dc) {
-                        return data.dc
-                    }
-                });
-                let dcList = [...new Set(rawList)]
-                dispatch(updateValue('dcList', dcList))
+                // let rawList = []
+                // rawList = res.data.map((data) => {
+                //     if(data.dc) {
+                //         return data.dc
+                //     }
+                // });
+                // let dcList = [...new Set(rawList)]
+                // dispatch(updateValue('dcList', dcList))
             },
             dispatch: dispatch
         });
     }
 }
+
+
+export function resetAllNodes() {
+
+    return(dispatch, getState) => {
+        const url = 'http://52.53.185.6:8080/demo/recover';
+        // debugger
+        const nodeIpAddresses = getState().app.nodeList.map(nodes => {
+
+
+            return nodes.node_ip
+        })
+        console.log(nodeIpAddresses)
+        post({
+            url: url,
+            params: nodeIpAddresses,
+            success: function(res){
+
+            },
+            dispatch: dispatch,
+            method: "POST"
+        })
+    }
+}
+
 
 export function updateValue(key, value){
     return(dispatch, getState) => {
@@ -118,6 +121,7 @@ export function appendValue(key, value) {
     return(dispatch, getState) => {
         const state = getState();
         var currentKeyState = state.app[key]
+
         currentKeyState.push(value)
         dispatch(updateData("UPDATE", {"key": key, "value": currentKeyState}))
     }
@@ -130,4 +134,4 @@ export const updateData = (type, data) => {
     }
 }
 
-export default {updateData, getNodeInfo, writeApi, readApi, readChunk, updateValue, appendValue};
+export default {updateData, getNodeInfo, writeApi, readApi, readChunk, updateValue, appendValue, resetAllNodes};

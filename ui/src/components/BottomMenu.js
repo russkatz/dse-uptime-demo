@@ -15,7 +15,7 @@ import Button from '@material-ui/core/Button';
 
 
 import {drawerToggle} from '../actions/NavigationActions';
-import { writeApi, readApi } from '../actions/actions';
+import { writeApi, readApi, resetAllNodes } from '../actions/actions';
 
 import classNames from 'classnames';
 
@@ -24,7 +24,6 @@ const drawerWidth = '100%';
 
 const styles = theme => ({
     root: {
-        
     },
     grow: {
         flexGrow: 1,
@@ -78,25 +77,11 @@ const styles = theme => ({
         width: '100%',
         display: 'flex',
         marginBottom: '20px',
-        justifyContent: 'space-around',
-    },
-    card: {
-        width: '20rem',
-        marginTop: '10px',
-    },
-    title: {
-        fontSize: 14,
-    },
-    pos: {
-        marginBottom: 12,
-        whiteSpace: 'normal',
+        justifyContent: 'space-between',
     },
     button: {
         margin: theme.spacing.unit,
-    },
-    input: {
-    display: 'none',
-    },
+    }
 });
 
 
@@ -115,85 +100,53 @@ class BottomMenu extends React.Component{
         };
 
         render() {
-            const { classes } = this.props;
+            const { classes } = this.props;  
 
-        return (
-            <div className={classes.root}>
-                <AppBar position="fixed" color="primary" className={classes.appBar} style={{flexDirection: 'row'}}>
-                    <Toolbar>
-                    <IconButton onClick={() => { this.props.drawerToggle(!this.props.drawerOpen)}} className={classes.menuButton} color="inherit" aria-label="Open drawer">
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography className={classes.title} variant="h5" component="h2" color="textPrimary" color="inherit" noWrap>
-                    CONTROL CONSOLE
-                    </Typography>
-                    </Toolbar>
-                </AppBar>
+            return (
+                <div className={classes.root}>
+                    <AppBar position="fixed" color="primary" className={classes.appBar} style={{flexDirection: 'row'}}>
+                        <Toolbar>
+                        <IconButton onClick={() => { this.props.drawerToggle(!this.props.drawerOpen)}} className={classes.menuButton} color="inherit" aria-label="Open drawer">
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography className={classes.title} variant="h5" component="h2" color="textPrimary" color="inherit" noWrap>
+                        CONTROL CONSOLE
+                        </Typography>
+                        </Toolbar>
+                    </AppBar>
 
-                <Drawer
-                    anchor="bottom"
-                    open={this.state.bottom}
-                    onClose={this.toggleDrawer('bottom', false)}
-                    variant="permanent"
-                    className={classNames(classes.drawer, {
-                        [classes.drawerOpen]: this.props.drawerOpen,
-                        [classes.drawerClose]: !this.props.drawerOpen,
-                    })}
-                    classes={{
-                        paper: classNames({
-                        [classes.drawerOpen]: this.props.drawerOpen,
-                        [classes.drawerClose]: !this.props.drawerOpen,
-                        }),
-                    }}
-                    open={this.props.drawerOpen}
-                    >
-                    <Paper square className={classes.paper}>
-                        <div className={classes.controlContainer}>
-                            <Card className={classes.card}>
-                                <CardContent>
-                                    <Typography variant="h5" component="h2" color="textPrimary" gutterBottom>
-                                        PURCHASES DATA
-                                    </Typography>
-                                    {/* <Typography className={classes.pos} color="textSecondary">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    </Typography> */}
-                                </CardContent>
-                                <CardActions>
+                    <Drawer
+                        anchor="bottom"
+                        open={this.state.bottom}
+                        onClose={this.toggleDrawer('bottom', false)}
+                        variant="permanent"
+                        className={classNames(classes.drawer, {
+                            [classes.drawerOpen]: this.props.drawerOpen,
+                            [classes.drawerClose]: !this.props.drawerOpen,
+                        })}
+                        classes={{
+                            paper: classNames({
+                            [classes.drawerOpen]: this.props.drawerOpen,
+                            [classes.drawerClose]: !this.props.drawerOpen,
+                            }),
+                        }}
+                        open={this.props.drawerOpen}
+                        >
+                        <Paper square className={classes.paper}>
+                            <div className={classes.controlContainer}>
                                 <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getWrites()}}>BEGIN PURCHASES</Button>
-                                </CardActions>
-                            </Card>
-                            <Card className={classes.card}>
-                                <CardContent>
-                                    <Typography variant="h5" component="h2" color="textPrimary" gutterBottom>
-                                        EVENTS DATA
-                                    </Typography>
-                                    {/* <Typography className={classes.pos} color="textSecondary">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    </Typography> */}
-                                </CardContent>
-                                <CardActions>
+
                                 <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getReads()}}>BEGIN EVENTS</Button>
-                                </CardActions>
-                            </Card>
-                            <Card className={classes.card}>
-                                <CardContent>
-                                    <Typography variant="h5" component="h2" color="textPrimary" gutterBottom>
-                                        TAKE DOWN ONE NODE
-                                    </Typography>
-                                    {/* <Typography className={classes.pos} color="textSecondary">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    </Typography> */}
-                                </CardContent>
-                                <CardActions>
-                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.killOneNode()}}>KILL NODE</Button>
-                                </CardActions>
-                            </Card>
-                        </div>
-                    </Paper>
-                </Drawer>
-            </div>
-        );
-    }
+
+                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.dropNode()}}>TAKE NODE DOWN</Button>
+
+                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.resetAllNodes()}}>RESET NODE SYSTEM</Button>
+                            </div>
+                        </Paper>
+                    </Drawer>
+                </div>
+            );
+        }
 
     componentDidMount(){
     this.props.init()
@@ -220,6 +173,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         getReads: () => {
         dispatch(readApi('http://52.53.185.6:8080/demo/read'))
+        },
+        resetAllNodes: () => {
+            dispatch(resetAllNodes('http://52.53.185.6:8080/demo/recover'))
         },
         drawerToggle: (drawerOpen) => {
         dispatch(drawerToggle(drawerOpen))
