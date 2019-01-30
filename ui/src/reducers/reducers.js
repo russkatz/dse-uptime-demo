@@ -10,7 +10,10 @@ const initialAppState = {
     appName: 'DSE Uptime UI',
     events: [],
     nodeList: [],
-    dcList: [],
+    // dcList: [],
+    dataCenterDetails: [],
+    // countUp: [],
+    // countDown: [],
     writes: [],
     reads: [],
 };

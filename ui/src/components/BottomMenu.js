@@ -175,6 +175,19 @@ class BottomMenu extends React.Component{
                                 <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getReads()}}>BEGIN EVENTS</Button>
                                 </CardActions>
                             </Card>
+                            <Card className={classes.card}>
+                                <CardContent>
+                                    <Typography variant="h5" component="h2" color="textPrimary" gutterBottom>
+                                        TAKE DOWN ONE NODE
+                                    </Typography>
+                                    {/* <Typography className={classes.pos} color="textSecondary">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    </Typography> */}
+                                </CardContent>
+                                <CardActions>
+                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.killOneNode()}}>KILL NODE</Button>
+                                </CardActions>
+                            </Card>
                         </div>
                     </Paper>
                 </Drawer>
