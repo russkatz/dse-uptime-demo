@@ -10,22 +10,45 @@ from dse.policies import DCAwareRoundRobinPolicy,TokenAwarePolicy, ConstantSpecu
 from dse import ConsistencyLevel
 from ssl import PROTOCOL_TLSv1, CERT_REQUIRED, CERT_OPTIONAL
 
+from ConfigParser import ConfigParser
+
+
+config = ConfigParser()
+config.read('demo.ini')
+section = 'WRITE'
+
+#Default CL if not set in config ini
+CL = ConsistencyLevel.ONE
 
 #Configuration
-contactpoints = ['52.53.193.214', '40.83.216.171', '35.199.175.52','52.53.249.100']
-localDC = "OnPrem-DC1"
-cross_dc_latency_ms = 30
-rowcount = 10
-CL = ConsistencyLevel.ONE
-#CL = ConsistencyLevel.ALL
-ks_query = """ CREATE KEYSPACE IF NOT EXISTS demo WITH replication = {'class': 'NetworkTopologyStrategy', 'AWS': 3} """
-auth_provider = PlainTextAuthProvider (username='user1', password='password1')
-ssl_opts = None
-#ssl_opts = {
-#    'ca_certs': '/path/to/ca.crt',
-#    'ssl_version': PROTOCOL_TLSv1,
-#    'cert_reqs':  CERT_OPTIONAL
-#}
+contactpoints = config.get('CONFIG','contactpoints').split(',')
+localDC = config.get('WRITE','localDC')
+rowcount = config.getint('WRITE','rowcount')
+cross_dc_latency_ms = config.getint('CONFIG','crossdclatency')
+ks_query = config.get('CONFIG','ks_query')
+auth_provider = PlainTextAuthProvider (username= config.get('CONFIG','clusteruser'), password= config.get('CONFIG','clusterpass'))
+
+if config.get('WRITE','cl') == "ONE":
+   CL = ConsistencyLevel.ONE
+if config.get('WRITE','cl') == "TWO":
+   CL = ConsistencyLevel.TWO
+if config.get('WRITE','cl') == "LOCAL_QUORUM":
+   CL = ConsistencyLevel.LOCAL_QUORUM
+if config.get('WRITE','cl') == "QUORUM":
+   CL = ConsistencyLevel.QUORUM
+if config.get('WRITE','cl') == "ALL":
+   CL = ConsistencyLevel.ALL
+
+#SSL
+if config.getint('CONFIG','sslenabled') == 0:
+   ssl_opts = None
+else:
+   ssl_opts = {
+       'ca_certs':  config.get('CONFIG','sslca'),
+       'ssl_version': PROTOCOL_TLSv1,
+       'cert_reqs':  CERT_OPTIONAL
+   }
+
 
 
 #End configuration section
