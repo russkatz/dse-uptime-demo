@@ -17,9 +17,6 @@ const initialAppState = {
 const reducers = combineReducers({
     RequestReducer,
     NavigationReducer,
-    
-    //set new reducer here to handle state reset
-
     app: handleAction(
         'UPDATE',
         (state, action) => ({

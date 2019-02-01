@@ -12,7 +12,7 @@ const styles = theme => ({
         flexGrow: 1,
         },
     paperdash: {
-        minHeight: '350px',
+        minHeight: '325px',
         padding: theme.spacing.unit * 2,
         margin: '10px 10px 0 10px'
         },

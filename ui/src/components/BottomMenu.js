@@ -15,7 +15,8 @@ import Button from '@material-ui/core/Button';
 
 
 import {drawerToggle} from '../actions/NavigationActions';
-import { writeApi, readApi, resetAllNodes } from '../actions/actions';
+// import { writeApi, readApi, killOneNode, resetAllNodes, resetOfflineNode } from '../actions/actions';
+import { writeApi, readApi, killOneNode, resetOfflineNode } from '../actions/actions';
 
 import classNames from 'classnames';
 
@@ -134,13 +135,15 @@ class BottomMenu extends React.Component{
                         >
                         <Paper square className={classes.paper}>
                             <div className={classes.controlContainer}>
-                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getWrites()}}>BEGIN PURCHASES</Button>
+                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getWrites()}}>START PURCHASES</Button>
 
-                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getReads()}}>BEGIN EVENTS</Button>
+                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getReads()}}>START EVENTS</Button>
 
-                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.dropNode()}}>TAKE NODE DOWN</Button>
+                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.killOneNode()}}>TAKE NODE DOWN</Button>
 
-                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.resetAllNodes()}}>RESET NODE SYSTEM</Button>
+                                {/* <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.resetAllNodes()}}>RESET SYSTEM</Button> */}
+
+                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.resetOfflineNode()}}>RESET DOWN NODES</Button>
                             </div>
                         </Paper>
                     </Drawer>
@@ -174,8 +177,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         getReads: () => {
         dispatch(readApi('http://52.53.185.6:8080/demo/read'))
         },
-        resetAllNodes: () => {
-            dispatch(resetAllNodes('http://52.53.185.6:8080/demo/recover'))
+        killOneNode: () => {
+            dispatch(killOneNode())
+        },
+        // resetAllNodes: () => {
+        //     dispatch(resetAllNodes())
+        // },
+        resetOfflineNode: () => {
+            dispatch(resetOfflineNode())
         },
         drawerToggle: (drawerOpen) => {
         dispatch(drawerToggle(drawerOpen))
