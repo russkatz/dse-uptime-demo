@@ -30,33 +30,33 @@ class Dashboard extends React.Component {
         let dataCenterDetails = []
 
         this.props.nodeList.map((node, id) => {
-            let newDcDetail;
+            let newDcDetail = {};
+            newDcDetail.name = node.dc
             //TODO:  add logic for starting - multiple options
+            let nodeCondition = ['normal', 'starting', null];
+            let nodeConditionName = ['countUp', 'starting', 'countDown'];
+
             if (dataCenterDetails.length === 0 ){
-                if (node.mode === 'normal') {
-                    newDcDetail = {
-                        name: node.dc,
-                        starting: 0,
-                        countUp: 1,
-                        countDown: 0
-                    };
-                } else {
-                    newDcDetail = {
-                        name: node.dc,
-                        countUp: 0,
-                        countDown: 1
-                    };
-                }
+                nodeCondition.map((value, index) => {
+                    if (node.mode === value) {
+                        newDcDetail[nodeConditionName[index]] = 1;
+                    } else {
+                        newDcDetail[nodeConditionName[index]] = 0;
+                    }
+                }) 
                 dataCenterDetails.push(newDcDetail)
             } else {
                 let dcIsMissing = true;
-
                 dataCenterDetails.map(detail => {
                     if (detail.name === node.dc) {
                         dcIsMissing = false;
                         if (node.mode === 'normal') {
+                            debugger
+
+
                             detail['countUp'] = detail['countUp'] + 1
                         } else {
+
                             detail['countDown'] = detail['countDown'] + 1
                         }
                     }

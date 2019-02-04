@@ -140,7 +140,7 @@ export function resetAllNodes() {
             url: url,
             params: nodesDown,
             success: function(res){
-                setStartingNodes(dispatch, getState)
+                // setStartingNodes(dispatch, getState)
             },
             dispatch: dispatch,
             method: "POST"
