@@ -31,13 +31,15 @@ class Dashboard extends React.Component {
 
         this.props.nodeList.map((node, id) => {
             let newDcDetail;
+            //TODO:  add logic for starting - multiple options
             if (dataCenterDetails.length === 0 ){
                 if (node.mode === 'normal') {
                     newDcDetail = {
                         name: node.dc,
+                        starting: 0,
                         countUp: 1,
                         countDown: 0
-                        };
+                    };
                 } else {
                     newDcDetail = {
                         name: node.dc,
@@ -87,7 +89,7 @@ class Dashboard extends React.Component {
                         <TableRow>
                             <TableCell className={classes.tablecell} style={{color: 'lightgray'}}>DATA CENTER</TableCell>
                             <TableCell className={classes.tablecell} style={{color: 'lightgray'}} align='center'>ONLINE</TableCell>
-                            <TableCell className={classes.tablecell} style={{color: 'lightgray'}} align='center'>IN PROCESS</TableCell>
+                            <TableCell className={classes.tablecell} style={{color: 'lightgray'}} align='center'>STARTING</TableCell>
                             <TableCell className={classes.tablecell} style={{color: 'lightgray'}} align='center'>OFFLINE</TableCell>
                         </TableRow>
                     </TableHead>
@@ -122,9 +124,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     init: () => {
         dispatch(getNodeInfo('http://52.53.185.6:8080/demo/nodefull'))
     },
-
-
-
     drawerToggle: (drawerOpen) => {
         dispatch(drawerToggle(drawerOpen))
     },

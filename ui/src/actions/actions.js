@@ -73,12 +73,29 @@ export function getNodeInfo(url) {
             get({
                 url: url, 
                 success: function(res){
+                    //TODO: only allow mode from starting to normal
+                    //grab the current node list from state - iterate through looking for starting status
+
+                    const normalStartNodeList = [];
+                    getState().app.nodeList.map(node => {
+                        if (node.mode === 'normal' || 'starting') {
+                            onlineNodeList.push(node.node_ip)
+                        } else {
+                            return null;
+                        }
+                        console.log(normalStartNodeList)
+                    })
+
+                    //for the ips in starting status, iterate through res.data and enforce the following conditions:
+                    //mode can only go to normal not to any other state
+                    //if mode is not normal, set it to starting
+
                     dispatch(updateValue('nodeList', res.data))
                 },
                 dispatch: dispatch
             });
-        }, 8000)
-        console.log(interval)
+        }, 5000)
+        
     }
 }
 
@@ -106,21 +123,20 @@ export function resetOfflineNode() {
         const url = 'http://52.53.185.6:8080/demo/recover';
         // debugger
         const nodesDownList = [];
-        const nodeIpAddresses= getState().app.nodeList.map(node => {
+        const list = getState().app.nodeList.map(node => {
             if (node.mode !== 'normal') {
                 nodesDownList.push(node.node_ip)
             } else {
                 return null;
             }
             console.log(nodesDownList)
-            // console.log(nodeIpAddresses)
         })
-
 
         post({
             url: url,
             params: nodesDownList,
             success: function(res){
+                setStartingNodes(dispatch, getState)
             },
             dispatch: dispatch,
             method: "POST"
@@ -128,27 +144,41 @@ export function resetOfflineNode() {
     }
 }
 
+export function setStartingNodes(dispatch, getState) {
+    //get the current nodelist from state
+    // const nodesList = .getStat?e().app.
+
+    //set the mode for any down nodes (ip) to starting - watch out for our refresh
+
+    //dispatch it to store (update value)
+}
+
 export function killOneNode() {
 
     return(dispatch, getState) => {
         const url = 'http://52.53.185.6:8080/demo/killnode';
         // debugger
-        const nodeIpAddresses = getState().app.nodeList.map(nodes => {
-            return nodes.node_ip
-        })
+        const nodeIpAddresses = getState().app.nodeList.filter((node) => {
+            return node.mode === 'normal';
+        }
+    
+        ).map(node => {
+            return node.node_ip
+        }) 
         const values = Object.values(nodeIpAddresses)
         const randomValue = values[parseInt(Math.random() * values.length)]
 
-        console.log([randomValue])
-
-        post({
-            url: url,
-            params: [randomValue],
-            success: function(res){
-            },
-            dispatch: dispatch,
-            method: "POST"
-        })
+        // console.log([randomValue]) 
+        if (randomValue !== undefined) {
+            post({
+                url: url,
+                params: [randomValue],
+                success: function(res){
+                },
+                dispatch: dispatch,
+                method: "POST"
+            })
+        }
     }
 }
 
