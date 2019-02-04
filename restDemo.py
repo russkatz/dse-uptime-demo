@@ -71,7 +71,7 @@ cluster.shutdown()
 def detectCluster():
    clusterInfo = []
    nodeInfo = []
-   url = "http://%s:%s/%s/nodes""" % (lcm, lcmport, clustername)
+   url = """http://%s:%s/%s/nodes""" % (lcm, lcmport, clustername)
    print url
    response = urllib2.urlopen(url)
    data = response.read()
@@ -85,8 +85,13 @@ def recoverNode(n):
    c = paramiko.SSHClient()
    c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
    c.connect( hostname = n, username = username, pkey = k )
+   url = """http://%s:%s/%s/ops""" % (lcm, lcmport, clustername)
+   #d = """{"ips":["%s"],"action":"stop"}""" % (n)
+   #requests.post(url, data = d)
    stdin , stdout, stderr = c.exec_command("sudo service dse stop")
    time.sleep(3)
+   d = """{"ips":["%s"],"action":"start"}""" % (n)
+   requests.post(url, data = d)
    stdin , stdout, stderr = c.exec_command("sudo rm -rf /tmp/dse/*")
    stdin , stdout, stderr = c.exec_command("sudo service dse start")
    return "Recovered"
