@@ -1,13 +1,12 @@
 import {createAction} from 'redux-actions';
 import requestActions from './requestActions.js';
 import { get } from '../common/requests.js';
-import { streamingRequest } from '../common/requests.js';
 import { post } from '../common/requests.js';
+import { streamingRequest } from '../common/requests.js';
 
 
 export function writeApi() {
     var data = '{"dc": "AWS", "count": 5000, "cl": "ONE"}';
-    // debugger
     return(dispatch, getState) => {
         const url = 'http://52.53.185.6:8080/demo/write';
         streamingRequest({
@@ -23,9 +22,9 @@ export function writeApi() {
     }
 
 }
+
 export function readApi() {
     var data = '{"dc": "AWS", "count": 5000, "cl": "ONE"}';
-    //debugger
     return(dispatch, getState) => {
         const url = 'http://52.53.185.6:8080/demo/read';
         streamingRequest({
@@ -51,7 +50,6 @@ export function readChunk(reader, dispatch, valueKey){
                 dispatch(appendValue(valueKey, incomingApiData));
             }
         });
-
         if (result.done) {
             dispatch(removeRequest(key))
             if (args == null){
@@ -75,17 +73,17 @@ export function getNodeInfo(url) {
                 success: function(res){
                     //TODO: only allow mode from starting to normal
                     //grab the current node list from state - iterate through looking for starting status
+                    const startingNodes = [];
 
-                    const normalStartNodeList = [];
                     getState().app.nodeList.map(node => {
-                        if (node.mode === 'normal' || 'starting') {
-                            onlineNodeList.push(node.node_ip)
+                        if (node.mode === 'starting') {
+                            startingNodes.push(node.node_ip)
                         } else {
-                            return null;
+                            return startingNodes
                         }
-                        console.log(normalStartNodeList)
                     })
-
+                    console.log(startingNodes)
+                    
                     //for the ips in starting status, iterate through res.data and enforce the following conditions:
                     //mode can only go to normal not to any other state
                     //if mode is not normal, set it to starting
@@ -99,42 +97,48 @@ export function getNodeInfo(url) {
     }
 }
 
-// export function resetAllNodes() {
+export function dropOneNode() {
+    return(dispatch, getState) => {
+        const url = 'http://52.53.185.6:8080/demo/killnode';
+        const nodeIpAddresses = getState().app.nodeList.filter((node) => {
+            return node.mode === 'normal';
+        }).map(node => {
+            return node.node_ip
+        }) 
+        const randomNode = nodeIpAddresses[parseInt(Math.random() * nodeIpAddresses.length)]
 
-//     return(dispatch, getState) => {
-//         const url = 'http://52.53.185.6:8080/demo/recover';
-//         // debugger
-//         const nodeIpAddresses = getState().app.nodeList.map(nodes => {
-//             return nodes.node_ip
-//         })
-//         // console.log(nodeIpAddresses)
-//         post({
-//             url: url,
-//             params: nodeIpAddresses,
-//             success: function(res){
-//             },
-//             dispatch: dispatch,
-//             method: "POST"
-//         })
-//     }
-// }
-export function resetOfflineNode() {
+        console.log([randomNode]) 
+
+        if (randomNode !== undefined) {
+            post({
+                url: url,
+                params: [randomNode],
+                success: function(res){
+
+                },
+                dispatch: dispatch,
+                method: "POST"
+            })
+        }
+    }
+}
+
+export function resetAllNodes() {
     return(dispatch, getState) => {
         const url = 'http://52.53.185.6:8080/demo/recover';
         // debugger
-        const nodesDownList = [];
-        const list = getState().app.nodeList.map(node => {
-            if (node.mode !== 'normal') {
-                nodesDownList.push(node.node_ip)
-            } else {
-                return null;
-            }
-            console.log(nodesDownList)
+        const nodesDown = [];
+        getState().app.nodeList.map(node => {
+            if (node.mode === null) {
+                nodesDown.push(node.node_ip)
+            } 
+            return nodesDown
         })
+        console.log(nodesDown)
 
         post({
             url: url,
-            params: nodesDownList,
+            params: nodesDown,
             success: function(res){
                 setStartingNodes(dispatch, getState)
             },
@@ -144,6 +148,7 @@ export function resetOfflineNode() {
     }
 }
 
+
 export function setStartingNodes(dispatch, getState) {
     //get the current nodelist from state
     // const nodesList = .getStat?e().app.
@@ -151,35 +156,6 @@ export function setStartingNodes(dispatch, getState) {
     //set the mode for any down nodes (ip) to starting - watch out for our refresh
 
     //dispatch it to store (update value)
-}
-
-export function killOneNode() {
-
-    return(dispatch, getState) => {
-        const url = 'http://52.53.185.6:8080/demo/killnode';
-        // debugger
-        const nodeIpAddresses = getState().app.nodeList.filter((node) => {
-            return node.mode === 'normal';
-        }
-    
-        ).map(node => {
-            return node.node_ip
-        }) 
-        const values = Object.values(nodeIpAddresses)
-        const randomValue = values[parseInt(Math.random() * values.length)]
-
-        // console.log([randomValue]) 
-        if (randomValue !== undefined) {
-            post({
-                url: url,
-                params: [randomValue],
-                success: function(res){
-                },
-                dispatch: dispatch,
-                method: "POST"
-            })
-        }
-    }
 }
 
 
@@ -206,5 +182,5 @@ export const updateData = (type, data) => {
     }
 }
 
-// export default {updateData, getNodeInfo, writeApi, readApi, readChunk, updateValue, appendValue, resetAllNodes, resetOfflineNode};
-export default {updateData, getNodeInfo, writeApi, readApi, readChunk, updateValue, appendValue, resetOfflineNode};
+
+export default {writeApi, readApi, readChunk, getNodeInfo, dropOneNode, resetAllNodes, setStartingNodes, updateValue, appendValue, updateData};

@@ -15,8 +15,7 @@ import Button from '@material-ui/core/Button';
 
 
 import {drawerToggle} from '../actions/NavigationActions';
-// import { writeApi, readApi, killOneNode, resetAllNodes, resetOfflineNode } from '../actions/actions';
-import { writeApi, readApi, killOneNode, resetOfflineNode } from '../actions/actions';
+import { writeApi, readApi, dropOneNode, resetAllNodes } from '../actions/actions';
 
 import classNames from 'classnames';
 
@@ -139,11 +138,9 @@ class BottomMenu extends React.Component{
 
                                 <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getReads()}}>START EVENTS</Button>
 
-                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.killOneNode()}}>TAKE NODE DOWN</Button>
+                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.dropOneNode()}}>DROP ONE NODE</Button>
 
-                                {/* <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.resetAllNodes()}}>RESET SYSTEM</Button> */}
-
-                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.resetOfflineNode()}}>RESET DOWN NODES</Button>
+                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.resetAllNodes()}}>RESET ALL NODES</Button>
                             </div>
                         </Paper>
                     </Drawer>
@@ -177,14 +174,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         getReads: () => {
         dispatch(readApi('http://52.53.185.6:8080/demo/read'))
         },
-        killOneNode: () => {
-            dispatch(killOneNode())
+        dropOneNode: () => {
+            dispatch(dropOneNode())
         },
-        // resetAllNodes: () => {
-        //     dispatch(resetAllNodes())
-        // },
-        resetOfflineNode: () => {
-            dispatch(resetOfflineNode())
+        resetAllNodes: () => {
+            dispatch(resetAllNodes())
         },
         drawerToggle: (drawerOpen) => {
         dispatch(drawerToggle(drawerOpen))
