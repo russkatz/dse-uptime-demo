@@ -71,22 +71,6 @@ export function getNodeInfo(url) {
             get({
                 url: url, 
                 success: function(res){
-                    //TODO: only allow mode from starting to normal
-                    //grab the current node list from state - iterate through looking for starting status
-                    const startingNodes = [];
-
-                    getState().app.nodeList.map(node => {
-                        if (node.mode === 'starting') {
-                            startingNodes.push(node.node_ip)
-                        } else {
-                            return startingNodes
-                        }
-                    })
-                    console.log(startingNodes)
-                    
-                    //for the ips in starting status, iterate through res.data and enforce the following conditions:
-                    //mode can only go to normal not to any other state
-                    //if mode is not normal, set it to starting
 
                     dispatch(updateValue('nodeList', res.data))
                 },

@@ -47,14 +47,17 @@ class Dashboard extends React.Component {
             } else {
                 let dcIsMissing = true;
                 dataCenterDetails.map(detail => {
+                    // debugger
                     if (detail.name === node.dc) {
                         dcIsMissing = false;
-                        if (node.mode === 'normal') {
-                            detail['countUp'] = detail['countUp'] + 1
-                        } else {
-
-                            detail['countDown'] = detail['countDown'] + 1
-                        }
+                        nodeCondition.map((value, index) => {
+                            if (node.mode === value) {
+                                detail[nodeConditionName[index]] = detail[nodeConditionName[index]] + 1
+                            } else {
+                                detail[nodeConditionName[index]] = detail[nodeConditionName[index]] + 0
+                            }
+                            // debugger
+                        })
                     }
                 })
                 if (dcIsMissing) {
@@ -69,7 +72,6 @@ class Dashboard extends React.Component {
                     
                 }
             }
-            //future logic about status - if "STARTING" node
         })
         
         return (
@@ -89,7 +91,7 @@ class Dashboard extends React.Component {
                                 <TableRow key={id}>
                                     <TableCell className={classes.tablecell}>{detail.name}</TableCell>
                                     <TableCell style={{color: 'green'}} className={classes.tablecell} align='center'>{detail.countUp}</TableCell>
-                                    <TableCell style={{color: 'orange'}} className={classes.tablecell} align='center'>{detail.countDown}</TableCell>
+                                    <TableCell style={{color: 'orange'}} className={classes.tablecell} align='center'>{detail.starting}</TableCell>
                                     <TableCell style={{color: 'red'}} className={classes.tablecell} align='center'>{detail.countDown}</TableCell>
                                 </TableRow>
                                 )
