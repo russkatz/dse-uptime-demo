@@ -20,7 +20,6 @@ dcs=(`curl -s http://${opscenter}:8888/${cluster}/nodes | jq -rc ".[].dc" | sort
 for i in ${dcs[@]}; do
   dccount=$(( $dccount + 1 ))
 done
-echo ${dcs[$((RANDOM % $dccount))]}
 
 sed -i "s/^contactpoints.*$/contactpoints = $nodes/g" $inifile
 sed -i "s/^clustername.*$/clustername = $cluster/g" $inifile
