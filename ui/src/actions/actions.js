@@ -89,14 +89,14 @@ export function dropOneNode() {
         }).map(node => {
             return node.node_ip
         }) 
-        const randomNode = nodeIpAddresses[parseInt(Math.random() * nodeIpAddresses.length)]
+        const randomDroppedNode = nodeIpAddresses[parseInt(Math.random() * nodeIpAddresses.length)]
 
-        console.log([randomNode]) 
+        console.log([randomDroppedNode]) 
 
-        if (randomNode !== undefined) {
+        if (randomDroppedNode !== undefined) {
             post({
                 url: url,
-                params: [randomNode],
+                params: [randomDroppedNode],
                 success: function(res){
 
                 },
@@ -133,14 +133,9 @@ export function resetAllNodes() {
 }
 
 
-export function setStartingNodes(dispatch, getState) {
-    //get the current nodelist from state
-    // const nodesList = .getStat?e().app.
+// export function setStartingNodes(dispatch, getState) {
 
-    //set the mode for any down nodes (ip) to starting - watch out for our refresh
-
-    //dispatch it to store (update value)
-}
+// }
 
 
 export function updateValue(key, value){
@@ -167,4 +162,4 @@ export const updateData = (type, data) => {
 }
 
 
-export default {writeApi, readApi, readChunk, getNodeInfo, dropOneNode, resetAllNodes, setStartingNodes, updateValue, appendValue, updateData};
+export default {writeApi, readApi, readChunk, getNodeInfo, dropOneNode, resetAllNodes, updateValue, appendValue, updateData};

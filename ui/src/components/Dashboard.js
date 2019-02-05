@@ -33,6 +33,7 @@ class Dashboard extends React.Component {
             let newDcDetail = {};
             newDcDetail.name = node.dc
             let nodeCondition = ['normal', 'starting', null];
+            //TODO:  how handle nodeCondition when it goes NULL a second time - this shows on dashboard
             let nodeConditionName = ['countUp', 'starting', 'countDown'];
 
             if (dataCenterDetails.length === 0 ){
@@ -47,7 +48,6 @@ class Dashboard extends React.Component {
             } else {
                 let dcIsMissing = true;
                 dataCenterDetails.map(detail => {
-                    // debugger
                     if (detail.name === node.dc) {
                         dcIsMissing = false;
                         nodeCondition.map((value, index) => {
@@ -56,7 +56,6 @@ class Dashboard extends React.Component {
                             } else {
                                 detail[nodeConditionName[index]] = detail[nodeConditionName[index]] + 0
                             }
-                            // debugger
                         })
                     }
                 })
@@ -91,7 +90,7 @@ class Dashboard extends React.Component {
                                 <TableRow key={id}>
                                     <TableCell className={classes.tablecell}>{detail.name}</TableCell>
                                     <TableCell style={{color: 'green'}} className={classes.tablecell} align='center'>{detail.countUp}</TableCell>
-                                    <TableCell style={{color: 'orange'}} className={classes.tablecell} align='center'>{detail.starting}</TableCell>
+                                    <TableCell style={{color: '#ffc966'}} className={classes.tablecell} align='center'>{detail.starting}</TableCell>
                                     <TableCell style={{color: 'red'}} className={classes.tablecell} align='center'>{detail.countDown}</TableCell>
                                 </TableRow>
                                 )
