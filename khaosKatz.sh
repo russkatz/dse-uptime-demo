@@ -3,8 +3,8 @@
 inifile=demo.ini
 interactive=1
 lcm=127.0.0.1
-lcmport=8888
-clustername=Demo
+lcm=`grep -A 20 "\[CONFIG\]" $inifile | grep "^lcm =" | head -1 | awk '{print $NF}'`
+lcmport=`grep -A 20 "\[CONFIG\]" $inifile | grep "^lcmport =" | head -1 | awk '{print $NF}'`
 clustername=`grep -A 20 "\[CONFIG\]" $inifile | grep "^clustername" | head -1 | awk '{print $NF}'`
 localdc=`grep -A 20 "\[CONFIG\]" $inifile | grep "^localDC" | head -1 | awk '{print $NF}'`
 username=ubuntu
