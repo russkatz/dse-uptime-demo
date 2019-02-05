@@ -32,7 +32,6 @@ class Dashboard extends React.Component {
         this.props.nodeList.map((node, id) => {
             let newDcDetail = {};
             newDcDetail.name = node.dc
-            //TODO:  add logic for starting - multiple options
             let nodeCondition = ['normal', 'starting', null];
             let nodeConditionName = ['countUp', 'starting', 'countDown'];
 
@@ -51,9 +50,6 @@ class Dashboard extends React.Component {
                     if (detail.name === node.dc) {
                         dcIsMissing = false;
                         if (node.mode === 'normal') {
-                            debugger
-
-
                             detail['countUp'] = detail['countUp'] + 1
                         } else {
 
@@ -62,19 +58,13 @@ class Dashboard extends React.Component {
                     }
                 })
                 if (dcIsMissing) {
-                    if (node.mode === 'normal') {
-                        newDcDetail = {
-                            name: node.dc,
-                            countUp: 1,
-                            countDown: 0
-                        };
-                    } else {
-                        newDcDetail = {
-                            name: node.dc,
-                            countUp: 0,
-                            countDown: 1
-                        };
-                    }
+                    nodeCondition.map((value, index) => {
+                        if (node.mode === value) {
+                            newDcDetail[nodeConditionName[index]] = 1;
+                        } else {
+                            newDcDetail[nodeConditionName[index]] = 0;
+                        }
+                    }) 
                     dataCenterDetails.push(newDcDetail)
                     
                 }
