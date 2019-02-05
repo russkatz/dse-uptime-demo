@@ -1,0 +1,25 @@
+[CONFIG]
+contactpoints = X
+localDC = X
+lcm = 127.0.0.1
+lcmport = 8888
+clustername = X
+clusteruser = user1
+clusterpass = password1
+sshusername = opsc
+sshkeyfile = /home/ubuntu/dse-uptime-demo-working/priv.key
+crossdclatency = 30
+rowcount = 10
+sslenabled = 0
+sslca = /path/to/ca.crt
+ks_query = CREATE KEYSPACE IF NOT EXISTS demo WITH replication = {'class': 'NetworkTopologyStrategy', 'AWS': 3}
+
+[WRITE]
+writelocalDC = X
+rowcount = 10
+cl = ONE
+
+[READ]
+readlocalDC = X
+rowcount = 10
+cl = ONE
