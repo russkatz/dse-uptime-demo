@@ -2,19 +2,15 @@
 
 inifile=demo.ini
 interactive=1
-lcm=127.0.0.1
-lcm=`grep -A 20 "\[CONFIG\]" $inifile | grep "^lcm =" | head -1 | awk '{print $NF}'`
-lcmport=`grep -A 20 "\[CONFIG\]" $inifile | grep "^lcmport =" | head -1 | awk '{print $NF}'`
-clustername=`grep -A 20 "\[CONFIG\]" $inifile | grep "^clustername" | head -1 | awk '{print $NF}'`
-localdc=`grep -A 20 "\[CONFIG\]" $inifile | grep "^localDC" | head -1 | awk '{print $NF}'`
-username=ubuntu
-keyfile=./priv.key
 rolling_restart_delay=1 #seconds between nodes during the rolling restart scenario
 random_kill_percent=33 #Percentage chance each node gets killed in the random scenario
 
-echo $clustername
-
-sleep 5
+clustername=`grep -A 20 "\[CONFIG\]" $inifile | grep "^clustername" | head -1 | awk '{print $NF}'`
+lcm=`grep -A 20 "\[KHAOS\]" $inifile | grep "^lcm =" | head -1 | awk '{print $NF}'`
+lcmport=`grep -A 20 "\[KHAOS\]" $inifile | grep "^lcmport =" | head -1 | awk '{print $NF}'`
+localdc=`grep -A 20 "\[KHAOS\]" $inifile | grep "^localDC" | head -1 | awk '{print $NF}'`
+username=`grep -A 20 "\[KHAOS\]" $inifile | grep "^sshusername" | head -1 | awk '{print $NF}'`
+keyfile=`grep -A 20 "\[KHAOS\]" $inifile | grep "^sshkeyfile" | head -1 | awk '{print $NF}'`
 
 detect () {
  nodes=(`curl -s http://${lcm}:${lcmport}/${clustername}/nodes | jq -rc ".[].node_ip" | paste -s`)
