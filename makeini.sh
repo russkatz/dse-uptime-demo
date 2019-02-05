@@ -24,6 +24,6 @@ done
 sed -i "s/^contactpoints.*$/contactpoints = $nodes/g" $inifile
 sed -i "s/^clustername.*$/clustername = $cluster/g" $inifile
 rdc=${dcs[$((RANDOM % $dccount))]}
-sed -i "s/^localDC.*$/localDC = $rdc/g" $inifile
+sed -i "s/^khaoslocalDC.*$/localDC = $rdc/g" $inifile
 sed -i "s/^writelocalDC.*$/localDC = $rdc/g" $inifile
 sed -i "s/^readlocalDC.*$/localDC = ${dcs[$((RANDOM % $dccount))]}/g" $inifile
