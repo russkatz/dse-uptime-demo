@@ -1,13 +1,8 @@
 [CONFIG]
 contactpoints = X
-localDC = X
-lcm = 127.0.0.1
-lcmport = 8888
 clustername = X
 clusteruser = user1
 clusterpass = password1
-sshusername = opsc
-sshkeyfile = /home/ubuntu/dse-uptime-demo-working/priv.key
 crossdclatency = 30
 rowcount = 10
 sslenabled = 0
@@ -23,3 +18,11 @@ cl = ONE
 readlocalDC = X
 rowcount = 10
 cl = ONE
+
+[KHAOS]
+lcm = 127.0.0.1
+lcmport = 8888
+sshusername = ubuntu
+sshkeyfile = /path/to/priv.key
+khaoslocalDC = X
+
