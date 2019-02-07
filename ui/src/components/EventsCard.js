@@ -14,14 +14,12 @@ const styles = theme => ({
         textAlign: 'center',
     },
     cardbody: {
-        padding: '0 0 0 45px',
-        marginLeft: '7px',
+        color: 'darkgray'
     },
     cardtext: {
         height: '260px',
         overflow: 'scroll',
-        fontSize: '20px',
-        margin: '5px 5px 20px 5px',
+        fontSize: '30px',
     }
 });
 
@@ -37,6 +35,7 @@ class EventsCard extends React.Component {
                     <CardHeader className={classes.cardheader} style={{height: '50px', paddingTop: '20px'}}>NODE EVENTS</CardHeader>
                     <CardBody className={classes.cardbody}>
                     <div className={classes.cardtext}>
+
                     {this.props.events}
                     {/* {JSON.stringify([...this.props.reads].reverse())} */}
 
@@ -51,7 +50,7 @@ class EventsCard extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        reads: state.app.reads
+        events: state.app.events
     }
 }
 

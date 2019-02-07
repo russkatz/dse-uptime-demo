@@ -123,7 +123,7 @@ class BottomMenu extends React.Component{
                             <MenuIcon />
                         </IconButton>
                         <Typography className={classes.title} variant="h5" component="h2" color="default" noWrap>
-                        ACTIONS
+                        CONTROLS
                         </Typography>
                         </Toolbar>
                     </AppBar>
@@ -149,7 +149,7 @@ class BottomMenu extends React.Component{
                             <div className={classes.controlContainer}>
                                 <Button variant="contained" color="secondary" className={classes.button} size="small" onClick={() => {this.props.getWrites(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>START PURCHASES</Button>
 
-                                <Button variant="contained" color="secondary" className={classes.button} size="small" onClick={() => {this.props.getReads(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>START EVENTS</Button>
+                                <Button variant="contained" color="secondary" className={classes.button} size="small" onClick={() => {this.props.getReads(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>START READS</Button>
 
                                 <Button variant="contained" color="secondary" className={classes.button} size="small" onClick={() => {this.props.dropOneNode(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>DROP ONE NODE</Button>
 

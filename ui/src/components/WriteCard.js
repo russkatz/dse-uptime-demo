@@ -13,15 +13,10 @@ const styles = theme => ({
         color: 'black',
         textAlign: 'center',
     },
-    cardbody: {
-        padding: '0 0 0 45px',
-        marginLeft: '7px'
-    },
     cardtext: {
         height: '260px',
         overflow: 'scroll',
         fontSize: '20px',
-        margin: '5px 5px 20px 5px',
     }
 });
 
@@ -37,7 +32,7 @@ class WriteCard extends React.Component {
                 <Card className={classes.card}>
                     <CardHeader className={classes.cardheader} style={{height: '50px', paddingTop: '20px'}}>PURCHASE TRANSACTIONS</CardHeader>
                     <CardBody className={classes.cardbody}>
-                    <div className={classes.cardtext} style={{color: "blue"}}>
+                    <div className={classes.cardtext}>
                     
                     {JSON.stringify([...this.props.writes].reverse())}
                     

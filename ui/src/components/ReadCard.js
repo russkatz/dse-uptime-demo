@@ -14,14 +14,12 @@ const styles = theme => ({
         textAlign: 'center',
     },
     cardbody: {
-        padding: '0 0 0 45px',
-        marginLeft: '7px',
+        color: 'blue',
     },
     cardtext: {
         height: '260px',
         overflow: 'scroll',
         fontSize: '20px',
-        margin: '5px 5px 20px 5px',
     }
 });
 
