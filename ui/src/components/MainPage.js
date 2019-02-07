@@ -24,7 +24,7 @@ const styles = theme => ({
 });
 
 
-class LocalNodePage extends Component {
+class MainPage extends Component {
     render() {
         const { classes } = this.props;
 
@@ -55,4 +55,4 @@ class LocalNodePage extends Component {
     }
 }
 
-export default withStyles(styles)(LocalNodePage);
+export default withStyles(styles)(MainPage);

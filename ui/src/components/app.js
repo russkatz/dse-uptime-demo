@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import TopMenu from './TopMenu';
-import LocalNodePage from './LocalNodePage';
+import MainPage from './MainPage';
 import BottomMenu from './BottomMenu';
+import MainView from './MainPage';
 
 
 const theme = createMuiTheme({
@@ -40,7 +41,7 @@ class App extends Component {
         return (
         <MuiThemeProvider theme={theme}>
             <TopMenu />
-            <LocalNodePage />
+            <MainPage />
             {/* <Grid>
                 {
                 this.props.NavigationReducer.page === 'Local Node Page' ?

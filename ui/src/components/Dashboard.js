@@ -17,6 +17,9 @@ const styles = theme => ({
     },
     tablecell: {
         fontSize: '40px',
+    },
+    table: {
+
     }
 });
 
@@ -30,10 +33,9 @@ class Dashboard extends React.Component {
         let dataCenterDetails = []
 
         let nodeList = this.props.nodeList
-        // debugger
         nodeList.map((node, id) => {
             if (node.mode === null) {
-                let oldNodeList = this.props.oldNodeList
+                var oldNodeList = this.props.oldNodeList.bind
 
                 if (oldNodeList === undefined) {
                     return node
@@ -94,10 +96,10 @@ class Dashboard extends React.Component {
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
-                            <TableCell className={classes.tablecell} style={{color: 'lightgray'}}>DATA CENTER</TableCell>
-                            <TableCell className={classes.tablecell} style={{color: 'lightgray'}} align='center'>ONLINE</TableCell>
-                            <TableCell className={classes.tablecell} style={{color: 'lightgray'}} align='center'>STARTING</TableCell>
-                            <TableCell className={classes.tablecell} style={{color: 'lightgray'}} align='center'>OFFLINE</TableCell>
+                            <TableCell className={classes.tablecell} style={{color: 'lightgray', fontSize: '30px'}}>DATA CENTER</TableCell>
+                            <TableCell className={classes.tablecell} style={{color: 'lightgray', fontSize: '30px'}} align='center'>ONLINE</TableCell>
+                            <TableCell className={classes.tablecell} style={{color: 'lightgray', fontSize: '30px'}} align='center'>STARTING</TableCell>
+                            <TableCell className={classes.tablecell} style={{color: 'lightgray', fontSize: '30px'}} align='center'>OFFLINE</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
