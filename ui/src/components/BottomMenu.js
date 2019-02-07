@@ -82,6 +82,7 @@ const styles = theme => ({
     },
     button: {
         margin: theme.spacing.unit,
+        color: 'secondary',
     }
 });
 
@@ -146,13 +147,13 @@ class BottomMenu extends React.Component{
                         >
                         <Paper square className={classes.paper}>
                             <div className={classes.controlContainer}>
-                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getWrites(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>START PURCHASES</Button>
+                                <Button variant="contained" color="secondary" className={classes.button} size="small" onClick={() => {this.props.getWrites(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>START PURCHASES</Button>
 
-                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getReads(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>START EVENTS</Button>
+                                <Button variant="contained" color="secondary" className={classes.button} size="small" onClick={() => {this.props.getReads(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>START EVENTS</Button>
 
-                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.dropOneNode(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>DROP ONE NODE</Button>
+                                <Button variant="contained" color="secondary" className={classes.button} size="small" onClick={() => {this.props.dropOneNode(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>DROP ONE NODE</Button>
 
-                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.resetAllNodes(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>RESET ALL NODES</Button>
+                                <Button variant="contained" color="secondary" className={classes.button} size="small" onClick={() => {this.props.resetAllNodes(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>RESET ALL NODES</Button>
                             </div>
                         </Paper>
                     </Drawer>

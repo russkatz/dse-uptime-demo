@@ -11,7 +11,6 @@ const styles = theme => ({
         backgroundColor: 'silver',
         fontSize: '30px',
         color: 'black',
-        padding: '10px',
         textAlign: 'center',
     },
     cardbody: {
@@ -36,7 +35,7 @@ class WriteCard extends React.Component {
         return (
             <div className={classes.root}>
                 <Card className={classes.card}>
-                    <CardHeader className={classes.cardheader} style={{height: '60px'}}>PURCHASE TRANSACTIONS</CardHeader>
+                    <CardHeader className={classes.cardheader} style={{height: '50px', paddingTop: '20px'}}>PURCHASE TRANSACTIONS</CardHeader>
                     <CardBody className={classes.cardbody}>
                     <div className={classes.cardtext} style={{color: "blue"}}>
                     

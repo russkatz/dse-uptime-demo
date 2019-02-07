@@ -93,17 +93,17 @@ class Dashboard extends React.Component {
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
-                            <TableCell className={classes.tablecell} style={{color: 'darkgray', fontSize: '25px'}}>DATA CENTER</TableCell>
-                            <TableCell className={classes.tablecell} style={{color: 'darkgray', fontSize: '25px'}} align='center'>ONLINE</TableCell>
-                            <TableCell className={classes.tablecell} style={{color: 'darkgray', fontSize: '25px'}} align='center'>STARTING</TableCell>
-                            <TableCell className={classes.tablecell} style={{color: 'darkgray', fontSize: '25px'}} align='center'>OFFLINE</TableCell>
+                            <TableCell className={classes.tablecell} style={{color: 'black', fontSize: '25px'}}>DATA CENTER</TableCell>
+                            <TableCell className={classes.tablecell} style={{color: 'black', fontSize: '25px'}} align='center'>ONLINE</TableCell>
+                            <TableCell className={classes.tablecell} style={{color: 'black', fontSize: '25px'}} align='center'>STARTING</TableCell>
+                            <TableCell className={classes.tablecell} style={{color: 'black', fontSize: '25px'}} align='center'>OFFLINE</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {dataCenterDetails.map ((detail, id) => {
                             return (
                                 <TableRow key={id}>
-                                    <TableCell style={{fontSize: '28px'}} className={classes.tablecell}>{detail.name}</TableCell>
+                                    <TableCell style={{fontSize: '30px', color: 'darkgray'}} className={classes.tablecell}>{detail.name}</TableCell>
                                     <TableCell style={{color: 'green'}} className={classes.tablecell} align='center'>{detail.countUp}</TableCell>
                                     <TableCell style={{color: '#ffc966'}} className={classes.tablecell} align='center'>{detail.starting}</TableCell>
                                     <TableCell style={{color: 'red'}} className={classes.tablecell} align='center'>{detail.countDown}</TableCell>
