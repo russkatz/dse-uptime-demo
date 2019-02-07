@@ -17,7 +17,8 @@ export function writeApi() {
                 readChunk(reader, dispatch, "writes")
             },
             dispatch: dispatch,
-            method: "POST"
+            method: "POST",
+            description: 'Initiating writes for purchase transaction'
         })
     }
 
@@ -35,7 +36,8 @@ export function readApi() {
                 readChunk(reader, dispatch, "reads")
             },
             dispatch: dispatch,
-            method: "POST"
+            method: "POST",
+            description: 'Initiating reads for purchase transaction'
         })
     }
 }
@@ -71,10 +73,28 @@ export function getNodeInfo(url) {
             get({
                 url: url, 
                 success: function(res){
+                    let oldNodeList = []
 
+                    Object.assign(oldNodeList, getState().app.nodeList)
+
+                    oldNodeList.map((node, id) => {
+                        if (node.mode === null) {
+                            let olderNodeList = getState().app.oldNodeList
+            
+                            if (olderNodeList === undefined) {
+                                return node
+                            }
+                            if (olderNodeList[id].mode === 'starting') {
+                                node.mode = 'starting'
+                            }
+                            return node
+                        } 
+                    })
+                    dispatch(updateValue('oldNodeList', oldNodeList))
                     dispatch(updateValue('nodeList', res.data))
                 },
-                dispatch: dispatch
+                dispatch: dispatch,
+                description: 'Fetching cluster status'
             });
         }, 5000)
         
@@ -124,18 +144,13 @@ export function resetAllNodes() {
             url: url,
             params: nodesDown,
             success: function(res){
-                // setStartingNodes(dispatch, getState)
+            
             },
             dispatch: dispatch,
             method: "POST"
         })
     }
 }
-
-
-// export function setStartingNodes(dispatch, getState) {
-
-// }
 
 
 export function updateValue(key, value){

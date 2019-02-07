@@ -12,7 +12,7 @@ function uuidv4() {
     )
 }
 
-export function get({url, params, success, error, dispatch, auth = "true"} = {}) {
+export function get({url, params, success, error, dispatch, description, auth = "true"} = {}) {
     var key = uuidv4()
     var request = axios.get(url, {
         headers: {},
@@ -27,10 +27,10 @@ export function get({url, params, success, error, dispatch, auth = "true"} = {})
         dispatch(removeRequest(key))
     })
     dispatch(addRequest(key, request))
-    dispatch(appendValue("events", url))
+    dispatch(appendValue("events", description))
 }
 
-export function post({url, params, success, error, dispatch} = {}) {
+export function post({url, params, success, error, dispatch, description} = {}) {
     var key = uuidv4()
     var request = axios.post(url, params, {
         headers: {},
@@ -45,11 +45,11 @@ export function post({url, params, success, error, dispatch} = {}) {
         dispatch(removeRequest(key))
     })
     dispatch(addRequest(key, request))
-    dispatch(appendValue("events", url))
+    dispatch(appendValue("events", description))
 
 }
 
-export function remove({url, success, error, dispatch} = {}) {
+export function remove({url, success, error, dispatch, description} = {}) {
     var key = uuidv4()
     var request = axios.delete(url, {
         headers: {}
@@ -64,10 +64,10 @@ export function remove({url, success, error, dispatch} = {}) {
         dispatch(removeRequest(key))
     })
     dispatch(addRequest(key, request))
-    dispatch(appendValue("events", url))
+    dispatch(appendValue("events", description))
 }
 
-export function streamingRequest({url, params, success, error, dispatch, method} = {}) {
+export function streamingRequest({url, params, success, error, dispatch, method, description} = {}) {
     var key = uuidv4()
     var payload = {
         method: method,
@@ -96,5 +96,5 @@ export function streamingRequest({url, params, success, error, dispatch, method}
         dispatch(removeRequest(key))
     })
     dispatch(addRequest(key, request))
-    dispatch(appendValue("events", url))
+    dispatch(appendValue("events", description))
 }

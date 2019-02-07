@@ -10,13 +10,15 @@ import Paper from '@material-ui/core/Paper';
 const styles = theme => ({
     root: {
         flexGrow: 1,
-        },
+    },
     paperdash: {
+        boxShadow: '0px 5px 25px 0px rgba(0,0,0,0.2), 0px 8px 8px 0px rgba(0,0,0,0.14), 0px 10px 1px -2px rgba(0,0,0,0.12)',
         minHeight: '325px',
-        padding: theme.spacing.unit * 2,
-        margin: '10px 10px 0 10px'
-        },
+        padding: '20px',
+        margin: '10px'
+    },
     papercard: {
+        boxShadow: '0px 5px 25px 0px rgba(0,0,0,0.2), 0px 8px 8px 0px rgba(0,0,0,0.14), 0px 10px 1px -2px rgba(0,0,0,0.12)',
         margin: '0 10px 10px 10px',
     }
 });
@@ -28,7 +30,7 @@ class LocalNodePage extends Component {
 
         return (
             <div className={classes.root}>
-                <Grid container spacing={24}>
+                <Grid container justify='center' spacing={24}>
                     <Grid item xs={12}>
                         <Paper className={classes.paperdash}>
                             <Dashboard />

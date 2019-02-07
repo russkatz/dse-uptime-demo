@@ -15,14 +15,14 @@ const styles = theme => ({
         textAlign: 'right',
     },
     cardbody: {
-        padding: 0,
-        marginLeft: '7px'
+        padding: '0 0 0 45px',
+        marginLeft: '7px',
     },
     cardtext: {
-        height: '150px',
+        height: '260px',
         overflow: 'scroll',
-        fontSize: '17px',
-        margin: '5px',
+        fontSize: '20px',
+        margin: '5px 5px 20px 5px',
     }
 });
 
@@ -35,7 +35,7 @@ class ReadCard extends React.Component {
         return (
             <div className={classes.root}>
                 <Card className={classes.card}>
-                    <CardHeader className={classes.cardheader}>EVENTS</CardHeader>
+                    <CardHeader className={classes.cardheader}>NODE EVENTS</CardHeader>
                     <CardBody className={classes.cardbody}>
                     <div className={classes.cardtext}>
 

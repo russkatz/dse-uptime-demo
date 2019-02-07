@@ -16,7 +16,7 @@ const styles = theme => ({
         overflowX: 'auto',
     },
     tablecell: {
-        fontSize: '30px',
+        fontSize: '40px',
     }
 });
 
@@ -29,11 +29,26 @@ class Dashboard extends React.Component {
     render ({ classes } = this.props){
         let dataCenterDetails = []
 
-        this.props.nodeList.map((node, id) => {
+        let nodeList = this.props.nodeList
+        // debugger
+        nodeList.map((node, id) => {
+            if (node.mode === null) {
+                let oldNodeList = this.props.oldNodeList
+
+                if (oldNodeList === undefined) {
+                    return node
+                }
+                if (oldNodeList[id].mode === 'starting') {
+                    node.mode = 'starting'
+                }
+                return node
+            } 
+        })
+
+        nodeList.map((node, id) => {
             let newDcDetail = {};
             newDcDetail.name = node.dc
             let nodeCondition = ['normal', 'starting', null];
-            //TODO:  how handle nodeCondition when it goes NULL a second time - this shows on dashboard
             let nodeConditionName = ['countUp', 'starting', 'countDown'];
 
             if (dataCenterDetails.length === 0 ){
@@ -54,12 +69,13 @@ class Dashboard extends React.Component {
                             if (node.mode === value) {
                                 detail[nodeConditionName[index]] = detail[nodeConditionName[index]] + 1
                             } else {
-                                detail[nodeConditionName[index]] = detail[nodeConditionName[index]] + 0
+                                detail[nodeConditionName[index]] = detail[nodeConditionName[index]]
                             }
                         })
                     }
                 })
                 if (dcIsMissing) {
+                    // debugger
                     nodeCondition.map((value, index) => {
                         if (node.mode === value) {
                             newDcDetail[nodeConditionName[index]] = 1;
@@ -106,7 +122,8 @@ const mapStateToProps = (state, ownProps) => {
     return {
         drawerOpen: state.NavigationReducer.drawerOpen,
         page: state.NavigationReducer.page,
-        nodeList: state.app.nodeList
+        nodeList: state.app.nodeList,
+        oldNodeList: state.app.oldNodeList
     }
 }
 
