@@ -6,7 +6,7 @@ import { streamingRequest } from '../common/requests.js';
 
 
 export function writeApi() {
-    var data = '{"dc": "AWS", "count": 5000, "cl": "ONE"}';
+    var data = '{"dc": "AWS", "count": 20000, "cl": "ONE"}';
     return(dispatch, getState) => {
         const url = 'http://52.53.185.6:8080/demo/write';
         streamingRequest({
@@ -25,7 +25,7 @@ export function writeApi() {
 }
 
 export function readApi() {
-    var data = '{"dc": "AWS", "count": 5000, "cl": "ONE"}';
+    var data = '{"dc": "AWS", "count": 20000, "cl": "ONE"}';
     return(dispatch, getState) => {
         const url = 'http://52.53.185.6:8080/demo/read';
         streamingRequest({

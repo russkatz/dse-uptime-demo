@@ -155,7 +155,7 @@ class BottomMenu extends React.Component{
 
                                 <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.dropOneNode(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>DROP ONE NODE</Button>
 
-                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.resetAllNodes(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>RESET ALL NODES</Button>
+                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.resetAllNodes(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>RESET DATACENTER</Button>
                             </div>
                         </Paper>
                     </Drawer>

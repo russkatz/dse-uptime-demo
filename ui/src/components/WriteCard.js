@@ -18,7 +18,7 @@ const styles = theme => ({
     cardtext: {
         height: '260px',
         overflow: 'scroll',
-        fontSize: '20px',
+        fontSize: '18px',
     }
 });
 
@@ -40,11 +40,11 @@ class WriteCard extends React.Component {
                         [...this.props.writes].reverse().map((write, index) => {
                             if (Math.random() < .2){
                             return (
-                                <div key={index}><MoneyIcon/>Purchase number {write.count + 1023400} completed</div>
+                                <div key={index}><MoneyIcon/> Purchase number {write.count + 1023400} completed</div>
                             )
                             }else{
                             return (
-                                <div key={index}><ShoppingCartIcon/>Shopping cart number {write.count + 19900230} completed</div>
+                                <div key={index}><ShoppingCartIcon/> Shopping cart number {write.count + 19900230} completed</div>
                             )
                             }
                         }) 
