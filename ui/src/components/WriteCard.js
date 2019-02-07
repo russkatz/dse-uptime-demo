@@ -1,4 +1,6 @@
 import React from "react";
+import ShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import MoneyIcon from '@material-ui/icons/AttachMoney';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Card from 'material-kit-react/components/Card/Card';
@@ -34,7 +36,19 @@ class WriteCard extends React.Component {
                     <CardBody className={classes.cardbody}>
                     <div className={classes.cardtext}>
                     
-                    {JSON.stringify([...this.props.writes].reverse())}
+                    {
+                      [...this.props.writes].reverse().map((write, index) => {
+                        if (Math.random() < .2){
+                          return (
+                            <div key={index}><MoneyIcon/>Purchase number {write.count + 1023400} completed</div>
+                          )
+                        }else{
+                          return (
+                            <div key={index}><ShoppingCartIcon/>Shopping cart number {write.count + 19900230} completed</div>
+                          )
+                        }
+                      }) 
+                    }
                     
                     </div>
                     </CardBody>
