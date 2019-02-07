@@ -94,7 +94,7 @@ export function getNodeInfo(url) {
                     dispatch(updateValue('nodeList', res.data))
                 },
                 dispatch: dispatch,
-                description: 'Fetching cluster status'
+                // description: 'Fetching cluster status'
             });
         }, 5000)
         

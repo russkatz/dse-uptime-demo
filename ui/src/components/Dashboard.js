@@ -32,7 +32,7 @@ class Dashboard extends React.Component {
         let nodeList = this.props.nodeList
         nodeList.map((node, id) => {
             if (node.mode === null) {
-                var oldNodeList = this.props.oldNodeList.bind
+                var oldNodeList = this.props.oldNodeList
 
                 if (oldNodeList === undefined) {
                     return node
