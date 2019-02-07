@@ -19,7 +19,7 @@ const styles = theme => ({
     cardtext: {
         height: '260px',
         overflow: 'scroll',
-        fontSize: '30px',
+        fontSize: '22px',
     },
 });
 
@@ -29,22 +29,21 @@ class EventsCard extends React.Component {
     }
     render() {
     const { classes } = this.props;
-
-    {
-        this.props.events.reverse().map((event, index) => {
-        return(
-            <p key={index}>{event}</p>
-            )
-            }
-        )
-    }
-
         return (
             <div className={classes.root}>
                 <Card className={classes.card}>
                     <CardHeader className={classes.cardheader} style={{height: '50px', paddingTop: '20px'}}>EVENTS</CardHeader>
                     <CardBody className={classes.cardbody}>
                     <div className={classes.cardtext}>
+
+                    {
+                        this.props.events.reverse().map((event, index) => {
+                        return(
+                            <p key={index}>{event}</p>
+                            )
+                            }
+                        )
+                    }
 
                     </div>
                     </CardBody>
