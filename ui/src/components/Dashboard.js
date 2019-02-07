@@ -91,7 +91,7 @@ class Dashboard extends React.Component {
         return (
             <div className={classes.root}>
                 <Table className={classes.table}>
-                    <TableHead>
+                    <TableHead style={{backgroundColor: 'silver'}}>
                         <TableRow>
                             <TableCell className={classes.tablecell} style={{color: 'black', fontSize: '25px'}}>DATA CENTER</TableCell>
                             <TableCell className={classes.tablecell} style={{color: 'black', fontSize: '25px'}} align='center'>ONLINE</TableCell>
@@ -103,7 +103,7 @@ class Dashboard extends React.Component {
                         {dataCenterDetails.map ((detail, id) => {
                             return (
                                 <TableRow key={id}>
-                                    <TableCell style={{fontSize: '30px', color: 'darkgray'}} className={classes.tablecell}>{detail.name}</TableCell>
+                                    <TableCell style={{fontSize: '30px', color: 'gray'}} className={classes.tablecell}>{detail.name}</TableCell>
                                     <TableCell style={{color: 'green'}} className={classes.tablecell} align='center'>{detail.countUp}</TableCell>
                                     <TableCell style={{color: '#ffc966'}} className={classes.tablecell} align='center'>{detail.starting}</TableCell>
                                     <TableCell style={{color: 'red'}} className={classes.tablecell} align='center'>{detail.countDown}</TableCell>

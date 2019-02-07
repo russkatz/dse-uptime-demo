@@ -35,7 +35,9 @@ const styles = theme => ({
         paddingRight: theme.spacing.unit * 2,
     },
     paper: {
-        paddingBottom: 45,
+        height: '80px',
+        paddingTop: '15px',
+        paddingBottom: '50px',
         backgroundColor: 'white',
     },
     appBar: {
@@ -147,13 +149,13 @@ class BottomMenu extends React.Component{
                         >
                         <Paper square className={classes.paper}>
                             <div className={classes.controlContainer}>
-                                <Button variant="contained" color="secondary" className={classes.button} size="small" onClick={() => {this.props.getWrites(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>START PURCHASES</Button>
+                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.getWrites(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>START PURCHASES</Button>
 
-                                <Button variant="contained" color="secondary" className={classes.button} size="small" onClick={() => {this.props.getReads(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>START READS</Button>
+                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.getReads(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>START READS</Button>
 
-                                <Button variant="contained" color="secondary" className={classes.button} size="small" onClick={() => {this.props.dropOneNode(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>DROP ONE NODE</Button>
+                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.dropOneNode(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>DROP ONE NODE</Button>
 
-                                <Button variant="contained" color="secondary" className={classes.button} size="small" onClick={() => {this.props.resetAllNodes(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>RESET ALL NODES</Button>
+                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.resetAllNodes(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>RESET ALL NODES</Button>
                             </div>
                         </Paper>
                     </Drawer>
@@ -207,11 +209,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         drawerToggle: (drawerOpen) => {
             dispatch(drawerToggle(drawerOpen))
         },
-        handleClick: (alert) => {
-            dispatch(handleClick(alert))
+        handleClick: () => {
+            dispatch(handleClick())
         },
-        handleClose: (alert) => {
-            dispatch(handleClose(alert))
+        handleClose: () => {
+            dispatch(handleClose())
         },
         changeScreen: (page) => {
             dispatch(changeScreen(page))
