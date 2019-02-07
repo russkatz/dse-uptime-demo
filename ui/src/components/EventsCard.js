@@ -29,6 +29,8 @@ class EventsCard extends React.Component {
     }
     render() {
     const { classes } = this.props;
+    let events = []
+    Object.assign(events, this.props.events)
         return (
             <div className={classes.root}>
                 <Card className={classes.card}>
@@ -37,7 +39,7 @@ class EventsCard extends React.Component {
                     <div className={classes.cardtext}>
 
                     {
-                        this.props.events.reverse().map((event, index) => {
+                        events.reverse().map((event, index) => {
                         return(
                             <p key={index}>{event}</p>
                             )

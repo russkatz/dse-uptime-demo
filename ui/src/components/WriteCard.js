@@ -50,6 +50,7 @@ class WriteCard extends React.Component {
                         }) 
                     }
                     
+                    {/* {JSON.stringify([...this.props.writes].reverse())} */}
                     </div>
                     </CardBody>
                 </Card>

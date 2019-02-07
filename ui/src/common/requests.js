@@ -27,7 +27,6 @@ export function get({url, params, success, error, dispatch, description, auth = 
         dispatch(removeRequest(key))
     })
     dispatch(addRequest(key, request))
-    dispatch(appendValue("events", description))
 }
 
 export function post({url, params, success, error, dispatch, description} = {}) {
@@ -45,7 +44,6 @@ export function post({url, params, success, error, dispatch, description} = {}) 
         dispatch(removeRequest(key))
     })
     dispatch(addRequest(key, request))
-    dispatch(appendValue("events", description))
 
 }
 
@@ -64,7 +62,6 @@ export function remove({url, success, error, dispatch, description} = {}) {
         dispatch(removeRequest(key))
     })
     dispatch(addRequest(key, request))
-    dispatch(appendValue("events", description))
 }
 
 export function streamingRequest({url, params, success, error, dispatch, method, description} = {}) {
@@ -96,5 +93,4 @@ export function streamingRequest({url, params, success, error, dispatch, method,
         dispatch(removeRequest(key))
     })
     dispatch(addRequest(key, request))
-    dispatch(appendValue("events", description))
 }

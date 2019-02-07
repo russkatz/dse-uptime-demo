@@ -34,7 +34,7 @@ class Dashboard extends React.Component {
             if (node.mode === null) {
                 var oldNodeList = this.props.oldNodeList
 
-                if (oldNodeList === undefined) {
+                if (oldNodeList === undefined || oldNodeList[id] === undefined) {
                     return node
                 }
                 if (oldNodeList[id].mode === 'starting') {

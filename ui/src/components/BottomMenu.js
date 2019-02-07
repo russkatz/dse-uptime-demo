@@ -16,7 +16,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 
 
 import {drawerToggle} from '../actions/NavigationActions';
-import { writeApi, readApi, dropOneNode, resetAllNodes } from '../actions/actions';
+import { writeApi, readApi, dropOneNode, dropOneDataCenter, resetAllNodes, snackbarToggle } from '../actions/actions';
 
 import classNames from 'classnames';
 
@@ -90,33 +90,9 @@ const styles = theme => ({
 
 
 class BottomMenu extends React.Component{
-    state = {
-        top: false,
-        left: false,
-        bottom: false,
-        right: false,
-        open: false,
-        vertical: 'top',
-        horizontal: 'center',
-        };
-        
-        toggleDrawer = (bottom, open) => () => {
-            this.setState({
-            [bottom]: open,
-            });
-        };
-
-        handleClick = state => () => {
-            this.setState({ open: true, ...state });
-        };
-    
-        handleClose = () => {
-            this.setState({ open: false });
-        };
 
         render() {
             const { classes } = this.props;  
-            const { vertical, horizontal, open } = this.state;
             return (
                 <div className={classes.root}>
                     <AppBar position="fixed" color="primary" className={classes.appBar} style={{flexDirection: 'row'}}>
@@ -132,8 +108,6 @@ class BottomMenu extends React.Component{
 
                     <Drawer
                         anchor="bottom"
-                        open={this.state.bottom}
-                        onClose={this.toggleDrawer('bottom', false)}
                         variant="permanent"
                         className={classNames(classes.drawer, {
                             [classes.drawerOpen]: this.props.drawerOpen,
@@ -149,21 +123,23 @@ class BottomMenu extends React.Component{
                         >
                         <Paper square className={classes.paper}>
                             <div className={classes.controlContainer}>
-                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.getWrites(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>START PURCHASES</Button>
+                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.getWrites()}}>START PURCHASES</Button>
 
-                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.getReads(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>START READS</Button>
+                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.getReads()}}>START READS</Button>
 
-                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.dropOneNode(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>DROP ONE NODE</Button>
+                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.dropOneNode()}}>DROP ONE NODE</Button>
 
-                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.resetAllNodes(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>RESET DATACENTER</Button>
+                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.dropOneDataCenter()}}>DROP DATACENTER</Button>
+
+                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.resetAllNodes()}}>RESET DOWN NODES</Button>
                             </div>
                         </Paper>
                     </Drawer>
                     <Snackbar
-                    bodyStyle={{ backgroundColor: 'teal', color: 'coral' }}
-                    anchorOrigin={{ vertical, horizontal }}
-                    open={open}
-                    onClose={this.handleClose}
+                    bodystyle={{ backgroundColor: 'teal', color: 'coral' }}
+                    anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+                    open={this.props.snackbarOpen}
+                    onClose={() => this.props.snackbarToggle(!this.props.snackbarOpen)}
                     ContentProps={{
                         'aria-describedby': 'message-id',
                     }}
@@ -185,7 +161,7 @@ const mapStateToProps = (state, ownProps) => {
         page: state.NavigationReducer.page,
         writes: state.app.writes,
         reads: state.app.reads,
-        open: state.app.open
+        snackbarOpen: state.app.snackbarOpen
     }
 }
 
@@ -203,17 +179,17 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         dropOneNode: () => {
             dispatch(dropOneNode())
         },
+        dropOneDataCenter: () => {
+            dispatch(dropOneDataCenter())
+        },
         resetAllNodes: () => {
             dispatch(resetAllNodes())
         },
         drawerToggle: (drawerOpen) => {
             dispatch(drawerToggle(drawerOpen))
         },
-        handleClick: () => {
-            dispatch(handleClick())
-        },
-        handleClose: () => {
-            dispatch(handleClose())
+        snackbarToggle: () => {
+            dispatch(snackbarToggle())
         },
         changeScreen: (page) => {
             dispatch(changeScreen(page))

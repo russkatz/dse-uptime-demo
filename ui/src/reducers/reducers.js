@@ -12,6 +12,7 @@ const initialAppState = {
     nodeList: [],
     writes: [],
     reads: [],
+    snackbarOpen: false,
 };
 
 const reducers = combineReducers({
