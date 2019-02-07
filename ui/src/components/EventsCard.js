@@ -16,7 +16,7 @@ const styles = theme => ({
     },
     cardbody: {
         padding: '0 0 0 45px',
-        marginLeft: '7px'
+        marginLeft: '7px',
     },
     cardtext: {
         height: '260px',
@@ -26,22 +26,21 @@ const styles = theme => ({
     }
 });
 
-class WriteCard extends React.Component {
+class EventsCard extends React.Component {
     componentDidMount() {
         this.props.init();
     }
     render() {
-        
     const { classes } = this.props;
         return (
             <div className={classes.root}>
                 <Card className={classes.card}>
-                    <CardHeader className={classes.cardheader} style={{height: '60px'}}>PURCHASE TRANSACTIONS</CardHeader>
+                    <CardHeader className={classes.cardheader} style={{height: '60px'}}>NODE EVENTS</CardHeader>
                     <CardBody className={classes.cardbody}>
-                    <div className={classes.cardtext} style={{color: "blue"}}>
-                    
-                    {JSON.stringify([...this.props.writes].reverse())}
-                    
+                    <div className={classes.cardtext}>
+                    {this.props.events}
+                    {/* {JSON.stringify([...this.props.reads].reverse())} */}
+
                     </div>
                     </CardBody>
                 </Card>
@@ -53,7 +52,7 @@ class WriteCard extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        writes: state.app.writes
+        reads: state.app.reads
     }
 }
 
@@ -64,8 +63,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
 }
 
-const WriteCardContainer = connect(
+const EventsCardContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(withStyles(styles)(WriteCard))
-export default WriteCardContainer;
+)(withStyles(styles)(EventsCard))
+export default EventsCardContainer;

@@ -8,11 +8,11 @@ import CardBody from 'material-kit-react/components/Card/CardBody';
 
 const styles = theme => ({
     cardheader: {
-        backgroundColor: 'lightgrey',
-        fontSize: '25px',
-        color: 'white',
+        backgroundColor: 'silver',
+        fontSize: '30px',
+        color: 'black',
         padding: '10px',
-        textAlign: 'right',
+        textAlign: 'center',
     },
     cardbody: {
         padding: '0 0 0 45px',
@@ -35,7 +35,7 @@ class ReadCard extends React.Component {
         return (
             <div className={classes.root}>
                 <Card className={classes.card}>
-                    <CardHeader className={classes.cardheader}>NODE EVENTS</CardHeader>
+                    <CardHeader className={classes.cardheader} style={{height: '60px'}}>DATA READS</CardHeader>
                     <CardBody className={classes.cardbody}>
                     <div className={classes.cardtext}>
 

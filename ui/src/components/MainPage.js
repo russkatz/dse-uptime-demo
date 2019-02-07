@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Dashboard from './Dashboard';
 import WriteCard from './WriteCard';
 import ReadCard from './ReadCard';
+import EventsCard from './EventsCard';
 import DataCenterMap from './DataCenterMap';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -12,13 +13,14 @@ const styles = theme => ({
         flexGrow: 1,
     },
     paperdash: {
-        boxShadow: '0px 5px 25px 0px rgba(0,0,0,0.2), 0px 8px 8px 0px rgba(0,0,0,0.14), 0px 10px 1px -2px rgba(0,0,0,0.12)',
+        boxShadow: '0px 2px 8px 0px rgba(0,0,0,0.2), 0px 8px 8px 5px rgba(0,0,0,0.14), 0px 7px 1px -2px rgba(0,0,0,0.12)',
         minHeight: '325px',
         padding: '20px',
-        margin: '10px'
+        margin: '30px auto',
+        maxWidth: '60%',
     },
     papercard: {
-        boxShadow: '0px 5px 25px 0px rgba(0,0,0,0.2), 0px 8px 8px 0px rgba(0,0,0,0.14), 0px 10px 1px -2px rgba(0,0,0,0.12)',
+        boxShadow: '0px 2px 8px 0px rgba(0,0,0,0.2), 0px 8px 8px 5px rgba(0,0,0,0.14), 0px 7px 1px -2px rgba(0,0,0,0.12)',
         margin: '0 10px 10px 10px',
     }
 });
@@ -27,7 +29,6 @@ const styles = theme => ({
 class MainPage extends Component {
     render() {
         const { classes } = this.props;
-
         return (
             <div className={classes.root}>
                 <Grid container justify='center' spacing={24}>
@@ -38,15 +39,21 @@ class MainPage extends Component {
                         </Paper>
                     </Grid>
 
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={4}>
                         <Paper className={classes.papercard}>
                             <WriteCard />
                         </Paper>
                     </Grid>
 
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={4}>
                         <Paper className={classes.papercard}>
                             <ReadCard />
+                        </Paper>
+                    </Grid>
+
+                    <Grid item xs={12} sm={4}>
+                        <Paper className={classes.papercard}>
+                            <EventsCard />
                         </Paper>
                     </Grid>
                 </Grid>

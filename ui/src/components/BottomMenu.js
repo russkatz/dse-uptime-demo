@@ -12,6 +12,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
 
 
 import {drawerToggle} from '../actions/NavigationActions';
@@ -35,7 +36,7 @@ const styles = theme => ({
     },
     paper: {
         paddingBottom: 45,
-        backgroundColor: '#f4f4f4',
+        backgroundColor: 'white',
     },
     appBar: {
         top: 'auto',
@@ -91,6 +92,9 @@ class BottomMenu extends React.Component{
         left: false,
         bottom: false,
         right: false,
+        open: false,
+        vertical: 'top',
+        horizontal: 'center',
         };
         
         toggleDrawer = (bottom, open) => () => {
@@ -99,18 +103,26 @@ class BottomMenu extends React.Component{
             });
         };
 
+        handleClick = state => () => {
+            this.setState({ open: true, ...state });
+        };
+    
+        handleClose = () => {
+            this.setState({ open: false });
+        };
+
         render() {
             const { classes } = this.props;  
-
+            const { vertical, horizontal, open } = this.state;
             return (
                 <div className={classes.root}>
                     <AppBar position="fixed" color="primary" className={classes.appBar} style={{flexDirection: 'row'}}>
                         <Toolbar>
-                        <IconButton onClick={() => { this.props.drawerToggle(!this.props.drawerOpen)}} className={classes.menuButton} color="inherit" aria-label="Open drawer">
+                        <IconButton onClick={() => { this.props.drawerToggle(!this.props.drawerOpen)}} className={classes.menuButton} color="default" aria-label="Open drawer">
                             <MenuIcon />
                         </IconButton>
-                        <Typography className={classes.title} variant="h5" component="h2" color="textPrimary" color="inherit" noWrap>
-                        CONTROL CONSOLE
+                        <Typography className={classes.title} variant="h5" component="h2" color="default" noWrap>
+                        ACTIONS
                         </Typography>
                         </Toolbar>
                     </AppBar>
@@ -134,16 +146,26 @@ class BottomMenu extends React.Component{
                         >
                         <Paper square className={classes.paper}>
                             <div className={classes.controlContainer}>
-                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getWrites()}}>START PURCHASES</Button>
+                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getWrites(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>START PURCHASES</Button>
 
-                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getReads()}}>START EVENTS</Button>
+                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.getReads(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>START EVENTS</Button>
 
-                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.dropOneNode()}}>DROP ONE NODE</Button>
+                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.dropOneNode(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>DROP ONE NODE</Button>
 
-                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.resetAllNodes()}}>RESET ALL NODES</Button>
+                                <Button variant="contained" color="default" className={classes.button} size="small" onClick={() => {this.props.resetAllNodes(), this.handleClick({ vertical: 'top', horizontal: 'left' })}}>RESET ALL NODES</Button>
                             </div>
                         </Paper>
                     </Drawer>
+                    <Snackbar
+                    bodyStyle={{ backgroundColor: 'teal', color: 'coral' }}
+                    anchorOrigin={{ vertical, horizontal }}
+                    open={open}
+                    onClose={this.handleClose}
+                    ContentProps={{
+                        'aria-describedby': 'message-id',
+                    }}
+                    message={<span id="message-id">PROCESS STARTED</span>}
+                    />
                 </div>
             );
         }
@@ -160,6 +182,7 @@ const mapStateToProps = (state, ownProps) => {
         page: state.NavigationReducer.page,
         writes: state.app.writes,
         reads: state.app.reads,
+        open: state.app.open
     }
 }
 
@@ -169,10 +192,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
         },
         getWrites: () => {
-        dispatch(writeApi('http://52.53.185.6:8080/demo/write'))
+            dispatch(writeApi('http://52.53.185.6:8080/demo/write'))
         },
         getReads: () => {
-        dispatch(readApi('http://52.53.185.6:8080/demo/read'))
+            dispatch(readApi('http://52.53.185.6:8080/demo/read'))
         },
         dropOneNode: () => {
             dispatch(dropOneNode())
@@ -181,11 +204,17 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             dispatch(resetAllNodes())
         },
         drawerToggle: (drawerOpen) => {
-        dispatch(drawerToggle(drawerOpen))
+            dispatch(drawerToggle(drawerOpen))
+        },
+        handleClick: (alert) => {
+            dispatch(handleClick(alert))
+        },
+        handleClose: (alert) => {
+            dispatch(handleClose(alert))
         },
         changeScreen: (page) => {
-        dispatch(changeScreen(page))
-        dispatch(drawerToggle(false))
+            dispatch(changeScreen(page))
+            dispatch(drawerToggle(false))
         }
     }
 }
