@@ -10,6 +10,7 @@ const initialAppState = {
     appName: 'DSE Uptime UI',
     events: [],
     nodeList: [],
+    dcList: [],
     writes: [],
     reads: [],
     snackbarOpen: false,

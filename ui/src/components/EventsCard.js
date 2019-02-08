@@ -14,7 +14,8 @@ const styles = theme => ({
         textAlign: 'center',
     },
     cardbody: {
-        color: 'darkgray'
+        margin: '0 auto',
+        color: 'black',
     },
     cardtext: {
         height: '260px',
@@ -41,7 +42,7 @@ class EventsCard extends React.Component {
                     {
                         events.reverse().map((event, index) => {
                         return(
-                            <p key={index}>{event}</p>
+                            <span key={index}>{event}<br /></span>
                             )
                             }
                         )

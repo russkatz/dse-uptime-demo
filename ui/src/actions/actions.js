@@ -50,6 +50,30 @@ export function readApi() {
     }
 }
 
+export function getDataCenter(url) {
+    return(dispatch, getState) => {
+        get({
+            url: url, 
+            success: function(res){
+                dispatch(updateValue('nodeList', res.data))
+                // console.log(res.data[3].dc)
+
+                //TODO: Get the data centers from res.data and assign them to:
+                let rawList = []
+
+                rawList = res.data.map((data) => {
+                    if(data.dc) {
+                        return data.dc
+                    }
+                });
+                let dcList = [...new Set(rawList)]
+                dispatch(updateValue('dcList', dcList))
+            },
+            dispatch: dispatch
+        });
+    }
+}
+
 export function readChunk(reader, dispatch, valueKey){
     reader.read().then(function(result){
         var decoder = new TextDecoder();
@@ -130,25 +154,33 @@ export function dropOneNode() {
     }
 }
 
-// export function dropOneDataCenter() {
-//     return(dispatch, getState) => {
-//         dispatch(appendValue('events', 'Taking down one data center'))
-//         dispatch(updateValue("snackbarOpen", true))
+export function dropOneDataCenter() {
+    var awsDataCenter = '{"dc": "AWS", "scenario": 3}';
+    var googleDataCenter = '{"dc": "Google", "scenario": 3}';
+    var onPremDataCenter = '{"dc": "OnPrem-DC1", "scenario": 3}';
+    var azureDataCenter = '{"dc": "Azure", "scenario": 3}';
 
-//         const url = 'http://52.53.185.6:8080/demo/killnode';
+    return(dispatch, getState) => {
+        dispatch(appendValue('events', 'Taking down one data center'))
+        dispatch(updateValue("snackbarOpen", true))
 
-//             post({
-//                 url: url,
-//                 params: ,
-//                 success: function(res){
+        const url = 'http://52.53.185.6:8080/demo/chaos';
+        const gatherDataCenters = []
+        gatherDataCenters.push(awsDataCenter, googleDataCenter, onPremDataCenter, azureDataCenter)
+        const randomDataCenter = gatherDataCenters[parseInt(Math.random() * gatherDataCenters.length)]
 
-//                 },
-//                 dispatch: dispatch,
-//                 method: "POST"
-//             })
-//         }
-//     }
-// }
+        const data = JSON.stringify(randomDataCenter)
+        post({
+            url: url,
+            params: data,
+            success: function(res){
+                console.log(res)
+            },
+            dispatch: dispatch,
+            method: "POST"
+        })
+    }
+}
 
 export function resetAllNodes() {
     return(dispatch, getState) => {
@@ -205,6 +237,4 @@ export const updateData = (type, data) => {
     }
 }
 
-
-// export default {writeApi, readApi, readChunk, getNodeInfo, dropOneNode, dropOneDataCenter, resetAllNodes, snackbarToggle, updateValue, appendValue, updateData};
-export default {writeApi, readApi, readChunk, getNodeInfo, dropOneNode, resetAllNodes, snackbarToggle, updateValue, appendValue, updateData};
+export default {writeApi, readApi, readChunk, getDataCenter, getNodeInfo, dropOneNode, dropOneDataCenter, resetAllNodes, snackbarToggle, updateValue, appendValue, updateData};

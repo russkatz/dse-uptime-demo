@@ -29,7 +29,7 @@ export function get({url, params, success, error, dispatch, description, auth = 
     dispatch(addRequest(key, request))
 }
 
-export function post({url, params, success, error, dispatch, description} = {}) {
+export function post({url, params, success, error, dispatch} = {}) {
     var key = uuidv4()
     var request = axios.post(url, params, {
         headers: {},
@@ -47,7 +47,7 @@ export function post({url, params, success, error, dispatch, description} = {}) 
 
 }
 
-export function remove({url, success, error, dispatch, description} = {}) {
+export function remove({url, success, error, dispatch} = {}) {
     var key = uuidv4()
     var request = axios.delete(url, {
         headers: {}
@@ -64,7 +64,7 @@ export function remove({url, success, error, dispatch, description} = {}) {
     dispatch(addRequest(key, request))
 }
 
-export function streamingRequest({url, params, success, error, dispatch, method, description} = {}) {
+export function streamingRequest({url, params, success, error, dispatch, method} = {}) {
     var key = uuidv4()
     var payload = {
         method: method,

@@ -15,10 +15,13 @@ const styles = theme => ({
         color: 'black',
         textAlign: 'center',
     },
+    cardbody: {
+        margin: '0 auto'
+    },
     cardtext: {
         height: '260px',
         overflow: 'scroll',
-        fontSize: '18px',
+        fontSize: '22px',
     }
 });
 

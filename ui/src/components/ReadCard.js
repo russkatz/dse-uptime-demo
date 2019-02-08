@@ -15,11 +15,12 @@ const styles = theme => ({
     },
     cardbody: {
         color: 'blue',
+        margin: '0 auto',
     },
     cardtext: {
         height: '260px',
         overflow: 'scroll',
-        fontSize: '20px',
+        fontSize: '22px',
     }
 });
 
@@ -35,6 +36,14 @@ class ReadCard extends React.Component {
                     <CardHeader className={classes.cardheader} style={{height: '50px', paddingTop: '20px'}}>DATA READS</CardHeader>
                     <CardBody className={classes.cardbody}>
                     <div className={classes.cardtext}>
+
+                    {
+                        [...this.props.reads].reverse().map((read, index) => {
+                            return (
+                                <div key={index}>Datacenter: {read.dc}, Count: {read.count}, Result: {read.result}</div>
+                            )
+                        })
+                    }
 
 
                     {/* {JSON.stringify([...this.props.reads].reverse())} */}

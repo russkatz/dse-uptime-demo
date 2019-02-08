@@ -8,18 +8,14 @@ import IconButton from '@material-ui/core/IconButton';
 import Paper from '@material-ui/core/Paper';
 import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
+// import Snackbar from '@material-ui/core/Snackbar';
 
 
 import {drawerToggle} from '../actions/NavigationActions';
 import { writeApi, readApi, dropOneNode, dropOneDataCenter, resetAllNodes, snackbarToggle } from '../actions/actions';
 
 import classNames from 'classnames';
-
 
 const drawerWidth = '100%';
 
@@ -85,7 +81,11 @@ const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
         color: 'secondary',
-    }
+    },
+    warning: {
+        backgroundColor: 'red',
+    },
+
 });
 
 
@@ -135,16 +135,15 @@ class BottomMenu extends React.Component{
                             </div>
                         </Paper>
                     </Drawer>
-                    <Snackbar
-                    bodystyle={{ backgroundColor: 'teal', color: 'coral' }}
-                    anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+                    {/* <Snackbar
+                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                     open={this.props.snackbarOpen}
                     onClose={() => this.props.snackbarToggle(!this.props.snackbarOpen)}
                     ContentProps={{
                         'aria-describedby': 'message-id',
                     }}
-                    message={<span id="message-id">PROCESS STARTED</span>}
-                    />
+                    message={<span id="message-id">{this.props.events}</span>}
+                    /> */}
                 </div>
             );
         }
@@ -153,7 +152,6 @@ class BottomMenu extends React.Component{
     this.props.init()
     }
 }
-
 
 const mapStateToProps = (state, ownProps) => {
     return {

@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import {getNodeInfo, writeApi} from '../actions/actions'
+import {getNodeInfo, writeApi, getDataCenter} from '../actions/actions'
 
 
 const styles = theme => ({
@@ -16,7 +16,7 @@ const styles = theme => ({
         overflowX: 'auto',
     },
     tablecell: {
-        fontSize: '40px',
+        fontSize: '45px',
     },
 });
 
@@ -104,7 +104,7 @@ class Dashboard extends React.Component {
                             return (
                                 <TableRow key={id}>
                                     <TableCell style={{fontSize: '30px', color: 'gray'}} className={classes.tablecell}>{detail.name}</TableCell>
-                                    <TableCell style={{color: 'green'}} className={classes.tablecell} align='center'>{detail.countUp}</TableCell>
+                                    <TableCell style={{color: 'limegreen'}} className={classes.tablecell} align='center'>{detail.countUp}</TableCell>
                                     <TableCell style={{color: '#ffc966'}} className={classes.tablecell} align='center'>{detail.starting}</TableCell>
                                     <TableCell style={{color: 'red'}} className={classes.tablecell} align='center'>{detail.countDown}</TableCell>
                                 </TableRow>
@@ -122,7 +122,8 @@ const mapStateToProps = (state, ownProps) => {
         drawerOpen: state.NavigationReducer.drawerOpen,
         page: state.NavigationReducer.page,
         nodeList: state.app.nodeList,
-        oldNodeList: state.app.oldNodeList
+        oldNodeList: state.app.oldNodeList,
+        dcList: state.app.dcList,
     }
 }
 
@@ -130,10 +131,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
     init: () => {
         dispatch(getNodeInfo('http://52.53.185.6:8080/demo/nodefull'))
+        // dispatch(getDataCenter('http://52.53.185.6:8080/demo/nodefull'))
     },
     drawerToggle: (drawerOpen) => {
         dispatch(drawerToggle(drawerOpen))
-    },
+    }, 
     changeScreen: (page) => {
         dispatch(changeScreen(page))
         dispatch(drawerToggle(false))
