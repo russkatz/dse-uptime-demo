@@ -23,6 +23,6 @@ cl = ONE
 lcm = 127.0.0.1
 lcmport = 8888
 sshusername = ubuntu
-sshkeyfile = /path/to/priv.key
+sshkeyfile = ~/.ssh/id_rsa
 khaoslocalDC = X
 
