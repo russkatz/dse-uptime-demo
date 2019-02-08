@@ -109,7 +109,7 @@ export function getNodeInfo(url) {
                     oldNodeList.map((node, id) => {
                         if (node.mode === null) {
                             let olderNodeList = getState().app.oldNodeList
-                            if (olderNodeList === undefined) {
+                            if (olderNodeList === undefined || olderNodeList[id] === undefined) {
                                 return node
                             }
                             if (olderNodeList[id].mode === 'starting') {
@@ -118,8 +118,18 @@ export function getNodeInfo(url) {
                             return node
                         } 
                     })
+
                     dispatch(updateValue('oldNodeList', oldNodeList))
                     dispatch(updateValue('nodeList', res.data))
+                    // console.log("oldNodeList")
+                    // oldNodeList.map((node, index) => {
+                    //     console.log(index + "-" + node.mode)
+                    // })
+                    // console.log("newNodeList")
+                    // res.data.map((node, index) => {
+                    //     console.log(index + "-" + node.mode)
+                    // })
+
                 },
                 dispatch: dispatch,
             });
@@ -156,9 +166,9 @@ export function dropOneNode() {
 
 export function dropOneDataCenter() {
     var awsDataCenter = '{"dc": "AWS", "scenario": 3}';
-    var googleDataCenter = '{"dc": "Google", "scenario": 3}';
-    var onPremDataCenter = '{"dc": "OnPrem-DC1", "scenario": 3}';
-    var azureDataCenter = '{"dc": "Azure", "scenario": 3}';
+    // var googleDataCenter = '{"dc": "Google", "scenario": 3}';
+    // var onPremDataCenter = '{"dc": "OnPrem-DC1", "scenario": 3}';
+    // var azureDataCenter = '{"dc": "Azure", "scenario": 3}';
 
     return(dispatch, getState) => {
         dispatch(appendValue('events', 'Taking down one data center'))
@@ -166,15 +176,17 @@ export function dropOneDataCenter() {
 
         const url = 'http://52.53.185.6:8080/demo/chaos';
         const gatherDataCenters = []
-        gatherDataCenters.push(awsDataCenter, googleDataCenter, onPremDataCenter, azureDataCenter)
-        const randomDataCenter = gatherDataCenters[parseInt(Math.random() * gatherDataCenters.length)]
+        // gatherDataCenters.push(awsDataCenter, googleDataCenter, onPremDataCenter, azureDataCenter)
+        // const randomDataCenter = gatherDataCenters[parseInt(Math.random() * gatherDataCenters.length)]
 
-        const data = JSON.stringify(randomDataCenter)
+        const data = awsDataCenter
+        // debugger
+
         post({
             url: url,
             params: data,
             success: function(res){
-                console.log(res)
+                
             },
             dispatch: dispatch,
             method: "POST"

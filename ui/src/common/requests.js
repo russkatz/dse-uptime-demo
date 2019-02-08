@@ -32,7 +32,10 @@ export function get({url, params, success, error, dispatch, description, auth = 
 export function post({url, params, success, error, dispatch} = {}) {
     var key = uuidv4()
     var request = axios.post(url, params, {
-        headers: {},
+        headers: {
+            "content-type": "application/json",
+            "cache-control": "no-cache"
+        },
     })
     .then(success || function(response){
         console.log(response)
