@@ -6,7 +6,7 @@ clusterpass = password1
 crossdclatency = 30
 rowcount = 10
 sslenabled = 0
-sslca = /path/to/ca.crt
+sslca = ~/.ssh/id_rsa
 ks_query = CREATE KEYSPACE IF NOT EXISTS demo WITH replication = {'class': 'NetworkTopologyStrategy', 'AWS': 3}
 
 [WRITE]
