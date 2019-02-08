@@ -7,7 +7,7 @@ crossdclatency = 30
 rowcount = 10
 sslenabled = 0
 sslca = ~/.ssh/id_rsa
-ks_query = CREATE KEYSPACE IF NOT EXISTS demo WITH replication = {'class': 'NetworkTopologyStrategy', 'AWS': 3}
+ks_query = CREATE KEYSPACE IF NOT EXISTS demo WITH replication = {'class': 'NetworkTopologyStrategy', 'AWS': 3, 'Azure': 3, 'Google': 3}
 
 [WRITE]
 writelocalDC = X
