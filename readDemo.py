@@ -21,21 +21,21 @@ CL = ConsistencyLevel.ONE
 
 #Configuration
 contactpoints = config.get('CONFIG','contactpoints').split(',')
-localDC = config.get('READ','localDC')
-rowcount = config.getint('READ','rowcount')
+localDC = config.get(section,'localDC')
+rowcount = config.getint(section,'rowcount')
 cross_dc_latency = config.getint('CONFIG','crossdclatency')
 ks_query = config.get('CONFIG','ks_query')
 auth_provider = PlainTextAuthProvider (username= config.get('CONFIG','clusteruser'), password= config.get('CONFIG','clusterpass'))
 
-if config.get('READ','cl') == "ONE":
+if config.get(section,'cl') == "ONE":
    CL = ConsistencyLevel.ONE
-if config.get('READ','cl') == "TWO":
+if config.get(section,'cl') == "TWO":
    CL = ConsistencyLevel.TWO
-if config.get('READ','cl') == "LOCAL_QUORUM":
+if config.get(section,'cl') == "LOCAL_QUORUM":
    CL = ConsistencyLevel.LOCAL_QUORUM
-if config.get('READ','cl') == "QUORUM":
+if config.get(section,'cl') == "QUORUM":
    CL = ConsistencyLevel.QUORUM
-if config.get('READ','cl') == "ALL":
+if config.get(section,'cl') == "ALL":
    CL = ConsistencyLevel.ALL
 
 #SSL
