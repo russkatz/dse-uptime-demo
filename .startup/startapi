@@ -3,5 +3,10 @@
 export PYENV_VERSION=2.7.12
 
 export FLASK_APP=restDemo.py
+
+#dependencies
+sudo pip install -U pyopenssl
+
+#run
 nohup flask run --host=0.0.0.0 --port=8080 > /tmp/flask.log &
 

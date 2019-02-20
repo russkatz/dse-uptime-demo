@@ -24,4 +24,5 @@ NODE_VERSION=9.10.1
 export NODEJS_HOME=/usr/local/lib/nodejs/node-v"${NODE_VERSION}"/bin
 export PATH=$NODEJS_HOME:$PATH
 
-npm run start
+npm install
+nohup npm run start &

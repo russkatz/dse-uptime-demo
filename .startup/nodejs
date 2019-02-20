@@ -12,8 +12,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 if ! [ -x "$(command -v npm)" ] && ! [ -x "$(command -v node)" ] ; then
- curl -LO  /tmp/ https://nodejs.org/dist/v"${NODE_VERSION}"/node-v"${NODE_VERSION}"-"${DL_SUFFIX}".tar.gz
- tar -xvf /tmp/node-v"${NODE_VERSION}"-"${DL_SUFFIX}".tar.gz -C /tmp
+ curl -LO  https://nodejs.org/dist/v"${NODE_VERSION}"/node-v"${NODE_VERSION}"-"${DL_SUFFIX}".tar.gz
+ tar -xvf node-v"${NODE_VERSION}"-"${DL_SUFFIX}".tar.gz -C /tmp
  sudo mkdir /usr/local/lib/nodejs
  sudo mkdir /usr/local/lib/nodejs/node-v"${NODE_VERSION}"
  sudo rm -rf /usr/local/lib/nodejs/*
