@@ -1,5 +1,3 @@
-THESE INSTRUCTIONS ARE OLD! SEE GOOGLE DRIVE FOR LATEST!
-
 # dse-uptime-demo
 This demo is to showcase DSE's ability to be continuously available under any circumstance and it has two parts: The Demo application and khaosKatz. The Demo is a simple application that writes data into DSE, but if it misses a single write the application will crash. KhaosKatz will continously load random scenarios taking down different nodes and/or entire datacenters. The goal is to run the Demo application successfully even while khaosKatz starts taking things down ungracefully.
 
