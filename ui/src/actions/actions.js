@@ -35,7 +35,7 @@ export function readApi() {
         dispatch(appendValue('events', 'Initiating reads for purchase transactions'))
         dispatch(updateValue("snackbarOpen", true))
 
-        const url = 'http://52.53.185.6:8080/demo/read';
+        const url = 'http://localhost:8080/demo/read';
         streamingRequest({
             url: url,
             params: data,
