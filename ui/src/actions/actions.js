@@ -12,7 +12,7 @@ export function writeApi() {
         dispatch(appendValue('events', 'Initiating writes for purchase transactions'))
         dispatch(updateValue("snackbarOpen", true))
 
-        const url = 'http://52.53.185.6:8080/demo/write';
+        const url = 'http://localhost:8080/demo/write';
         streamingRequest({
             url: url,
             params: data,
