@@ -41,7 +41,7 @@ class Dashboard extends React.Component {
                     node.mode = 'starting'
                 }
                 return node
-            } 
+            }
         })
 
         nodeList.map((node, id) => {
@@ -57,7 +57,7 @@ class Dashboard extends React.Component {
                     } else {
                         newDcDetail[nodeConditionName[index]] = 0;
                     }
-                }) 
+                })
                 dataCenterDetails.push(newDcDetail)
             } else {
                 let dcIsMissing = true;
@@ -81,13 +81,13 @@ class Dashboard extends React.Component {
                         } else {
                             newDcDetail[nodeConditionName[index]] = 0;
                         }
-                    }) 
+                    })
                     dataCenterDetails.push(newDcDetail)
-                    
+
                 }
             }
         })
-        
+
         return (
             <div className={classes.root}>
                 <Table className={classes.table}>
@@ -130,12 +130,12 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
     init: () => {
-        dispatch(getNodeInfo('http://52.53.185.6:8080/demo/nodefull'))
-        // dispatch(getDataCenter('http://52.53.185.6:8080/demo/nodefull'))
+        dispatch(getNodeInfo('http://localhost:8080/demo/nodefull'))
+        // dispatch(getDataCenter('http://localhost:8080/demo/nodefull'))
     },
     drawerToggle: (drawerOpen) => {
         dispatch(drawerToggle(drawerOpen))
-    }, 
+    },
     changeScreen: (page) => {
         dispatch(changeScreen(page))
         dispatch(drawerToggle(false))

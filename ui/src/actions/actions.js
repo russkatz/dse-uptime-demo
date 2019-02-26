@@ -12,7 +12,7 @@ export function writeApi() {
         dispatch(appendValue('events', 'Initiating writes for purchase transactions'))
         dispatch(updateValue("snackbarOpen", true))
 
-        const url = 'http://52.53.185.6:8080/demo/write';
+        const url = 'http://localhost:8080/demo/write';
         streamingRequest({
             url: url,
             params: data,
@@ -35,7 +35,7 @@ export function readApi() {
         dispatch(appendValue('events', 'Initiating reads for purchase transactions'))
         dispatch(updateValue("snackbarOpen", true))
 
-        const url = 'http://52.53.185.6:8080/demo/read';
+        const url = 'http://localhost:8080/demo/read';
         streamingRequest({
             url: url,
             params: data,
@@ -53,7 +53,7 @@ export function readApi() {
 export function getDataCenter(url) {
     return(dispatch, getState) => {
         get({
-            url: url, 
+            url: url,
             success: function(res){
                 dispatch(updateValue('nodeList', res.data))
                 // console.log(res.data[3].dc)
@@ -102,7 +102,7 @@ export function getNodeInfo(url) {
     return(dispatch, getState) => {
         const interval = setInterval(() => {
             get({
-                url: url, 
+                url: url,
                 success: function(res){
                     let oldNodeList = []
                     Object.assign(oldNodeList, getState().app.nodeList)
@@ -116,7 +116,7 @@ export function getNodeInfo(url) {
                                 node.mode = 'starting'
                             }
                             return node
-                        } 
+                        }
                     })
 
                     dispatch(updateValue('oldNodeList', oldNodeList))
@@ -142,14 +142,14 @@ export function dropOneNode() {
         dispatch(appendValue('events', 'Taking down a random node'))
         dispatch(updateValue("snackbarOpen", true))
 
-        const url = 'http://52.53.185.6:8080/demo/killnode';
+        const url = 'http://localhost:8080/demo/killnode';
         const nodeIpAddresses = getState().app.nodeList.filter((node) => {
             return node.mode === 'normal';
         }).map(node => {
             return node.node_ip
-        }) 
+        })
         const randomDroppedNode = nodeIpAddresses[parseInt(Math.random() * nodeIpAddresses.length)]
-        console.log([randomDroppedNode]) 
+        console.log([randomDroppedNode])
         if (randomDroppedNode !== undefined) {
             post({
                 url: url,
@@ -174,7 +174,7 @@ export function dropOneDataCenter() {
         dispatch(appendValue('events', 'Taking down one data center'))
         dispatch(updateValue("snackbarOpen", true))
 
-        const url = 'http://52.53.185.6:8080/demo/chaos';
+        const url = 'http://localhost:8080/demo/chaos';
         const gatherDataCenters = []
         // gatherDataCenters.push(awsDataCenter, googleDataCenter, onPremDataCenter, azureDataCenter)
         // const randomDataCenter = gatherDataCenters[parseInt(Math.random() * gatherDataCenters.length)]
@@ -186,7 +186,7 @@ export function dropOneDataCenter() {
             url: url,
             params: data,
             success: function(res){
-                
+
             },
             dispatch: dispatch,
             method: "POST"
@@ -199,12 +199,12 @@ export function resetAllNodes() {
         dispatch(appendValue('events', 'Bringing nodes back online'))
         dispatch(updateValue("snackbarOpen", true))
 
-        const url = 'http://52.53.185.6:8080/demo/recover';
+        const url = 'http://localhost:8080/demo/recover';
         const nodesDown = [];
         getState().app.nodeList.map(node => {
             if (node.mode === null) {
                 nodesDown.push(node.node_ip)
-            } 
+            }
             return nodesDown
         })
         console.log(nodesDown)
@@ -212,7 +212,7 @@ export function resetAllNodes() {
             url: url,
             params: nodesDown,
             success: function(res){
-            
+
             },
             dispatch: dispatch,
             method: "POST"

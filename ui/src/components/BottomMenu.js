@@ -92,7 +92,7 @@ const styles = theme => ({
 class BottomMenu extends React.Component{
 
         render() {
-            const { classes } = this.props;  
+            const { classes } = this.props;
             return (
                 <div className={classes.root}>
                     <AppBar position="fixed" color="primary" className={classes.appBar} style={{flexDirection: 'row'}}>
@@ -169,10 +169,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
         },
         getWrites: () => {
-            dispatch(writeApi('http://52.53.185.6:8080/demo/write'))
+            dispatch(writeApi('http://localhost:8080/demo/write'))
         },
         getReads: () => {
-            dispatch(readApi('http://52.53.185.6:8080/demo/read'))
+            dispatch(readApi('http://localhost:8080/demo/read'))
         },
         dropOneNode: () => {
             dispatch(dropOneNode())
