@@ -130,8 +130,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
     init: () => {
-        dispatch(getNodeInfo('http://52.53.185.6:8080/demo/nodefull'))
-        // dispatch(getDataCenter('http://52.53.185.6:8080/demo/nodefull'))
+        dispatch(getNodeInfo('http://'+window.location.hostname+':8080/demo/nodefull'))
     },
     drawerToggle: (drawerOpen) => {
         dispatch(drawerToggle(drawerOpen))
