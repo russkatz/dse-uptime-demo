@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 export PYENV_VERSION=2.7.12
 
 export FLASK_APP=restDemo.py
@@ -10,6 +12,9 @@ pip install -U flask
 
 #idempotence
 lsof -i:8080 | grep LISTEN | awk '{print $2}' | xargs  kill -9 
+
+#troubleshoot
+which flask
 
 #run
 nohup flask run --host=0.0.0.0 --port=8080 > /tmp/flask.log &
