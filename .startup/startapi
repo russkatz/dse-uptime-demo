@@ -2,9 +2,19 @@
 
 set -x
 
-export PYENV_VERSION=2.7.12
+#pyenv when needed
+if [[ $(python --version 2>&1 |  cut -d ' ' -f 2 | awk '{print ($0 <=  2.7.9)}') -gt  0 ]]; then
 
-export FLASK_APP=restDemo.py
+  export PATH="/root/.pyenv/bin:$PATH"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+
+  export PYENV_VERSION=2.7.12
+  pyenv local 2.7.12
+
+  export FLASK_APP=restDemo.py
+
+fi
 
 #dependencies
 pip install -U pyopenssl
@@ -15,6 +25,8 @@ lsof -i:8080 | grep LISTEN | awk '{print $2}' | xargs  kill -9
 
 #troubleshoot
 which flask
+
+python --version
 
 #run
 nohup flask run --host=0.0.0.0 --port=8080 > /tmp/flask.log &
