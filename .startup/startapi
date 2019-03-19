@@ -12,9 +12,9 @@ if [[ $(python --version 2>&1 |  cut -d ' ' -f 2 | awk '{print ($0 <=  2.7.9)}')
   export PYENV_VERSION=2.7.12
   pyenv local 2.7.12
 
-  export FLASK_APP=restDemo.py
-
 fi
+
+export FLASK_APP=restDemo.py
 
 #dependencies
 pip install -U pyopenssl
