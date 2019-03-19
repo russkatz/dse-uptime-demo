@@ -23,3 +23,12 @@ pip install flask
 pip install flask_cors
 pip install dse-driver
 pip install ConfigParser
+
+
+export PYENV_VERSION=2.7.12
+
+export FLASK_APP=restDemo.py
+
+#dependencies
+pip install -U pyopenssl
+pip install -U flask
