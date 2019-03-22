@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
-// import Snackbar from '@material-ui/core/Snackbar';
+import Snackbar from '@material-ui/core/Snackbar';
 
 
 import {drawerToggle} from '../actions/NavigationActions';
@@ -132,10 +132,12 @@ class BottomMenu extends React.Component{
                                 <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.dropOneDataCenter()}}>DROP DATACENTER</Button>
 
                                 <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.resetAllNodes()}}>RESET DOWN NODES</Button>
+
+                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.resetAllNodes()}}>ROLLING RESTART</Button>
                             </div>
                         </Paper>
                     </Drawer>
-                    {/* <Snackbar
+                    <Snackbar
                     anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                     open={this.props.snackbarOpen}
                     onClose={() => this.props.snackbarToggle(!this.props.snackbarOpen)}
@@ -143,7 +145,7 @@ class BottomMenu extends React.Component{
                         'aria-describedby': 'message-id',
                     }}
                     message={<span id="message-id">{this.props.events}</span>}
-                    /> */}
+                    />
                 </div>
             );
         }
