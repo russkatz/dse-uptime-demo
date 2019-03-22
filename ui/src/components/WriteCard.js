@@ -41,15 +41,21 @@ class WriteCard extends React.Component {
                     
                     {
                         [...this.props.writes].reverse().map((write, index) => {
-                            if (Math.random() < .2){
-                            return (
-                                <div key={index}><MoneyIcon/> Purchase number {write.count + 1023400} completed</div>
-                            )
+                            if(write.result == "Successful"){
+                              if (Math.random() < .2){
+                              return (
+                                  <div key={index}><MoneyIcon/> Purchase number {write.count + 1023400} completed</div>
+                              )
+                              }else{
+                              return (
+                                  <div key={index}><ShoppingCartIcon/> Shopping cart number {write.count + 19900230} completed</div>
+                              )
+                              }
                             }else{
-                            return (
-                                <div key={index}><ShoppingCartIcon/> Shopping cart number {write.count + 19900230} completed</div>
-                            )
-                            }
+                              return (
+                                  <div key={index}>Error</div>
+                              )
+			    }
                         }) 
                     }
                     
