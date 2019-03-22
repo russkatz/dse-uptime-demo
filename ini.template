@@ -1,6 +1,6 @@
 [CONFIG]
-contactpoints = 54.183.246.241,104.42.194.135,35.203.139.28,54.215.247.66,104.42.40.115,104.198.105.176,35.197.120.224,13.57.222.55,54.183.218.246,54.215.238.62,54.215.239.215,40.78.69.234
-clustername = Demo1
+contactpoints = X
+clustername = X
 clusteruser = user1
 clusterpass = password1
 crossdclatency = 30
@@ -10,12 +10,12 @@ sslca = ~/.ssh/id_rsa
 ks_query = CREATE KEYSPACE IF NOT EXISTS demo WITH replication = {'class': 'NetworkTopologyStrategy', 'AWS': 3, 'Azure': 3, 'GCP': 3}
 
 [WRITE]
-localDC = Google
+writelocalDC = X
 rowcount = 10
 cl = ONE
 
 [READ]
-localDC = Azure
+readlocalDC = X
 rowcount = 10
 cl = ONE
 
@@ -23,6 +23,6 @@ cl = ONE
 lcm = 127.0.0.1
 lcmport = 8888
 sshusername = ubuntu
-sshkeyfile = ~/.ssh/id_rsa
-localDC = Google
+sshkeyfile = /home/ubuntu/.ssh/id_rsa
+khaoslocalDC = X
 

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+./makeini.sh demo.ini
+
+cqlsh -e "ALTER KEYSPACE system_traces WITH replication = {'class': 'NetworkTopologyStrategy', 'AWS': 3, 'GCP': 3, 'Azure': 3};"
+cqlsh -e "ALTER KEYSPACE \"OpsCenter\" WITH replication = {'class': 'NetworkTopologyStrategy', 'AWS': 3, 'GCP': 3, 'Azure': 3};"

@@ -1,21 +1,31 @@
 #!/bin/bash
 
+set -x
+
 export PATH=$PATH:/root/.pyenv/bin/
 sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
 libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
-xz-utils tk-dev libffi-dev liblzma-dev python-openssl python-pip
+xz-utils tk-dev libffi-dev liblzma-dev python-openssl python-pip jq
 
-curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+if [[ $(python --version 2>&1 |  cut -d ' ' -f 2 | awk '{print ($0 <=  2.7.9)}') -gt  0 ]]; then
+ 
+  curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
 
-pyenv update
+  pyenv update
 
-echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> ~/.bashrc
-echo 'eval "$(pyenv init -)"' >> ~/.bashrc
-echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
-source ~/.bashrc
+  echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> ~/.bashrc
+  echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+  echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
+  source ~/.bashrc
 
-pyenv install 2.7.12
-export PYENV_VERSION=2.7.12
+  pyenv install 2.7.12
+  export PYENV_VERSION=2.7.12
+
+  export PATH="/root/.pyenv/bin:$PATH"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+
+fi
 
 pip install paramiko
 pip install requests
@@ -23,3 +33,12 @@ pip install flask
 pip install flask_cors
 pip install dse-driver
 pip install ConfigParser
+
+
+export PYENV_VERSION=2.7.12
+
+export FLASK_APP=restDemo.py
+
+#dependencies
+pip install -U pyopenssl
+pip install -U flask

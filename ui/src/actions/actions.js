@@ -12,7 +12,7 @@ export function writeApi() {
         dispatch(appendValue('events', 'Initiating writes for purchase transactions'))
         dispatch(updateValue("snackbarOpen", true))
 
-        const url = 'http://52.53.185.6:8080/demo/write';
+        const url = 'http://'+window.location.hostname+':8080/demo/write';
         streamingRequest({
             url: url,
             params: data,
@@ -35,7 +35,7 @@ export function readApi() {
         dispatch(appendValue('events', 'Initiating reads for purchase transactions'))
         dispatch(updateValue("snackbarOpen", true))
 
-        const url = 'http://52.53.185.6:8080/demo/read';
+        const url = 'http://'+window.location.hostname+':8080/demo/read';
         streamingRequest({
             url: url,
             params: data,
@@ -142,7 +142,7 @@ export function dropOneNode() {
         dispatch(appendValue('events', 'Taking down a random node'))
         dispatch(updateValue("snackbarOpen", true))
 
-        const url = 'http://52.53.185.6:8080/demo/killnode';
+        const url = 'http://'+window.location.hostname+':8080/demo/killnode';
         const nodeIpAddresses = getState().app.nodeList.filter((node) => {
             return node.mode === 'normal';
         }).map(node => {
@@ -174,7 +174,7 @@ export function dropOneDataCenter() {
         dispatch(appendValue('events', 'Taking down one data center'))
         dispatch(updateValue("snackbarOpen", true))
 
-        const url = 'http://52.53.185.6:8080/demo/chaos';
+        const url = 'http://'+window.location.hostname+':8080/demo/chaos';
         const gatherDataCenters = []
         // gatherDataCenters.push(awsDataCenter, googleDataCenter, onPremDataCenter, azureDataCenter)
         // const randomDataCenter = gatherDataCenters[parseInt(Math.random() * gatherDataCenters.length)]
@@ -199,7 +199,7 @@ export function resetAllNodes() {
         dispatch(appendValue('events', 'Bringing nodes back online'))
         dispatch(updateValue("snackbarOpen", true))
 
-        const url = 'http://52.53.185.6:8080/demo/recover';
+        const url = 'http://'+window.location.hostname+':8080/demo/recover';
         const nodesDown = [];
         getState().app.nodeList.map(node => {
             if (node.mode === null) {
