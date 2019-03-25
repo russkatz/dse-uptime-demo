@@ -23,6 +23,9 @@ pip install -U flask
 #idempotence
 lsof -i:8080 | grep LISTEN | awk '{print $2}' | xargs  kill -9 
 
+# set flask alias manually?
+alias flask='/home/ubuntu/.local/bin/flask'
+
 #troubleshoot
 which flask > flask-location
 
