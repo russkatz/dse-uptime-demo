@@ -21,6 +21,7 @@ const drawerWidth = '100%';
 
 const styles = theme => ({
     root: {
+        // backgroundColor: 'red',
     },
     grow: {
         flexGrow: 1,
@@ -81,11 +82,7 @@ const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
         color: 'secondary',
-    },
-    warning: {
-        backgroundColor: 'red',
-    },
-
+    }
 });
 
 
@@ -143,6 +140,9 @@ class BottomMenu extends React.Component{
                     onClose={() => this.props.snackbarToggle(!this.props.snackbarOpen)}
                     ContentProps={{
                         'aria-describedby': 'message-id',
+                        // classes: {
+                        //     root: classes.root
+                        // }
                     }}
                     message={<span id="message-id">{this.props.events}</span>}
                     />

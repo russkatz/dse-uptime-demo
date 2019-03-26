@@ -10,7 +10,7 @@ export function writeApi() {
 
     return(dispatch, getState) => {
         dispatch(appendValue('events', 'Initiating writes for purchase transactions'))
-        dispatch(updateValue("snackbarOpen", true))
+        // dispatch(updateValue("snackbarOpen", true))
 
         const url = 'http://'+window.location.hostname+':8080/demo/write';
         streamingRequest({
@@ -33,7 +33,7 @@ export function readApi() {
 
     return(dispatch, getState) => {
         dispatch(appendValue('events', 'Initiating reads for purchase transactions'))
-        dispatch(updateValue("snackbarOpen", true))
+        // dispatch(updateValue("snackbarOpen", true))
 
         const url = 'http://'+window.location.hostname+':8080/demo/read';
         streamingRequest({
@@ -197,7 +197,7 @@ export function dropOneDataCenter() {
 export function resetAllNodes() {
     return(dispatch, getState) => {
         dispatch(appendValue('events', 'Bringing nodes back online'))
-        dispatch(updateValue("snackbarOpen", true))
+        // dispatch(updateValue("snackbarOpen", true))
 
         const url = 'http://'+window.location.hostname+':8080/demo/recover';
         const nodesDown = [];
