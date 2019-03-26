@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
-// import Snackbar from '@material-ui/core/Snackbar';
+import Snackbar from '@material-ui/core/Snackbar';
 
 
 import {drawerToggle} from '../actions/NavigationActions';
@@ -21,6 +21,7 @@ const drawerWidth = '100%';
 
 const styles = theme => ({
     root: {
+        // backgroundColor: 'red',
     },
     grow: {
         flexGrow: 1,
@@ -81,11 +82,7 @@ const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
         color: 'secondary',
-    },
-    warning: {
-        backgroundColor: 'red',
-    },
-
+    }
 });
 
 
@@ -132,18 +129,23 @@ class BottomMenu extends React.Component{
                                 <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.dropOneDataCenter()}}>DROP DATACENTER</Button>
 
                                 <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.resetAllNodes()}}>RESET DOWN NODES</Button>
+
+                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.resetAllNodes()}}>ROLLING RESTART</Button>
                             </div>
                         </Paper>
                     </Drawer>
-                    {/* <Snackbar
+                    <Snackbar
                     anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                     open={this.props.snackbarOpen}
                     onClose={() => this.props.snackbarToggle(!this.props.snackbarOpen)}
                     ContentProps={{
                         'aria-describedby': 'message-id',
+                        // classes: {
+                        //     root: classes.root
+                        // }
                     }}
                     message={<span id="message-id">{this.props.events}</span>}
-                    /> */}
+                    />
                 </div>
             );
         }
