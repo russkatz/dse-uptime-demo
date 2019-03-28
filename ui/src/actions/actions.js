@@ -107,7 +107,10 @@ export function getNodeInfo(url) {
                     let oldNodeList = []
                     Object.assign(oldNodeList, getState().app.nodeList)
                     oldNodeList.map((node, id) => {
-                        if (node.mode === null) {
+                        console.log('Mode: ' + node.mode)
+                        console.log('Last_seen: ' + node.last_seen)
+                        if ((node.mode === null) || (node.last_seen === 0)) {
+                        // if (node.mode === null) {
                             let olderNodeList = getState().app.oldNodeList
                             if (olderNodeList === undefined || olderNodeList[id] === undefined) {
                                 return node
@@ -165,7 +168,8 @@ export function dropOneNode() {
 }
 
 export function dropOneDataCenter() {
-    var awsDataCenter = '{"dc": "AWS", "scenario": 3}';
+    var dc1DataCenter = '{"dc": "dc1", "scenario": 3}';
+    // var awsDataCenter = '{"dc": "AWS", "scenario": 3}';
     // var googleDataCenter = '{"dc": "Google", "scenario": 3}';
     // var onPremDataCenter = '{"dc": "OnPrem-DC1", "scenario": 3}';
     // var azureDataCenter = '{"dc": "Azure", "scenario": 3}';
@@ -179,7 +183,8 @@ export function dropOneDataCenter() {
         // gatherDataCenters.push(awsDataCenter, googleDataCenter, onPremDataCenter, azureDataCenter)
         // const randomDataCenter = gatherDataCenters[parseInt(Math.random() * gatherDataCenters.length)]
 
-        const data = awsDataCenter
+        const data = dc1DataCenter
+        // const data = awsDataCenter
         // debugger
 
         post({
@@ -212,7 +217,24 @@ export function resetAllNodes() {
             url: url,
             params: nodesDown,
             success: function(res){
-            
+            },
+            dispatch: dispatch,
+            method: "POST"
+        })
+    }
+}
+
+export function rollingRestart() {
+    return(dispatch, getState) => {
+        dispatch(appendValue('events', 'Rolling restart'))
+
+        var dc1DataCenter = '{"dc": "dc1", "scenario": 4, rrdelay: 5000}';
+        const url = 'http://'+window.location.hostname+':8080/demo/chaos';
+
+        post({
+            url: url,
+            params: dc1DataCenter,
+            success: function(res){
             },
             dispatch: dispatch,
             method: "POST"
@@ -249,4 +271,4 @@ export const updateData = (type, data) => {
     }
 }
 
-export default {writeApi, readApi, readChunk, getDataCenter, getNodeInfo, dropOneNode, dropOneDataCenter, resetAllNodes, snackbarToggle, updateValue, appendValue, updateData};
+export default {writeApi, readApi, readChunk, getDataCenter, getNodeInfo, dropOneNode, dropOneDataCenter, resetAllNodes, rollingRestart, snackbarToggle, updateValue, appendValue, updateData};

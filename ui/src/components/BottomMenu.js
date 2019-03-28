@@ -13,7 +13,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 
 
 import {drawerToggle} from '../actions/NavigationActions';
-import { writeApi, readApi, dropOneNode, dropOneDataCenter, resetAllNodes, snackbarToggle } from '../actions/actions';
+import { writeApi, readApi, dropOneNode, dropOneDataCenter, resetAllNodes, snackbarToggle, rollingRestart } from '../actions/actions';
 
 import classNames from 'classnames';
 
@@ -21,7 +21,10 @@ const drawerWidth = '100%';
 
 const styles = theme => ({
     root: {
-        // backgroundColor: 'red',
+        backgroundColor: 'red',
+        color: 'black',
+        paddingTop: '20px',
+        paddingBottom: '20px'
     },
     grow: {
         flexGrow: 1,
@@ -130,19 +133,20 @@ class BottomMenu extends React.Component{
 
                                 <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.resetAllNodes()}}>RESET DOWN NODES</Button>
 
-                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.resetAllNodes()}}>ROLLING RESTART</Button>
+                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.rollingRestart()}}>ROLLING RESTART</Button>
                             </div>
                         </Paper>
                     </Drawer>
                     <Snackbar
                     anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    autoHideDuration={4000}
                     open={this.props.snackbarOpen}
                     onClose={() => this.props.snackbarToggle(!this.props.snackbarOpen)}
                     ContentProps={{
                         'aria-describedby': 'message-id',
-                        // classes: {
-                        //     root: classes.root
-                        // }
+                        classes: {
+                            root: classes.root
+                        }
                     }}
                     message={<span id="message-id">{this.props.events}</span>}
                     />
@@ -184,6 +188,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         resetAllNodes: () => {
             dispatch(resetAllNodes())
+        },
+        rollingRestart: () => {
+            dispatch(rollingRestart())
         },
         drawerToggle: (drawerOpen) => {
             dispatch(drawerToggle(drawerOpen))
