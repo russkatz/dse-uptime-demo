@@ -11,7 +11,7 @@ import CardBody from 'material-kit-react/components/Card/CardBody';
 const styles = theme => ({
     cardheader: {
         backgroundColor: 'silver',
-        fontSize: '30px',
+        fontSize: '28px',
         color: 'black',
         textAlign: 'center',
     },
