@@ -4,6 +4,8 @@ import { get } from '../common/requests.js';
 import { post } from '../common/requests.js';
 import { streamingRequest } from '../common/requests.js';
 
+const hostname = '18.222.23.112';
+// const hostname = window.location.hostname;
 
 export function writeApi() {
     var data = '{"dc": "AWS", "count": 20000, "cl": "ONE"}';
@@ -12,7 +14,7 @@ export function writeApi() {
         dispatch(appendValue('events', 'Initiating writes for purchase transactions'))
         // dispatch(updateValue("snackbarOpen", true))
 
-        const url = 'http://'+window.location.hostname+':8080/demo/write';
+        const url = 'http://'+hostname+':8080/demo/write';
         streamingRequest({
             url: url,
             params: data,
@@ -35,7 +37,7 @@ export function readApi() {
         dispatch(appendValue('events', 'Initiating reads for purchase transactions'))
         // dispatch(updateValue("snackbarOpen", true))
 
-        const url = 'http://'+window.location.hostname+':8080/demo/read';
+        const url = 'http://'+hostname+':8080/demo/read';
         streamingRequest({
             url: url,
             params: data,
@@ -98,8 +100,9 @@ export function readChunk(reader, dispatch, valueKey){
     });
 }
 
-export function getNodeInfo(url) {
+export function getNodeInfo() {
     return(dispatch, getState) => {
+        const url = 'http://'+hostname+':8080/demo/nodefull';
         const interval = setInterval(() => {
             get({
                 url: url, 
@@ -145,7 +148,7 @@ export function dropOneNode() {
         dispatch(appendValue('events', 'Taking down a random node'))
         dispatch(updateValue("snackbarOpen", true))
 
-        const url = 'http://'+window.location.hostname+':8080/demo/killnode';
+        const url = 'http://'+hostname+':8080/demo/killnode';
         const nodeIpAddresses = getState().app.nodeList.filter((node) => {
             return node.mode === 'normal';
         }).map(node => {
@@ -168,8 +171,7 @@ export function dropOneNode() {
 }
 
 export function dropOneDataCenter() {
-    var dc1DataCenter = '{"dc": "dc1", "scenario": 3}';
-    // var awsDataCenter = '{"dc": "AWS", "scenario": 3}';
+    var awsDataCenter = '{"dc": "AWS", "scenario": 3}';
     // var googleDataCenter = '{"dc": "Google", "scenario": 3}';
     // var onPremDataCenter = '{"dc": "OnPrem-DC1", "scenario": 3}';
     // var azureDataCenter = '{"dc": "Azure", "scenario": 3}';
@@ -178,7 +180,7 @@ export function dropOneDataCenter() {
         dispatch(appendValue('events', 'Taking down one data center'))
         dispatch(updateValue("snackbarOpen", true))
 
-        const url = 'http://'+window.location.hostname+':8080/demo/chaos';
+        const url = 'http://'+hostname+':8080/demo/chaos';
         const gatherDataCenters = []
         // gatherDataCenters.push(awsDataCenter, googleDataCenter, onPremDataCenter, azureDataCenter)
         // const randomDataCenter = gatherDataCenters[parseInt(Math.random() * gatherDataCenters.length)]
@@ -204,7 +206,7 @@ export function resetAllNodes() {
         dispatch(appendValue('events', 'Bringing nodes back online'))
         // dispatch(updateValue("snackbarOpen", true))
 
-        const url = 'http://'+window.location.hostname+':8080/demo/recover';
+        const url = 'http://'+hostname+':8080/demo/recover';
         const nodesDown = [];
         getState().app.nodeList.map(node => {
             if (node.mode === null) {
@@ -229,7 +231,7 @@ export function rollingRestart() {
         dispatch(appendValue('events', 'Rolling restart'))
 
         var dc1DataCenter = '{"dc": "dc1", "scenario": 4, rrdelay: 5000}';
-        const url = 'http://'+window.location.hostname+':8080/demo/chaos';
+        const url = 'http://'+hostname+':8080/demo/chaos';
 
         post({
             url: url,

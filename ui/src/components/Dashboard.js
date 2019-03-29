@@ -130,7 +130,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
     init: () => {
-        dispatch(getNodeInfo('http://'+window.location.hostname+':8080/demo/nodefull'))
+        dispatch(getNodeInfo())
     },
     drawerToggle: (drawerOpen) => {
         dispatch(drawerToggle(drawerOpen))

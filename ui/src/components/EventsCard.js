@@ -34,7 +34,7 @@ class EventsCard extends React.Component {
     Object.assign(events, this.props.events)
         return (
             <div className={classes.root}>
-                <Card className={classes.card}>
+                <Card className={classes.card} style={{marginBottom: '130px'}}>
                     <CardHeader className={classes.cardheader} style={{height: '50px', paddingTop: '20px'}}>EVENTS</CardHeader>
                     <CardBody className={classes.cardbody}>
                     <div className={classes.cardtext}>
