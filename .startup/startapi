@@ -3,7 +3,8 @@
 set -x
 
 #pyenv when needed
-if [[ $(python --version 2>&1 |  cut -d ' ' -f 2 | awk '{print ($0 <=  2.7.9)}') -gt  0 ]]; then
+function version_gt() { test "$(printf '%s\n' "$@" | sort -V | head -n 1)" != "$1"; }               [18:33:29]
+if version_gt 2.7.9 $(python --version 2>&1 |  cut -d ' ' -f 2); then
 
   export PATH="/root/.pyenv/bin:$PATH"
   eval "$(pyenv init -)"
@@ -24,7 +25,7 @@ pip install -U flask
 lsof -i:8080 | grep LISTEN | awk '{print $2}' | xargs  kill -9 
 
 # set flask alias manually?
-alias flask='/home/ubuntu/.local/bin/flask'
+alias flask='~/.local/bin/flask'
 
 #troubleshoot
 which flask > flask-location
@@ -33,5 +34,5 @@ python --version
 
 #run
 #nohup /home/ubuntu/.local/bin/flask run --host=0.0.0.0 --port=8080 > /tmp/flask.log &
-nohup flask run --host=0.0.0.0 --port=8080 > /tmp/flask.log &
+nohup python -m flask run --host=0.0.0.0 --port=8080 > /tmp/flask.log &
 
