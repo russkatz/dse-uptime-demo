@@ -4,8 +4,8 @@ import { get } from '../common/requests.js';
 import { post } from '../common/requests.js';
 import { streamingRequest } from '../common/requests.js';
 
-const hostname = '18.222.23.112';
-// const hostname = window.location.hostname;
+// const hostname = '18.222.23.112';
+const hostname = window.location.hostname;
 
 export function writeApi() {
     var data = '{"dc": "AWS", "count": 20000, "cl": "ONE"}';
@@ -181,14 +181,10 @@ export function dropOneDataCenter() {
         dispatch(updateValue("snackbarOpen", true))
 
         const url = 'http://'+hostname+':8080/demo/chaos';
-        const gatherDataCenters = []
+        // const gatherDataCenters = []
         // gatherDataCenters.push(awsDataCenter, googleDataCenter, onPremDataCenter, azureDataCenter)
         // const randomDataCenter = gatherDataCenters[parseInt(Math.random() * gatherDataCenters.length)]
-
-        const data = dc1DataCenter
-        // const data = awsDataCenter
-        // debugger
-
+        const data = awsDataCenter
         post({
             url: url,
             params: data,
@@ -227,15 +223,24 @@ export function resetAllNodes() {
 }
 
 export function rollingRestart() {
+    var awsDataCenter = '{"dc": "AWS", "scenario": 4, rrdelay: 5000}';
+    var googleDataCenter = '{"dc": "Google", "scenario": 4, rrdelay: 5000}';
+    // var onPremDataCenter = '{"dc": "OnPrem-DC1", "scenario": 3}';
+    var azureDataCenter = '{"dc": "Azure", "scenario": 4, rrdelay: 5000}';
+
     return(dispatch, getState) => {
         dispatch(appendValue('events', 'Rolling restart'))
 
-        var dc1DataCenter = '{"dc": "dc1", "scenario": 4, rrdelay: 5000}';
         const url = 'http://'+hostname+':8080/demo/chaos';
+
+        const gatherDataCenters = []
+        gatherDataCenters.push(awsDataCenter, googleDataCenter, azureDataCenter)
+        const randomDataCenter = gatherDataCenters[parseInt(Math.random() * gatherDataCenters.length)]
+        const data = randomDataCenter
 
         post({
             url: url,
-            params: dc1DataCenter,
+            params: data,
             success: function(res){
             },
             dispatch: dispatch,
