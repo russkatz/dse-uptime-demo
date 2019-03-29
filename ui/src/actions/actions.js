@@ -4,7 +4,7 @@ import { get } from '../common/requests.js';
 import { post } from '../common/requests.js';
 import { streamingRequest } from '../common/requests.js';
 
-// const hostname = '18.222.23.112';
+// const hostname = '52.14.220.226';
 const hostname = window.location.hostname;
 
 export function writeApi() {
@@ -110,10 +110,9 @@ export function getNodeInfo() {
                     let oldNodeList = []
                     Object.assign(oldNodeList, getState().app.nodeList)
                     oldNodeList.map((node, id) => {
-                        console.log('Mode: ' + node.mode)
-                        console.log('Last_seen: ' + node.last_seen)
-                        if ((node.mode === null) || (node.last_seen === 0)) {
-                        // if (node.mode === null) {
+                        console.log('Mode: ' +node.mode)
+                        console.log('Last_seen: ' +node.last_seen)
+                        if (node.mode === null) {
                             let olderNodeList = getState().app.oldNodeList
                             if (olderNodeList === undefined || olderNodeList[id] === undefined) {
                                 return node

@@ -149,7 +149,7 @@ class BottomMenu extends React.Component{
                         }
                     }}
                     // message={<span id="message-id">{this.props.events}</span>}
-                    message={<span id="message-id">puppies</span>}
+                    message={<span id="message-id">Little puppies!!!</span>}
                     />
                 </div>
             );
