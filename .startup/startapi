@@ -3,7 +3,7 @@
 set -x
 
 #pyenv when needed
-function version_gt() { test "$(printf '%s\n' "$@" | sort -V | head -n 1)" != "$1"; }               [18:33:29]
+function version_gt() { test "$(printf '%s\n' "$@" | sort -V | head -n 1)" != "$1"; }
 if version_gt 2.7.9 $(python --version 2>&1 |  cut -d ' ' -f 2); then
 
   export PATH="/root/.pyenv/bin:$PATH"
