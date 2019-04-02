@@ -4,7 +4,7 @@ import { get } from '../common/requests.js';
 import { post } from '../common/requests.js';
 import { streamingRequest } from '../common/requests.js';
 
-// const hostname = '52.14.220.226';
+// const hostname = '3.17.156.70';
 const hostname = window.location.hostname;
 
 export function writeApi() {
@@ -110,8 +110,8 @@ export function getNodeInfo() {
                     let oldNodeList = []
                     Object.assign(oldNodeList, getState().app.nodeList)
                     oldNodeList.map((node, id) => {
-                        console.log('Mode: ' +node.mode)
-                        console.log('Last_seen: ' +node.last_seen)
+                        // console.log('Mode: ' +node.mode)
+                        // console.log('Last_seen: ' +node.last_seen)
                         if (node.mode === null) {
                             let olderNodeList = getState().app.oldNodeList
                             if (olderNodeList === undefined || olderNodeList[id] === undefined) {
@@ -171,8 +171,7 @@ export function dropOneNode() {
 
 export function dropOneDataCenter() {
     var awsDataCenter = '{"dc": "AWS", "scenario": 3}';
-    // var googleDataCenter = '{"dc": "Google", "scenario": 3}';
-    // var onPremDataCenter = '{"dc": "OnPrem-DC1", "scenario": 3}';
+    // var gcpDataCenter = '{"dc": "GCP", "scenario": 3}';
     // var azureDataCenter = '{"dc": "Azure", "scenario": 3}';
 
     return(dispatch, getState) => {
@@ -181,7 +180,7 @@ export function dropOneDataCenter() {
 
         const url = 'http://'+hostname+':8080/demo/chaos';
         // const gatherDataCenters = []
-        // gatherDataCenters.push(awsDataCenter, googleDataCenter, onPremDataCenter, azureDataCenter)
+        // gatherDataCenters.push(awsDataCenter, gcpDataCenter, azureDataCenter)
         // const randomDataCenter = gatherDataCenters[parseInt(Math.random() * gatherDataCenters.length)]
         const data = awsDataCenter
         post({
@@ -222,10 +221,9 @@ export function resetAllNodes() {
 }
 
 export function rollingRestart() {
-    var awsDataCenter = '{"dc": "AWS", "scenario": 4, rrdelay: 5000}';
-    var googleDataCenter = '{"dc": "Google", "scenario": 4, rrdelay: 5000}';
-    // var onPremDataCenter = '{"dc": "OnPrem-DC1", "scenario": 3}';
-    var azureDataCenter = '{"dc": "Azure", "scenario": 4, rrdelay: 5000}';
+    var awsDataCenter = '{"dc": "AWS", "scenario": 4, "rrdelay": 5000}';
+    var gcpDataCenter = '{"dc": "GCP", "scenario": 4, "rrdelay": 5000}';
+    var azureDataCenter = '{"dc": "Azure", "scenario": 4, "rrdelay": 5000}';
 
     return(dispatch, getState) => {
         dispatch(appendValue('events', 'Rolling restart'))
@@ -233,7 +231,7 @@ export function rollingRestart() {
         const url = 'http://'+hostname+':8080/demo/chaos';
 
         const gatherDataCenters = []
-        gatherDataCenters.push(awsDataCenter, googleDataCenter, azureDataCenter)
+        gatherDataCenters.push(awsDataCenter, gcpDataCenter, azureDataCenter)
         const randomDataCenter = gatherDataCenters[parseInt(Math.random() * gatherDataCenters.length)]
         const data = randomDataCenter
 

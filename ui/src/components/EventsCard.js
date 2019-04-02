@@ -38,7 +38,6 @@ class EventsCard extends React.Component {
                     <CardHeader className={classes.cardheader} style={{height: '50px', paddingTop: '20px'}}>EVENTS</CardHeader>
                     <CardBody className={classes.cardbody}>
                     <div className={classes.cardtext}>
-
                     {
                         events.reverse().map((event, index) => {
                         return(

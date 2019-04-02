@@ -35,7 +35,7 @@ export function post({url, params, success, error, dispatch} = {}) {
         headers: {
             "content-type": "application/json",
             "cache-control": "no-cache"
-        },
+        }
     })
     .then(success || function(response){
         console.log(response)
