@@ -21,7 +21,7 @@ const drawerWidth = '100%';
 
 const styles = theme => ({
     root: {
-        backgroundColor: 'red',
+        backgroundColor: '#ff1919',
         color: 'black',
     },
     grow: {
@@ -69,9 +69,9 @@ const styles = theme => ({
         duration: theme.transitions.duration.leavingScreen,
         }),
         overflowX: 'hidden',
-        height: theme.spacing.unit * 7 + 1,
+        // height: theme.spacing.unit * 7 + 1,
         [theme.breakpoints.up('sm')]: {
-          height: theme.spacing.unit * 4 + 1,
+          height: theme.spacing.unit * 0,
         },
     },
     controlContainer: {

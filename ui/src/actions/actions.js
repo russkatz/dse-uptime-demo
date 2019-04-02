@@ -4,7 +4,7 @@ import { get } from '../common/requests.js';
 import { post } from '../common/requests.js';
 import { streamingRequest } from '../common/requests.js';
 
-// const hostname = '3.17.156.70';
+// const hostname = '18.221.231.244';
 const hostname = window.location.hostname;
 
 export function writeApi() {
