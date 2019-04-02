@@ -23,6 +23,9 @@ const styles = theme => ({
     root: {
         backgroundColor: '#ff1919',
         color: 'black',
+        height: '50px',
+        width: 'fit-content',
+        fontSize: '14px'
     },
     grow: {
         flexGrow: 1,
@@ -146,8 +149,7 @@ class BottomMenu extends React.Component{
                             root: classes.root
                         }
                     }}
-                    // message={<span id="message-id">{this.props.events}</span>}
-                    message={<span id="message-id"></span>}
+                    message={<span id="message-id">{this.props.events}</span>}
                     />
                 </div>
             );

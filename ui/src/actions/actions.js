@@ -4,14 +4,14 @@ import { get } from '../common/requests.js';
 import { post } from '../common/requests.js';
 import { streamingRequest } from '../common/requests.js';
 
-// const hostname = '18.221.231.244';
+// const hostname = '18.218.164.134';
 const hostname = window.location.hostname;
 
 export function writeApi() {
     var data = '{"dc": "AWS", "count": 20000, "cl": "ONE"}';
 
     return(dispatch, getState) => {
-        dispatch(appendValue('events', 'Initiating writes for purchase transactions'))
+        dispatch(appendValue('events', 'initiating writes for purchase transactions'))
         // dispatch(updateValue("snackbarOpen", true))
 
         const url = 'http://'+hostname+':8080/demo/write';
@@ -24,7 +24,7 @@ export function writeApi() {
             },
             dispatch: dispatch,
             method: "POST",
-            description: 'Initiating writes for purchase transaction'
+            description: 'initiating writes for purchase transaction'
         })
     }
 
@@ -34,7 +34,7 @@ export function readApi() {
     var data = '{"dc": "AWS", "count": 20000, "cl": "ONE"}';
 
     return(dispatch, getState) => {
-        dispatch(appendValue('events', 'Initiating reads for purchase transactions'))
+        dispatch(appendValue('events', 'initiating reads for purchase transactions'))
         // dispatch(updateValue("snackbarOpen", true))
 
         const url = 'http://'+hostname+':8080/demo/read';
@@ -47,7 +47,7 @@ export function readApi() {
             },
             dispatch: dispatch,
             method: "POST",
-            description: 'Initiating reads for purchase transaction'
+            description: 'initiating reads for purchase transaction'
         })
     }
 }
@@ -144,7 +144,7 @@ export function getNodeInfo() {
 
 export function dropOneNode() {
     return(dispatch, getState) => {
-        dispatch(appendValue('events', 'Taking down a random node'))
+        dispatch(appendValue('events', 'a node has failed!'))
         dispatch(updateValue("snackbarOpen", true))
 
         const url = 'http://'+hostname+':8080/demo/killnode';
@@ -175,7 +175,7 @@ export function dropOneDataCenter() {
     // var azureDataCenter = '{"dc": "Azure", "scenario": 3}';
 
     return(dispatch, getState) => {
-        dispatch(appendValue('events', 'Taking down one data center'))
+        dispatch(appendValue('events', 'a data center has crashed!'))
         dispatch(updateValue("snackbarOpen", true))
 
         const url = 'http://'+hostname+':8080/demo/chaos';
@@ -197,7 +197,7 @@ export function dropOneDataCenter() {
 
 export function resetAllNodes() {
     return(dispatch, getState) => {
-        dispatch(appendValue('events', 'Bringing nodes back online'))
+        dispatch(appendValue('events', 'bringing node(s) back online'))
         // dispatch(updateValue("snackbarOpen", true))
 
         const url = 'http://'+hostname+':8080/demo/recover';
@@ -226,7 +226,8 @@ export function rollingRestart() {
     var azureDataCenter = '{"dc": "Azure", "scenario": 4, "rrdelay": 5000}';
 
     return(dispatch, getState) => {
-        dispatch(appendValue('events', 'Rolling restart'))
+        dispatch(appendValue('events', 'rolling restart'))
+        // dispatch(updateValue("snackbarOpen", true))
 
         const url = 'http://'+hostname+':8080/demo/chaos';
 
