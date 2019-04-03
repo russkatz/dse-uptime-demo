@@ -4,7 +4,7 @@ import { get } from '../common/requests.js';
 import { post } from '../common/requests.js';
 import { streamingRequest } from '../common/requests.js';
 
-// const hostname = '18.218.164.134';
+// const hostname = '3.19.30?.125';
 const hostname = window.location.hostname;
 
 export function writeApi() {
@@ -145,7 +145,7 @@ export function getNodeInfo() {
 export function dropOneNode() {
     return(dispatch, getState) => {
         dispatch(appendValue('events', 'a node has failed!'))
-        dispatch(updateValue("snackbarOpen", true))
+        // dispatch(updateValue("snackbarOpen", true))
 
         const url = 'http://'+hostname+':8080/demo/killnode';
         const nodeIpAddresses = getState().app.nodeList.filter((node) => {
@@ -176,7 +176,7 @@ export function dropOneDataCenter() {
 
     return(dispatch, getState) => {
         dispatch(appendValue('events', 'a data center has crashed!'))
-        dispatch(updateValue("snackbarOpen", true))
+        // dispatch(updateValue("snackbarOpen", true))
 
         const url = 'http://'+hostname+':8080/demo/chaos';
         // const gatherDataCenters = []
@@ -235,7 +235,7 @@ export function rollingRestart() {
         gatherDataCenters.push(awsDataCenter, gcpDataCenter, azureDataCenter)
         const randomDataCenter = gatherDataCenters[parseInt(Math.random() * gatherDataCenters.length)]
         const data = randomDataCenter
-
+        console.log(data)
         post({
             url: url,
             params: data,

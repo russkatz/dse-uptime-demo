@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
+// import Snackbar from '@material-ui/core/Snackbar';
 
 
 import {drawerToggle} from '../actions/NavigationActions';
@@ -21,11 +21,11 @@ const drawerWidth = '100%';
 
 const styles = theme => ({
     root: {
-        backgroundColor: '#ff1919',
-        color: 'black',
-        height: '50px',
-        width: 'fit-content',
-        fontSize: '14px'
+        // backgroundColor: '#ff1919',
+        // color: 'black',
+        // height: '50px',
+        // width: 'fit-content',
+        // fontSize: '14px'
     },
     grow: {
         flexGrow: 1,
@@ -138,7 +138,7 @@ class BottomMenu extends React.Component{
                             </div>
                         </Paper>
                     </Drawer>
-                    <Snackbar
+                    {/* <Snackbar
                     anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                     autoHideDuration={4000}
                     open={this.props.snackbarOpen}
@@ -150,7 +150,7 @@ class BottomMenu extends React.Component{
                         }
                     }}
                     message={<span id="message-id">{this.props.events}</span>}
-                    />
+                    /> */}
                 </div>
             );
         }
@@ -196,9 +196,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         drawerToggle: (drawerOpen) => {
             dispatch(drawerToggle(drawerOpen))
         },
-        snackbarToggle: () => {
-            dispatch(snackbarToggle())
-        },
+        // snackbarToggle: () => {
+        //     dispatch(snackbarToggle())
+        // },
         changeScreen: (page) => {
             dispatch(changeScreen(page))
             dispatch(drawerToggle(false))
