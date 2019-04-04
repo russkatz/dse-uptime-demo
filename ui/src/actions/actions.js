@@ -4,8 +4,8 @@ import { get } from '../common/requests.js';
 import { post } from '../common/requests.js';
 import { streamingRequest } from '../common/requests.js';
 
-const hostname = '3.19.30.125';
-// const hostname = window.location.hostname;
+// const hostname = '3.19.30.125';
+const hostname = window.location.hostname;
 
 export function writeApi() {
     var data = '{"dc": "AWS", "count": 20000, "cl": "ONE"}';
