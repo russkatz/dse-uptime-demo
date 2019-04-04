@@ -4,7 +4,7 @@ import { get } from '../common/requests.js';
 import { post } from '../common/requests.js';
 import { streamingRequest } from '../common/requests.js';
 
-// const hostname = '3.19.30.125';
+// const hostname = '3.16.75.18';
 const hostname = window.location.hostname;
 
 export function writeApi() {
@@ -87,7 +87,7 @@ export function readChunk(reader, dispatch, valueKey){
             }
         });
         if (result.done) {
-            dispatch(removeRequest(key))
+            // dispatch(removeRequest(key))
             if (args == null){
                 dispatch(runWhenDone())
             }else {
@@ -110,8 +110,8 @@ export function getNodeInfo() {
                     let oldNodeList = []
                     Object.assign(oldNodeList, getState().app.nodeList)
                     oldNodeList.map((node, id) => {
-                        console.log('Mode: ' +node.mode)
-                        console.log('Last_seen: ' +node.last_seen)
+                        // console.log('Mode: ' +node.mode)
+                        // console.log('Last_seen: ' +node.last_seen)
                         if (node.last_seen > 0) {
                             let olderNodeList = getState().app.oldNodeList
                             if (olderNodeList === undefined || olderNodeList[id] === undefined) {
@@ -223,9 +223,9 @@ export function resetAllNodes() {
 }
 
 export function rollingRestart() {
-    var awsDataCenter = '{"dc": "AWS", "scenario": 4, "rrdelay": 180}';
-    var gcpDataCenter = '{"dc": "GCP", "scenario": 4, "rrdelay": 180}';
-    var azureDataCenter = '{"dc": "Azure", "scenario": 4, "rrdelay": 180}';
+    // var awsDataCenter = '{"dc": "AWS", "scenario": 4, "rrdelay": 130}';
+    var gcpDataCenter = '{"dc": "GCP", "scenario": 4, "rrdelay": 130}';
+    // var azureDataCenter = '{"dc": "Azure", "scenario": 4, "rrdelay": 130}';
 
     return(dispatch, getState) => {
         dispatch(appendValue('events', 'rolling restart'))
@@ -233,13 +233,13 @@ export function rollingRestart() {
 
         const url = 'http://'+hostname+':8080/demo/chaos';
 
-        const gatherDataCenters = []
-        gatherDataCenters.push(awsDataCenter, gcpDataCenter, azureDataCenter)
+        // const gatherDataCenters = []
+        // gatherDataCenters.push(awsDataCenter, gcpDataCenter, azureDataCenter)
         // const randomDataCenter = gatherDataCenters[parseInt(Math.random() * gatherDataCenters.length)]
-        console.log(gatherDataCenters[0])
+        // console.log(gatherDataCenters[0])
         post({
             url: url,
-            params: gatherDataCenters[0],
+            params: gcpDataCenter,
             success: function(res){
             },
             dispatch: dispatch,
