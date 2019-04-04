@@ -4,8 +4,8 @@ import { get } from '../common/requests.js';
 import { post } from '../common/requests.js';
 import { streamingRequest } from '../common/requests.js';
 
-// const hostname = '3.19.30?.125';
-const hostname = window.location.hostname;
+const hostname = '3.19.30.125';
+// const hostname = window.location.hostname;
 
 export function writeApi() {
     var data = '{"dc": "AWS", "count": 20000, "cl": "ONE"}';
@@ -110,15 +110,16 @@ export function getNodeInfo() {
                     let oldNodeList = []
                     Object.assign(oldNodeList, getState().app.nodeList)
                     oldNodeList.map((node, id) => {
-                        // console.log('Mode: ' +node.mode)
-                        // console.log('Last_seen: ' +node.last_seen)
-                        if (node.mode === null) {
+                        console.log('Mode: ' +node.mode)
+                        console.log('Last_seen: ' +node.last_seen)
+                        if (node.last_seen > 0) {
                             let olderNodeList = getState().app.oldNodeList
                             if (olderNodeList === undefined || olderNodeList[id] === undefined) {
                                 return node
                             }
                             if (olderNodeList[id].mode === 'starting') {
-                                node.mode = 'starting'
+                                node.mode = 'starting';
+                                node.last_seen = -1;
                             }
                             return node
                         } 
@@ -183,6 +184,7 @@ export function dropOneDataCenter() {
         // gatherDataCenters.push(awsDataCenter, gcpDataCenter, azureDataCenter)
         // const randomDataCenter = gatherDataCenters[parseInt(Math.random() * gatherDataCenters.length)]
         const data = awsDataCenter
+        console.log(data)
         post({
             url: url,
             params: data,
@@ -221,9 +223,9 @@ export function resetAllNodes() {
 }
 
 export function rollingRestart() {
-    var awsDataCenter = '{"dc": "AWS", "scenario": 4, "rrdelay": 5000}';
-    var gcpDataCenter = '{"dc": "GCP", "scenario": 4, "rrdelay": 5000}';
-    var azureDataCenter = '{"dc": "Azure", "scenario": 4, "rrdelay": 5000}';
+    var awsDataCenter = '{"dc": "AWS", "scenario": 4, "rrdelay": 180}';
+    var gcpDataCenter = '{"dc": "GCP", "scenario": 4, "rrdelay": 180}';
+    var azureDataCenter = '{"dc": "Azure", "scenario": 4, "rrdelay": 180}';
 
     return(dispatch, getState) => {
         dispatch(appendValue('events', 'rolling restart'))
@@ -233,12 +235,11 @@ export function rollingRestart() {
 
         const gatherDataCenters = []
         gatherDataCenters.push(awsDataCenter, gcpDataCenter, azureDataCenter)
-        const randomDataCenter = gatherDataCenters[parseInt(Math.random() * gatherDataCenters.length)]
-        const data = randomDataCenter
-        console.log(data)
+        // const randomDataCenter = gatherDataCenters[parseInt(Math.random() * gatherDataCenters.length)]
+        console.log(gatherDataCenters[0])
         post({
             url: url,
-            params: data,
+            params: gatherDataCenters[0],
             success: function(res){
             },
             dispatch: dispatch,

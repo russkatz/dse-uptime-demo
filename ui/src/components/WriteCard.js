@@ -42,7 +42,7 @@ class WriteCard extends React.Component {
                     {
                         [...this.props.writes].reverse().map((write, index) => {
                             if(write.result == "Successful"){
-                              if (Math.random() < .2){
+                              if (write.count / 10 % 5 > 0){
                               return (
                                   <div key={index}><MoneyIcon/> Purchase number {write.count + 1023400} completed</div>
                               )

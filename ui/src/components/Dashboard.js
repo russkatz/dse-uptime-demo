@@ -25,20 +25,27 @@ class Dashboard extends React.Component {
         this.props.init();
     }
 
-
     render ({ classes } = this.props){
         let dataCenterDetails = []
 
+        //this is in state
         let nodeList = this.props.nodeList
-        nodeList.map((node, id) => {
-            if (node.mode === null) {
-                var oldNodeList = this.props.oldNodeList
 
+        //is the oldNodeList started yet?
+        //if so, define it's mode to 'starting'
+        nodeList.map((node, id) => {
+            if (node.mode === 'starting') {
+                node.last_seen = -1;
+            }
+            if (node.last_seen > 0) {
+                node.last_seen = 1
+                var oldNodeList = this.props.oldNodeList
                 if (oldNodeList === undefined || oldNodeList[id] === undefined) {
                     return node
                 }
                 if (oldNodeList[id].mode === 'starting') {
-                    node.mode = 'starting'
+                    node.mode = 'starting';
+                    node.last_seen = -1;
                 }
                 return node
             } 
@@ -47,12 +54,12 @@ class Dashboard extends React.Component {
         nodeList.map((node, id) => {
             let newDcDetail = {};
             newDcDetail.name = node.dc
-            let nodeCondition = ['normal', 'starting', null];
+            let nodeCondition = [0, -1, 1];
             let nodeConditionName = ['countUp', 'starting', 'countDown'];
 
             if (dataCenterDetails.length === 0 ){
                 nodeCondition.map((value, index) => {
-                    if (node.mode === value) {
+                    if (node.last_seen === value) {
                         newDcDetail[nodeConditionName[index]] = 1;
                     } else {
                         newDcDetail[nodeConditionName[index]] = 0;
@@ -65,7 +72,7 @@ class Dashboard extends React.Component {
                     if (detail.name === node.dc) {
                         dcIsMissing = false;
                         nodeCondition.map((value, index) => {
-                            if (node.mode === value) {
+                            if (node.last_seen === value) {
                                 detail[nodeConditionName[index]] = detail[nodeConditionName[index]] + 1
                             } else {
                                 detail[nodeConditionName[index]] = detail[nodeConditionName[index]]
@@ -76,14 +83,13 @@ class Dashboard extends React.Component {
                 if (dcIsMissing) {
                     // debugger
                     nodeCondition.map((value, index) => {
-                        if (node.mode === value) {
+                        if (node.last_seen === value) {
                             newDcDetail[nodeConditionName[index]] = 1;
                         } else {
                             newDcDetail[nodeConditionName[index]] = 0;
                         }
                     }) 
                     dataCenterDetails.push(newDcDetail)
-                    
                 }
             }
         })
