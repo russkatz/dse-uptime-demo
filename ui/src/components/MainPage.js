@@ -31,7 +31,7 @@ class MainPage extends Component {
         const { classes } = this.props;
         return (
             <div className={classes.root}>
-                <Grid container justify='center' spacing={24}>
+                <Grid container justify='center' >
                     <Grid item xs={12}>
                         <Paper className={classes.paperdash}>
                             <Dashboard />

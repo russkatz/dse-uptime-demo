@@ -19,7 +19,7 @@ const styles = theme => ({
     },
     cardtext: {
         height: '260px',
-        overflow: 'scroll',
+        overflow: 'auto',
         fontSize: '22px',
     }
 });
