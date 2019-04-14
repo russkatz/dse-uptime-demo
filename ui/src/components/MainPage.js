@@ -8,51 +8,34 @@ import DataCenterMap from './DataCenterMap';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
-const styles = theme => ({
-    root: {
-        flexGrow: 1,
-    },
-    paperdash: {
-        boxShadow: '0px 2px 8px 0px rgba(0,0,0,0.2), 0px 8px 8px 5px rgba(0,0,0,0.14), 0px 7px 1px -2px rgba(0,0,0,0.12)',
-        minHeight: '270px',
-        padding: '20px',
-        margin: '30px auto',
-        maxWidth: '50%',
-    },
-    papercard: {
-        boxShadow: '0px 2px 8px 0px rgba(0,0,0,0.2), 0px 8px 8px 5px rgba(0,0,0,0.14), 0px 7px 1px -2px rgba(0,0,0,0.12)',
-        margin: '0 10px 10px 10px',
-    }
-});
-
 
 class MainPage extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <div className={classes.root}>
+            <div className={"gridroot"}>
                 <Grid container justify='center' >
                     <Grid item xs={12}>
-                        <Paper className={classes.paperdash}>
+                        <Paper className={"paperdash"}>
                             <Dashboard />
                             {/* <DataCenterMap /> */}
                         </Paper>
                     </Grid>
 
                     <Grid item xs={12} sm={4}>
-                        <Paper className={classes.papercard}>
+                        <Paper className={"papercard"}>
                             <WriteCard />
                         </Paper>
                     </Grid>
 
                     <Grid item xs={12} sm={4}>
-                        <Paper className={classes.papercard}>
+                        <Paper className={"papercard"}>
                             <ReadCard />
                         </Paper>
                     </Grid>
 
                     <Grid item xs={12} sm={4}>
-                        <Paper className={classes.papercard}>
+                        <Paper className={"papercard"}>
                             <EventsCard />
                         </Paper>
                     </Grid>
@@ -62,4 +45,4 @@ class MainPage extends Component {
     }
 }
 
-export default withStyles(styles)(MainPage);
+export default (MainPage);
