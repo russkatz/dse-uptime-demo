@@ -5,37 +5,17 @@ import Card from 'material-kit-react/components/Card/Card';
 import CardHeader from 'material-kit-react/components/Card/CardHeader';
 import CardBody from 'material-kit-react/components/Card/CardBody';
 
-
-const styles = theme => ({
-    cardheader: {
-        backgroundColor: 'silver',
-        fontSize: '28px',
-        color: 'black',
-        textAlign: 'center',
-    },
-    cardbody: {
-        color: 'blue',
-        margin: '0 auto',
-    },
-    cardtext: {
-        height: '260px',
-        overflow: 'auto',
-        fontSize: '22px',
-    }
-});
-
 class ReadCard extends React.Component {
     componentDidMount() {
         this.props.init();
     }
     render() {
-    const { classes } = this.props;
         return (
-            <div className={classes.root}>
-                <Card className={classes.card}>
-                    <CardHeader className={classes.cardheader} style={{height: '50px', paddingTop: '20px'}}>DATA READS</CardHeader>
-                    <CardBody className={classes.cardbody}>
-                    <div className={classes.cardtext}>
+            <div className={"classes"}>
+                <Card className={"card"}>
+                    <CardHeader className={"cardheader"} style={{height: '50px', paddingTop: '20px'}}>DATA READS</CardHeader>
+                    <CardBody className={"cardbody"}>
+                    <div className={"cardtext"}>
 
                     {
                         [...this.props.reads].reverse().map((read, index) => {
@@ -73,5 +53,5 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const ReadCardContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(withStyles(styles)(ReadCard))
+)((ReadCard))
 export default ReadCardContainer;

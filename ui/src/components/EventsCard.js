@@ -5,25 +5,7 @@ import Card from 'material-kit-react/components/Card/Card';
 import CardHeader from 'material-kit-react/components/Card/CardHeader';
 import CardBody from 'material-kit-react/components/Card/CardBody';
 
-
-const styles = theme => ({
-    cardheader: {
-        backgroundColor: 'silver',
-        fontSize: '28px',
-        color: 'black',
-        textAlign: 'center',
-    },
-    cardbody: {
-        margin: '0 auto',
-        color: 'black',
-    },
-    cardtext: {
-        height: '260px',
-        overflow: 'auto',
-        fontSize: '22px',
-        width: '100%',
-    },
-});
+import style from '../style.css';
 
 class EventsCard extends React.Component {
     componentDidMount() {
@@ -34,11 +16,11 @@ class EventsCard extends React.Component {
     let events = []
     Object.assign(events, this.props.events)
         return (
-            <div className={classes.root}>
-                <Card className={classes.card} style={{marginBottom: '130px'}}>
-                    <CardHeader className={classes.cardheader} style={{height: '50px', paddingTop: '20px'}}>EVENTS</CardHeader>
-                    <CardBody className={classes.cardbody}>
-                    <div className={classes.cardtext}>
+            <div className={"root"}>
+                <Card className={"card"} style={{marginBottom: '130px'}}>
+                    <CardHeader className={"cardheader"} style={{height: '50px', paddingTop: '20px'}}>EVENTS</CardHeader>
+                    <CardBody className={"cardbody"}>
+                    <div className={"cardtext"}>
                     {
                         events.reverse().map((event, index) => {
                         return(
@@ -73,5 +55,5 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const EventsCardContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(withStyles(styles)(EventsCard))
+)((EventsCard))
 export default EventsCardContainer;

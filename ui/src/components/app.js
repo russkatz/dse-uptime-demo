@@ -7,6 +7,7 @@ import MainPage from './MainPage';
 import BottomMenu from './BottomMenu';
 import MainView from './MainPage';
 
+import style from '../style.css';
 
 const theme = createMuiTheme({
     root: {

@@ -7,8 +7,18 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 
-import {getNodeInfo, writeApi, getDataCenter} from '../actions/actions'
+import { scaleLinear } from "d3-scale"
+import geographyObject from "../data/world-50m.json"
+import {
+  ComposableMap,
+  ZoomableGroup,
+  Geographies,
+  Geography,
+} from "react-simple-maps"
+
+import {updateValue, getNodeInfo, writeApi, getDataCenter} from '../actions/actions'
 
 
 const styles = theme => ({
@@ -20,9 +30,22 @@ const styles = theme => ({
     },
 });
 
+const colorScale = scaleLinear()
+  .domain([0, 100000000, 1338612970]) // Max is based on China
+  .range(["#FFF176", "#FFC107", "#E65100"])
+
 class Dashboard extends React.Component {
     componentDidMount() {
         this.props.init();
+    }
+
+    handleWheel(event) {
+      if (event.deltaY > 0) {
+        this.props.updateValue("mapZoom", this.props.mapZoom / 1.1)
+      }
+      if (event.deltaY < 0) {
+        this.props.updateValue("mapZoom", this.props.mapZoom * 1.1)
+      }
     }
 
     render ({ classes } = this.props){
@@ -81,7 +104,6 @@ class Dashboard extends React.Component {
                     }
                 })
                 if (dcIsMissing) {
-                    // debugger
                     nodeCondition.map((value, index) => {
                         if (node.last_seen === value) {
                             newDcDetail[nodeConditionName[index]] = 1;
@@ -93,9 +115,12 @@ class Dashboard extends React.Component {
                 }
             }
         })
-        
+
         return (
             <div className={classes.root}>
+              { !this.props.mapView ?
+                <div>
+                <Button variant="contained" color="secondary" className="button" size="large" onClick={() => {this.props.updateValue("mapView", !this.props.mapView)}}>Map</Button>
                 <Table className={classes.table}>
                     <TableHead style={{backgroundColor: 'silver'}}>
                         <TableRow>
@@ -118,6 +143,33 @@ class Dashboard extends React.Component {
                             })}
                     </TableBody>
                 </Table>
+                </div>
+                : <div onWheel = {(e) => this.handleWheel(e)} >
+                <Button variant="contained" color="secondary" className="button" size="large" onClick={() => {this.props.updateValue("mapView", !this.props.mapView)}}>Table</Button>
+                        <ComposableMap style={{ width: "100%", height: "100%" }}>
+                          <ZoomableGroup  zoom={ this.props.mapZoom }>
+                            <Geographies geography={geographyObject} disableOptimization> 
+                              {(geographies, projection) => geographies.map((geography, i) => (
+                                <Geography
+                                  key={ `geography-${i}` }
+                                  cacheId={ `geography-${i}` }
+                                  geography={ geography }
+                                  projection={ projection }
+                                  style={{
+                                    default: {
+                                      fill: colorScale(geography.properties.pop_est),
+                                      stroke: "#FFF",
+                                      strokeWidth: 0.5,
+                                      outline: "none",
+                                    },
+                                  }}
+                                />
+                              ))}
+                            </Geographies>
+                          </ZoomableGroup>
+                        </ComposableMap>
+                </div>
+              }
             </div>
         );
     }
@@ -130,6 +182,8 @@ const mapStateToProps = (state, ownProps) => {
         nodeList: state.app.nodeList,
         oldNodeList: state.app.oldNodeList,
         dcList: state.app.dcList,
+        mapView: state.app.mapView,
+        mapZoom: state.app.mapZoom,
     }
 }
 
@@ -144,7 +198,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     changeScreen: (page) => {
         dispatch(changeScreen(page))
         dispatch(drawerToggle(false))
-    }
+    },
+    updateValue: (key, value) => {
+        dispatch(updateValue(key, value))
+    } 
     }
 }
 

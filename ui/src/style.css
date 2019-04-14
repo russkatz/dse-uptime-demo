@@ -8,3 +8,20 @@ body {
     height: 100%;
 }
 
+.cardheader {
+    background-color: silver;
+    font-size: 28px;
+    color: black;
+    text-align: center;
+}
+.cardbody {
+    margin: 0 auto;
+    color: black;
+}
+
+.cardtext {
+    height: 260px;
+    overflow: auto;
+    font-size: 22px;
+    width: 100%;
+}
