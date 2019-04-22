@@ -48,7 +48,14 @@ class Dashboard extends React.Component {
 
         //is the oldNodeList started yet?
         //if so, define it's mode to 'starting'
+
+        let dcs = Array.from(new Set (nodeList.map((node) => node.dc)))
+        //let coords = [[40.7128, 74.0060], [37.7749,122.4194], [35.672855, 139.817413]]
+        let coords = [[-74.0060, 40.7128], [-122.4194,37.7749], [-0.1278,51.5074], [ 139.817413,35.672855,]]
         nodeList.map((node, id) => {
+            // Set data for bubble chart
+            node.name = node.node_ip;
+            node.coordinates = coords[dcs.indexOf(node.dc)];
             if (node.mode === 'starting') {
                 node.last_seen = -1;
             }
