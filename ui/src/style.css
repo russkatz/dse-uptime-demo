@@ -27,6 +27,7 @@ html #root {
 .cardbody {
     margin: 0 auto;
     color: black;
+    padding: 0;
 }
 
 .cardtext {
@@ -35,6 +36,14 @@ html #root {
     font-size: 22px;
     width: 100%;
 }
+
+.cardchart {
+    height: 260px;
+    font-size: 22px;
+    width: 100%;
+}
+
+
 
 .gridroot {
     flex-grow: 1;

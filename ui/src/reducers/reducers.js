@@ -8,7 +8,8 @@ import NavigationReducer from './NavigationReducer';
 // INITIAL_APP_STATE
 const initialAppState = {
     mapView: false,
-    mapZoom: 1,
+    mapZoom: 1.8,
+    mapCenter: [-58.19601888728513,41.13232832019892],
     appName: 'DSE Uptime UI',
     events: [],
     nodeList: [],

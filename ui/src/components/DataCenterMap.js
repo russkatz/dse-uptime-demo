@@ -26,37 +26,62 @@ const styles = theme => ({
 
 const colorScale = scaleLinear()
   .domain([0, 100000000, 1338612970]) // Max is based on China
-  .range(["#FFF176", "#FFC107", "#E65100"])
+  //.range(["#FFF176", "#FFC107", "#E65100"])
+  .range(["#D3D3D3", "#808080", "#A9A9A9"])
 
-const max = 10;
-const min = 5;
+const max = 20;
+const min = 10;
 const twoPi = Math.PI * 2;
 
 const nodeScale = scaleLinear()
   .domain([0,1])
   .range([min,max])
 
-function circleX(i, dcCount){
+function circleX(i, dcCount, zoom){
   let input = (i % dcCount) +1;
 
   let x = Math.round(100*Math.cos(twoPi / (dcCount)* input ) * max) / 100;
-  return x; 
+  return x * zoom; 
 }
 
-function circleY(i, dcCount){
+function circleY(i, dcCount, zoom){
   let input = (i % dcCount) +1;
 
   let y = Math.round(100*Math.sin(twoPi / (dcCount) * input )* max)/100;
-  return y; 
+  return y * zoom; 
+}
+
+const nodeColors = ["#A4D233", "#FFC72C", "#ca1313"]
+
+const getNodeStroke = function(node){
+  return "#8031A7";
+}
+
+const getNodeFill = function(node){
+  if (node.last_seen == -1){
+   return nodeColors[1]
+  }
+  if (node.last_seen == 0){
+   return nodeColors[0]
+  }
+  else{
+   return nodeColors[2]
+  }
 }
 
 class DataCenterMap extends React.Component {
     render(){
+
+      
       return (
         <div>
             <div className={"spanningDiv"}>
               <ComposableMap style={{ width: "100%", height: "100%" }} height={window.innerHeight* .3}>
-                <ZoomableGroup  zoom={ this.props.mapZoom }>
+                <ZoomableGroup  
+                  center={ this.props.mapCenter } 
+                  zoom={ this.props.mapZoom }
+                  onMoveEnd={ (newCenter) => this.props.updateValue("mapCenter", newCenter) }
+                >
                   <Geographies geography={geographyObject} disableOptimization> 
                     {(geographies, projection) => {
                       return geographies.map((geography, i) => {
@@ -69,8 +94,21 @@ class DataCenterMap extends React.Component {
                             projection={ projection }
                             style={{
                               default: {
-                                fill: colorScale(geography.properties.POP_EST),
-                                stroke: "#FFF",
+                                //fill: colorScale(geography.properties.POP_EST),
+                                fill: "#ECEFF1",
+                                stroke: "#607D8B",
+                                strokeWidth: 0.5,
+                                outline: "none",
+                              },
+                              hover: {
+                                fill: "#ECEFF1",
+                                stroke: "#607D8B",
+                                strokeWidth: 0.5,
+                                outline: "none",
+                              },
+                              pressed: {
+                                fill: "#ECEFF1",
+                                stroke: "#607D8B",
                                 strokeWidth: 0.5,
                                 outline: "none",
                               },
@@ -94,19 +132,42 @@ class DataCenterMap extends React.Component {
                          }) 
                          .map((node, i) => {
                           let dcCount = this.props.nodeList.length / 3
+                          /*
                           console.log(node.ip)
                           console.log(nodeScale(node.load))
                           console.log(circleX(i, dcCount))
                           console.log(circleY(i, dcCount))
+                          */
                           return (
-                          <Marker key={i} marker={node}>
+                          <Marker 
+                            key={i} 
+                            marker={node}
+                            style={{
+                              default: { 
+                                //stroke: "#4607D8",
+                                //stroke: "#8031A7",
+                                stroke: getNodeStroke(node),
+                                //fill: "#A4D233",
+                                fill: getNodeFill(node),
+                                outline: "none",
+                              },
+                              hover:   { 
+                                fill: "#999",
+                                outline: "none",
+                              },
+                              pressed: { 
+                                fill: "#000",
+                                outline: "none",
+                              },
+                            }}
+
+                          >
                             <circle
-                              cx={circleX(i, dcCount)}
-                              cy={circleY(i, dcCount)}
-                              r={nodeScale(node.load)}
-                              fill="rgba(255,87,34,0.8)"
-                              stroke="#607D8B"
-                              strokeWidth="2"
+                              cx={circleX(i, dcCount, this.props.mapZoom)}
+                              cy={circleY(i, dcCount, this.props.mapZoom) }
+                              //r={nodeScale(node.load)}
+                              r={this.props.mapZoom * 10}
+                              strokeWidth={ this.props.mapZoom *2 }
                             />
                           </Marker>
                           )
@@ -126,7 +187,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
       updateValue: (key, value) => {
           dispatch(updateValue(key, value))
-      } 
+      },
     }
 }
 const mapStateToProps = (state, ownProps) => {
@@ -136,6 +197,7 @@ const mapStateToProps = (state, ownProps) => {
         dcList: state.app.dcList,
         mapView: state.app.mapView,
         mapZoom: state.app.mapZoom,
+        mapCenter: state.app.mapCenter,
     }
 }
 

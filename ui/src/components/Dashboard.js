@@ -45,6 +45,10 @@ class Dashboard extends React.Component {
 
         //this is in state
         let nodeList = this.props.nodeList
+          .sort(function(a, b){
+            return a.dc.localeCompare(b.dc)
+          })
+
 
         //is the oldNodeList started yet?
         //if so, define it's mode to 'starting'

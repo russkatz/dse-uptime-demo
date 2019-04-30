@@ -18,7 +18,7 @@ class EventsCard extends React.Component {
         return (
             <div className={"root"}>
                 <Card className={"card"} style={{marginBottom: '130px'}}>
-                    <CardHeader className={"cardheader"} style={{height: '50px', paddingTop: '20px'}}>EVENTS</CardHeader>
+                    <CardHeader className={"cardheader"} style={{paddingTop: '20px'}}>EVENTS</CardHeader>
                     <CardBody className={"cardbody"}>
                     <div className={"cardtext"}>
                     {

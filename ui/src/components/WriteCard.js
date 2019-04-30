@@ -17,7 +17,7 @@ class WriteCard extends React.Component {
         return (
             <div className={"root"}>
                 <Card className={"card"}>
-                    <CardHeader className={"cardheader"} style={{height: '50px', paddingTop: '20px'}}>PURCHASE TRANSACTIONS</CardHeader>
+                    <CardHeader className={"cardheader"} style={{paddingTop: '20px'}}>PURCHASE TRANSACTIONS</CardHeader>
                     <CardBody className={"cardbody"}>
                     <div className={"cardtext"}>
                     
