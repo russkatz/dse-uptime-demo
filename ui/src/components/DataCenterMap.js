@@ -147,8 +147,16 @@ class DataCenterMap extends React.Component {
                            return a.dc.localeCompare(b.dc)
                          }) 
                          .map((node, i) => {
-                          let dcCount = this.props.nodeList.length / 3
-                          /*
+                           let dcCount = this.props.nodeList.map(x => {return {"dc": x.dc}})
+                             .reduce((total, node) => {
+                             var dc = node.dc;
+                             if (!total.hasOwnProperty(dc)) {
+                               total[dc] = 0;
+                             }
+                             total[dc]++;
+                             return total;
+                           }, {})
+                           /*
                           console.log(node.ip)
                           console.log(nodeScale(node.load))
                           console.log(circleX(i, dcCount))
@@ -179,8 +187,10 @@ class DataCenterMap extends React.Component {
 
                           >
                             <circle
-                              cx={circleX(i, dcCount, this.props.mapZoom)}
-                              cy={circleY(i, dcCount, this.props.mapZoom) }
+                              cx={circleX(i, dcCount[node.dc]
+, this.props.mapZoom)}
+                              cy={circleY(i, dcCount[node.dc]
+, this.props.mapZoom) }
                               //r={nodeScale(node.load)}
                               r={this.props.mapZoom * 10}
                               strokeWidth={ this.props.mapZoom *2 }
