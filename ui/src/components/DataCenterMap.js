@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import CardHeader from 'material-kit-react/components/Card/CardHeader';
 
 import { scaleLinear } from "d3-scale"
 import geographyObject from "../data/world-50m.json"
@@ -14,6 +15,9 @@ import {
   Marker,
 } from "react-simple-maps"
 
+import IconButton from '@material-ui/core/IconButton';
+import FullscreenIcon from '@material-ui/icons/Fullscreen';
+import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 
 import {updateValue} from '../actions/actions'
 
@@ -74,8 +78,20 @@ class DataCenterMap extends React.Component {
 
       
       return (
-        <div>
+        <div className={"spanningDiv"}>
             <div className={"spanningDiv"}>
+              <CardHeader className={"cardheader"} style={{paddingTop: '20px', position: 'absolute', width: '75%'}}>DataStax Cluster
+                        { this.props.fullscreen != "dc-paper" ? 
+                <IconButton onClick={() => { this.props.updateValue("fullscreen", "dc-paper")}} color="primary" aria-label="Fullscreen">
+                            <FullscreenIcon />
+                </IconButton>
+                  : 
+                <IconButton onClick={() => { this.props.updateValue("fullscreen", "")}} color="primary" aria-label="Fullscreen Exit">
+                            <FullscreenExitIcon />
+                </IconButton>
+
+                }
+        </CardHeader>
               <ComposableMap style={{ width: "100%", height: "100%" }} height={window.innerHeight* .3}>
                 <ZoomableGroup  
                   center={ this.props.mapCenter } 
@@ -198,6 +214,7 @@ const mapStateToProps = (state, ownProps) => {
         mapView: state.app.mapView,
         mapZoom: state.app.mapZoom,
         mapCenter: state.app.mapCenter,
+        fullscreen: state.app.fullscreen,
     }
 }
 

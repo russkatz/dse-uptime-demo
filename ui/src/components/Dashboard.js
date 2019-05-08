@@ -10,6 +10,9 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
 import DataCenterMapContainer from './DataCenterMap';
+import IconButton from '@material-ui/core/IconButton';
+import FullscreenIcon from '@material-ui/icons/Fullscreen';
+import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 
 import {updateValue, getNodeInfo, writeApi, getDataCenter} from '../actions/actions'
 
@@ -135,9 +138,14 @@ class Dashboard extends React.Component {
         })
 
         return (
-            <div className={"dashboardroot"}>
+            <div className={
+              (this.props.fullscreen === "dc-paper") ?  
+                "dashboardroot-full" 
+               : 
+                "dashboardroot"
+            }>
               { !this.props.mapView ?
-                <div >
+                <div className="spanningDiv">
                 <Button variant="contained" color="secondary" className={"button"} size="large" onClick={() => {this.props.updateValue("mapView", !this.props.mapView)}}>Map</Button>
                 <Table className={classes.table}>
                     <TableHead style={{backgroundColor: 'silver'}}>
@@ -146,6 +154,17 @@ class Dashboard extends React.Component {
                             <TableCell className={classes.tablecell} style={{color: 'black', fontSize: '25px'}} align='center'>ONLINE</TableCell>
                             <TableCell className={classes.tablecell} style={{color: 'black', fontSize: '25px'}} align='center'>STARTING</TableCell>
                             <TableCell className={classes.tablecell} style={{color: 'black', fontSize: '25px'}} align='center'>OFFLINE</TableCell>
+                            <TableCell className={classes.tablecell} style={{color: 'black', fontSize: '25px'}} align='center'>
+                { this.props.fullscreen != "dc-paper" ? 
+                <IconButton color="primary" onClick={() => { this.props.updateValue("fullscreen", "dc-paper")}} className={classes.menuButton}  aria-label="Fullscreen">
+                            <FullscreenIcon />
+                </IconButton>
+                  : 
+                <IconButton onClick={() => { this.props.updateValue("fullscreen", "")}} className={classes.menuButton} color="primary" aria-label="Fullscreen Exit">
+                            <FullscreenExitIcon />
+                </IconButton>
+
+                }</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -162,7 +181,7 @@ class Dashboard extends React.Component {
                     </TableBody>
                 </Table>
                 </div>
-                : <div onWheel = {(e) => this.handleWheel(e)} >
+                : <div className={"spanningDiv"} onWheel = {(e) => this.handleWheel(e)} >
                 <Button variant="contained" color="secondary" className={"button"} size="large" onClick={() => {this.props.updateValue("mapView", !this.props.mapView)}}>Table</Button>
                 <DataCenterMapContainer/>
                </div>
@@ -181,6 +200,7 @@ const mapStateToProps = (state, ownProps) => {
         dcList: state.app.dcList,
         mapView: state.app.mapView,
         mapZoom: state.app.mapZoom,
+        fullscreen: state.app.fullscreen,
     }
 }
 

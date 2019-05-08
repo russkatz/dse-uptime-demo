@@ -5,7 +5,7 @@ body {
     overflow: hidden;
 }
 
-.dashboardroot div{
+.spanningDiv {
     height:100%;
 }
 .dashboardroot{ 
@@ -13,6 +13,12 @@ body {
     height: 35vh;
     margin: 0 auto;
 }
+.dashboardroot-full{ 
+    width: 100%;
+    height: 75vh;
+    margin: 0 auto;
+}
+
 
 html #root {
     height: 100vh;
@@ -23,6 +29,9 @@ html #root {
     font-size: 28px;
     color: black;
     text-align: center;
+    padding-top: 20px;
+    height: auto;
+    width: 85%;
 }
 .cardbody {
     margin: 0 auto;
