@@ -27,7 +27,7 @@ html #root {
 .cardbody {
     margin: 0 auto;
     color: black;
-    padding: 0;
+    padding: 5% !important;
 }
 
 .cardtext {

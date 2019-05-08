@@ -19,17 +19,24 @@ class ReadCard extends React.Component {
       let dcs = Array.from(new Set (this.props.reads.map((read) => read.dc)));
 
       const lineColors = ["#ca5f14", "#007a97", "#1AB5E0"];
-      
+
       let currentIndex = 0;
-      const readData = dcs.map(dc => {
-        let thisDcReads = this.props.reads
-          .filter((read, i) => read.dc === dc)
-          //.filter((read, i) => read.resutl === "Successful")
-          .map((read, i) => {
-            let result = {"y": read.count, "x": currentIndex}
+      let dcReads = this.props.reads
+        .map((read, i) => {
+            let result = {"y": read.count, "x": currentIndex, "dc": read.dc}
             currentIndex = currentIndex + 1
             return result
-          })
+       })
+
+      let lastRead = [] 
+      const readData = dcs.map(dc => {
+        let thisDcReads = lastRead.concat(dcReads
+          .filter((read, i) => {
+            if (read.dc === dc){
+              lastRead = [read]
+            }
+            return (read.dc === dc)
+          }))
         return thisDcReads;
       });
 
@@ -41,9 +48,16 @@ class ReadCard extends React.Component {
                     <CardBody className={"cardbody"}>
                       <div className={"cardchart"}>
 
-                      <VictoryChart domainPadding={{ y: 10 }}
+                      <VictoryChart 
+                        domainPadding={{ y: 0 }}
+                        width={600}
+                        height={300}
                         containerComponent={
                           <VictoryVoronoiContainer
+                            voronoiPadding={5}
+                            labels={(d) => {
+                              return `dc: ${d.dc}, count: ${d.y}`
+                            }}
                           />
                         }
                       >
@@ -52,7 +66,7 @@ class ReadCard extends React.Component {
                         dcs.map((dc, i) => {
                           return(
                             <VictoryLine
-                              style={{ data: { stroke: lineColors[i], strokeWidth: 3 } }}
+                              style={{ data: { stroke: lineColors[i], strokeWidth: 5 } }}
                               data={ readData[i] }
                               key={i}
                             />

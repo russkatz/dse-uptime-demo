@@ -4,7 +4,7 @@ import { get } from '../common/requests.js';
 import { post } from '../common/requests.js';
 import { streamingRequest } from '../common/requests.js';
 
-//const hostname = '3.14.148.234';
+//const hostname = '18.219.112.184';
 const hostname = window.location.hostname;
 
 export function writeApi() {
@@ -58,7 +58,6 @@ export function getDataCenter(url) {
             url: url, 
             success: function(res){
                 dispatch(updateValue('nodeList', res.data))
-                // console.log(res.data[3].dc)
 
                 //TODO: Get the data centers from res.data and assign them to:
                 let rawList = []
@@ -109,11 +108,9 @@ export function getNodeInfo() {
                 success: function(res){
                     let oldNodeList = []
                     Object.assign(oldNodeList, getState().app.nodeList)
-                    oldNodeList.map((node, id) => {
-                        // console.log('Mode: ' +node.mode)
-                        // console.log('Last_seen: ' +node.last_seen)
-                        if (node.last_seen > 0) {
-                            let olderNodeList = getState().app.oldNodeList
+                    oldNodeList = oldNodeList.map((node, id) => {
+                         let olderNodeList = getState().app.oldNodeList
+                         if (node.last_seen > 0) {
                             if (olderNodeList === undefined || olderNodeList[id] === undefined) {
                                 return node
                             }
@@ -121,20 +118,20 @@ export function getNodeInfo() {
                                 node.mode = 'starting';
                                 node.last_seen = -1;
                             }
-                            return node
-                        } 
+                         } if(node.last_seen === 0){
+                            if (olderNodeList === undefined || olderNodeList[id] === undefined) {
+                                return node
+                            }
+                            if (olderNodeList[id].mode === 'stopping') {
+                                node.mode = 'stopping';
+                                node.last_seen = -2;
+                            }
+                         }
+                         return node
                     })
 
                     dispatch(updateValue('oldNodeList', oldNodeList))
                     dispatch(updateValue('nodeList', res.data))
-                    // console.log("oldNodeList")
-                    // oldNodeList.map((node, index) => {
-                    //     console.log(index + "-" + node.mode)
-                    // })
-                    // console.log("newNodeList")
-                    // res.data.map((node, index) => {
-                    //     console.log(index + "-" + node.mode)
-                    // })
 
                 },
                 dispatch: dispatch,
@@ -155,6 +152,17 @@ export function dropOneNode() {
             return node.node_ip
         }) 
         const randomDroppedNode = nodeIpAddresses[parseInt(Math.random() * nodeIpAddresses.length)]
+
+        // mark as stopping
+        const nl = getState().app.nodeList.map((node, i) => {
+            if (node.node_ip === randomDroppedNode) {
+                node.mode = "stopping"
+                node.last_seen = -2
+            } 
+            return node
+        })
+        dispatch(updateValue("nodeList", nl));
+ 
         console.log([randomDroppedNode]) 
         if (randomDroppedNode !== undefined) {
             post({
@@ -204,12 +212,15 @@ export function resetAllNodes() {
 
         const url = 'http://'+hostname+':8080/demo/recover';
         const nodesDown = [];
-        getState().app.nodeList.map(node => {
+        const nl = getState().app.nodeList.map((node, i) => {
             if (node.mode === null) {
                 nodesDown.push(node.node_ip)
+                node.mode = "starting"
+                node.last_seen = -1
             } 
-            return nodesDown
+            return node
         })
+        dispatch(updateValue("nodeList", nl));
         console.log(nodesDown)
         post({
             url: url,

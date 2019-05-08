@@ -56,16 +56,22 @@ class Dashboard extends React.Component {
         let dcs = Array.from(new Set (nodeList.map((node) => node.dc)))
         //let coords = [[40.7128, 74.0060], [37.7749,122.4194], [35.672855, 139.817413]]
         let coords = [[-74.0060, 40.7128], [-122.4194,37.7749], [-0.1278,51.5074], [ 139.817413,35.672855,]]
+
+
         nodeList.map((node, id) => {
             // Set data for bubble chart
             node.name = node.node_ip;
             node.coordinates = coords[dcs.indexOf(node.dc)];
+            if (node.mode === 'stopping') {
+                node.last_seen = -2;
+            }
             if (node.mode === 'starting') {
                 node.last_seen = -1;
             }
+
+            var oldNodeList = this.props.oldNodeList
             if (node.last_seen > 0) {
                 node.last_seen = 1
-                var oldNodeList = this.props.oldNodeList
                 if (oldNodeList === undefined || oldNodeList[id] === undefined) {
                     return node
                 }
@@ -74,14 +80,23 @@ class Dashboard extends React.Component {
                     node.last_seen = -1;
                 }
                 return node
-            } 
+            }if (node.last_seen != 1){
+                 if (oldNodeList === undefined || oldNodeList[id] === undefined) {
+                     return node
+                 }
+                 if (oldNodeList[id].last_seen === -2) {
+                    node.mode = 'stopping';
+                    node.last_seen = -2;
+                }
+                return node
+            }
         })
 
         nodeList.map((node, id) => {
             let newDcDetail = {};
             newDcDetail.name = node.dc
-            let nodeCondition = [0, -1, 1];
-            let nodeConditionName = ['countUp', 'starting', 'countDown'];
+            let nodeCondition = [0, -1, 1, -2];
+            let nodeConditionName = ['countUp', 'starting', 'countDown', 'stopping'];
 
             if (dataCenterDetails.length === 0 ){
                 nodeCondition.map((value, index) => {
@@ -140,7 +155,7 @@ class Dashboard extends React.Component {
                                     <TableCell style={{fontSize: '30px', color: 'gray'}} className={classes.tablecell}>{detail.name}</TableCell>
                                     <TableCell style={{color: 'limegreen'}} className={classes.tablecell} align='center'>{detail.countUp}</TableCell>
                                     <TableCell style={{color: '#ffc966'}} className={classes.tablecell} align='center'>{detail.starting}</TableCell>
-                                    <TableCell style={{color: 'red'}} className={classes.tablecell} align='center'>{detail.countDown}</TableCell>
+                                    <TableCell style={{color: 'red'}} className={classes.tablecell} align='center'>{detail.countDown + detail.stopping}</TableCell>
                                 </TableRow>
                                 )
                             })}
