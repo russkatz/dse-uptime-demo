@@ -4,8 +4,8 @@ import { get } from '../common/requests.js';
 import { post } from '../common/requests.js';
 import { streamingRequest } from '../common/requests.js';
 
-const hostname = '18.191.172.212';
-//const hostname = window.location.hostname;
+//const hostname = '18.191.172.212';
+const hostname = window.location.hostname;
 
 export function writeApi() {
     var data = '{"dc": "AWS", "count": 20000, "cl": "ONE"}';
@@ -202,6 +202,17 @@ export function dropOneDataCenter() {
             dispatch: dispatch,
             method: "POST"
         })
+
+        // mark as stopping
+        const nl = getState().app.nodeList.map((node, i) => {
+            if (node.dc === "AWS") {
+                node.mode = "stopping"
+                node.last_seen = -2
+            } 
+            return node
+        })
+        dispatch(updateValue("nodeList", nl));
+ 
     }
 }
 

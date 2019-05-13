@@ -83,7 +83,7 @@ class Dashboard extends React.Component {
                     node.last_seen = -1;
                 }
                 return node
-            }if (node.last_seen != 1){
+            }if (node.last_seen === 0){
                  if (oldNodeList === undefined || oldNodeList[id] === undefined) {
                      return node
                  }
