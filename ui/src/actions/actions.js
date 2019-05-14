@@ -4,7 +4,7 @@ import { get } from '../common/requests.js';
 import { post } from '../common/requests.js';
 import { streamingRequest } from '../common/requests.js';
 
-//const hostname = '18.191.172.212';
+//const hostname = '3.17.77.103';
 const hostname = window.location.hostname;
 
 export function writeApi() {
@@ -146,11 +146,15 @@ export function dropOneNode() {
         // dispatch(updateValue("snackbarOpen", true))
 
         const url = 'http://'+hostname+':8080/demo/killnode';
-        const nodeIpAddresses = getState().app.nodeList.filter((node) => {
-            return node.mode === 'normal';
-        }).map(node => {
-            return node.node_ip
-        }) 
+        const nodeIpAddresses = getState().app.nodeList
+          .filter((node) => {
+              return node.dc === 'AWS';
+          })
+          .filter((node) => {
+              return node.mode === 'normal';
+          }).map(node => {
+              return node.node_ip
+          }) 
         const randomDroppedNode = nodeIpAddresses[parseInt(Math.random() * nodeIpAddresses.length)]
 
         // mark as stopping

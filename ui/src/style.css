@@ -1,4 +1,6 @@
 body {
+    /*background-color: #9EACAB; */
+    background-color: #F8F9F7;
     margin: 0;
     padding: 0;
     font-family: sans-serif;
@@ -25,13 +27,16 @@ html #root {
 }
 
 .cardheader {
-    background-color: silver;
+    /*background-color: #F8F9F7;*/
+    background-color: #9EACAB;
     font-size: 28px;
     color: black;
     text-align: center;
     padding-top: 20px;
-    height: auto;
+    height: 3vh;
     width: 85%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .cardbody {
     margin: 0 auto;
@@ -41,7 +46,6 @@ html #root {
 
 .cardtext {
     height: 260px;
-    overflow: auto;
     font-size: 22px;
     width: 100%;
 }

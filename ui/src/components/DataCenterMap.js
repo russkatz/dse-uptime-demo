@@ -80,7 +80,7 @@ class DataCenterMap extends React.Component {
       return (
         <div className={"spanningDiv"}>
             <div className={"spanningDiv"}>
-              <CardHeader className={"cardheader"} style={{paddingTop: '20px', position: 'absolute', width: '75%'}}>DataStax Cluster
+              <CardHeader className={"cardheader"} style={{paddingTop: '20px', position: 'absolute', width: '75%'}}>DATASTAX CLUSTER
                         { this.props.fullscreen != "dc-paper" ? 
                 <IconButton onClick={() => { this.props.updateValue("fullscreen", "dc-paper")}} color="primary" aria-label="Fullscreen">
                             <FullscreenIcon />

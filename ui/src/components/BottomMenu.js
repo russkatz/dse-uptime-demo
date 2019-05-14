@@ -53,6 +53,7 @@ const styles = theme => ({
     menuButton: {
         marginLeft: 0,
         marginRight: 28,
+        color: "white"
     },
     drawer: {
         width: drawerWidth,
@@ -85,7 +86,10 @@ const styles = theme => ({
     },
     button: {
         margin: theme.spacing.unit,
-        color: 'secondary',
+        color: 'contrast',
+    },
+    title: {
+        color: 'white',
     }
 });
 
@@ -98,10 +102,10 @@ class BottomMenu extends React.Component{
                 <div className={classes.root}>
                     <AppBar position="fixed" color="primary" className={classes.appBar} style={{flexDirection: 'row'}}>
                         <Toolbar>
-                        <IconButton onClick={() => { this.props.drawerToggle(!this.props.drawerOpen)}} className={classes.menuButton} color="default" aria-label="Open drawer">
+                        <IconButton onClick={() => { this.props.drawerToggle(!this.props.drawerOpen)}} className={classes.menuButton}  aria-label="Open drawer">
                             <MenuIcon />
                         </IconButton>
-                        <Typography className={classes.title} variant="h5" component="h2" color="default" noWrap>
+                        <Typography className={classes.title} variant="h5" component="h2" color="textPrimary" noWrap>
                         CONTROLS
                         </Typography>
                         </Toolbar>
