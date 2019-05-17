@@ -5,12 +5,14 @@ import Paper from '@material-ui/core/Paper';
 import CardHeader from 'material-kit-react/components/Card/CardHeader';
 
 import { scaleLinear } from "d3-scale"
+import { geoAzimuthalEqualArea } from "d3-geo"
 import geographyObject from "../data/world-50m.json"
 import {
   ComposableMap,
   ZoomableGroup,
   Geographies,
   Geography,
+  Graticule,
   Markers,
   Marker,
 } from "react-simple-maps"
@@ -31,7 +33,8 @@ const styles = theme => ({
 const colorScale = scaleLinear()
   .domain([0, 100000000, 1338612970]) // Max is based on China
   //.range(["#FFF176", "#FFC107", "#E65100"])
-  .range(["#D3D3D3", "#808080", "#A9A9A9"])
+  .range(["#FFF176", "#8031A7", "#8031A7"])
+  //.range(["#D3D3D3", "#808080", "#A9A9A9"])
 
 const max = 20;
 const min = 10;
@@ -73,6 +76,7 @@ const getNodeFill = function(node){
   }
 }
 
+
 class DataCenterMap extends React.Component {
     render(){
 
@@ -92,13 +96,21 @@ class DataCenterMap extends React.Component {
 
                 }
         </CardHeader>
-              <ComposableMap style={{ width: "100%", height: "100%" }} height={window.innerHeight* .3}>
+              <ComposableMap 
+                  style={{ 
+                    width: "100%", 
+                    height: "100%",
+                    //backgroundColor: "#374C51",
+                    //backgroundImage: `radial-gradient(circle, #374c51d6, #010204, #374c51c4)`
+                  }} 
+                  height={window.innerHeight* .3}
+              >
                 <ZoomableGroup  
                   center={ this.props.mapCenter } 
                   zoom={ this.props.mapZoom }
                   onMoveEnd={ (newCenter) => this.props.updateValue("mapCenter", newCenter) }
                 >
-                  <Geographies geography={geographyObject} disableOptimization> 
+                  <Geographies geography={geographyObject} > 
                     {(geographies, projection) => {
                       return geographies.map((geography, i) => {
                         
@@ -112,23 +124,48 @@ class DataCenterMap extends React.Component {
                               default: {
                                 //fill: colorScale(geography.properties.POP_EST),
                                 fill: "#ECEFF1",
-                                stroke: "#607D8B",
+                                //stroke: "#607D8B",
+                                stroke: "#8031A7",
+                                //stroke: "#0CB7E1",
                                 strokeWidth: 0.5,
                                 outline: "none",
                               },
                               hover: {
                                 fill: "#ECEFF1",
                                 stroke: "#607D8B",
-                                strokeWidth: 0.5,
+                                strokeWidth: 2,
                                 outline: "none",
                               },
                               pressed: {
                                 fill: "#ECEFF1",
                                 stroke: "#607D8B",
-                                strokeWidth: 0.5,
+                                strokeWidth: 0.75,
                                 outline: "none",
                               },
                             }}
+	  		    style={{
+			      default: {
+			        //fill: "#ECEFF1",
+                                //stroke: "#8031A7",
+                                stroke: "#0CB7E1",
+                                fillOpacity:.1,
+			        //stroke: "#607D8B",
+			        strokeWidth: 0.5,
+			        outline: "none",
+			      },
+			      hover: {
+			        fill: "#607D8B",
+			        stroke: "#607D8B",
+			        strokeWidth: 0.75,
+			        outline: "none",
+			      },
+			      pressed: {
+			        fill: "#FF5722",
+			        stroke: "#607D8B",
+			        strokeWidth: 0.75,
+			        outline: "none",
+			      },
+			    }}
                           />
                         )
                       }
@@ -137,6 +174,14 @@ class DataCenterMap extends React.Component {
                     }
                     }
                   </Geographies>
+                  <Graticule 
+                    style={{
+                       strokeWidth: 0.25,
+                       stroke: "#0CB7E1",
+                       opacity: .5
+                    }}
+
+                  />
                     <Markers>
                       {
                         // TODO: get node details
@@ -176,16 +221,19 @@ class DataCenterMap extends React.Component {
                                 outline: "none",
                               },
                               hover:   { 
-                                fill: "#999",
+                                stroke: getNodeStroke(node),
+                                fill: "#F8F9F7",
                                 outline: "none",
                               },
                               pressed: { 
-                                fill: "#000",
+                                stroke: getNodeStroke(node),
+                                fill: "#F8F9F7",
                                 outline: "none",
                               },
                             }}
 
                           >
+
                             <circle
                               cx={circleX(i, dcCount[node.dc]
 , this.props.mapZoom)}

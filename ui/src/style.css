@@ -1,6 +1,25 @@
+@keyframes blink {
+  from {
+    opacity:.2;
+  }
+  
+  to {
+    opacity:.8;
+  }
+}
+
+.rsm-graticule{
+  animation: blink .5s infinite;
+  animation-direction: alternate;
+  /*-webkit-filter: drop-shadow(2px 2px 2px yellow);  
+  filter: drop-shadow(0 0 2px #0CB7E1);
+  filter: drop-shadow(0 0 2px #0CB7E1);  */
+}
+
 body {
-    /*background-color: #9EACAB; */
-    background-color: #F8F9F7;
+    /*background-color: #374C51;*/
+    /*background-color: #9EACAB;*/
+    background-color: #F8F9F7; 
     margin: 0;
     padding: 0;
     font-family: sans-serif;

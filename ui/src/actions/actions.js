@@ -8,7 +8,7 @@ import { streamingRequest } from '../common/requests.js';
 const hostname = window.location.hostname;
 
 export function writeApi() {
-    var data = '{"dc": "AWS", "count": 20000, "cl": "ONE"}';
+    var data = '{"dc": "AWS", "count": 200000, "cl": "ONE"}';
 
     return(dispatch, getState) => {
         dispatch(appendValue('events', 'Initiating writes for purchase transactions'))
@@ -31,7 +31,7 @@ export function writeApi() {
 }
 
 export function readApi() {
-    var data = '{"dc": "AWS", "count": 20000, "cl": "ONE"}';
+    var data = '{"dc": "AWS", "count": 200000, "cl": "ONE"}';
 
     return(dispatch, getState) => {
         dispatch(appendValue('events', 'Initiating reads for purchase transactions'))
