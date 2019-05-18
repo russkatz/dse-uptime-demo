@@ -61,6 +61,7 @@ html #root {
     margin: 0 auto;
     color: black;
     padding: 5% !important;
+    overflow: hidden;
 }
 
 .cardtext {
