@@ -105,9 +105,6 @@ class BottomMenu extends React.Component{
                         <IconButton onClick={() => { this.props.drawerToggle(!this.props.drawerOpen)}} className={classes.menuButton}  aria-label="Open drawer">
                             <MenuIcon />
                         </IconButton>
-                        <Typography className={classes.title} variant="h5" component="h2" color="textPrimary" noWrap>
-                        CONTROLS
-                        </Typography>
                         </Toolbar>
                     </AppBar>
 
