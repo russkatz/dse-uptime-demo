@@ -207,6 +207,16 @@ class DataCenterMap extends React.Component {
                           console.log(circleX(i, dcCount))
                           console.log(circleY(i, dcCount))
                           */
+                          if (node.dc === "AWS"){
+                            node["imageUrl"] = require('../images/aws.png')
+                          }
+                          if (node.dc === "Azure"){
+                            node["imageUrl"]= require('../images/azure.png')
+                          }
+                          if (node.dc === "GCP"){
+                            node["imageUrl"]= require('../images/gcp.png')
+                          }
+
                           return (
                           <Marker 
                             key={i} 
@@ -215,25 +225,35 @@ class DataCenterMap extends React.Component {
                               default: { 
                                 //stroke: "#4607D8",
                                 //stroke: "#8031A7",
-                                stroke: getNodeStroke(node),
+                                stroke: getNodeFill(node),
                                 //fill: "#A4D233",
-                                fill: getNodeFill(node),
+                                //fill: getNodeFill(node),
+                                fill: "url(#"+node.dc +")",
                                 outline: "none",
                               },
                               hover:   { 
                                 stroke: getNodeStroke(node),
-                                fill: "#F8F9F7",
+                                fill: getNodeFill(node),
                                 outline: "none",
                               },
                               pressed: { 
                                 stroke: getNodeStroke(node),
-                                fill: "#F8F9F7",
+                                fill: getNodeFill(node),
                                 outline: "none",
                               },
                             }}
 
                           >
 
+			    <defs>
+			      <pattern id={node.dc} x="0" y="0" /*patternUnits="userSpaceOnUse"*/ height={1} width={1}>
+			        <image x={this.props.mapZoom*2} y={node.dc === "GCP" ? this.props.mapZoom*2 : this.props.mapZoom *3} style={{
+                                    width: this.props.mapZoom *16
+                                  }}
+                                  href={node["imageUrl"]}
+                                ></image>
+			      </pattern>
+			    </defs>
                             <circle
                               cx={circleX(i, dcCount[node.dc]
 , this.props.mapZoom)}
