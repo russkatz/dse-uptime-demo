@@ -6,41 +6,35 @@ import CardHeader from 'material-kit-react/components/Card/CardHeader';
 import CardBody from 'material-kit-react/components/Card/CardBody';
 
 
-const styles = theme => ({
-    cardheader: {
-        backgroundColor: 'silver',
-        fontSize: '28px',
-        color: 'black',
-        textAlign: 'center',
-    },
-    cardbody: {
-        color: 'blue',
-        margin: '0 auto',
-    },
-    cardtext: {
-        height: '260px',
-        overflow: 'scroll',
-        fontSize: '22px',
-    }
-});
-
 class ReadCard extends React.Component {
     componentDidMount() {
         this.props.init();
     }
     render() {
-    const { classes } = this.props;
         return (
-            <div className={classes.root}>
-                <Card className={classes.card}>
-                    <CardHeader className={classes.cardheader} style={{height: '50px', paddingTop: '20px'}}>DATA READS</CardHeader>
-                    <CardBody className={classes.cardbody}>
-                    <div className={classes.cardtext}>
+            <div className={"root"}>
+                <Card className={"classes"}>
+                    <CardHeader className={"cardheader"} style={{paddingTop: '20px'}}>BROWSING CATALOG</CardHeader>
+                    <CardBody className={"cardbody"}>
+                    <div className={"cardtext"}>
 
                     {
                         [...this.props.reads].reverse().map((read, index) => {
+                            let imageUrl= "";
+                            if (read.dc === "AWS"){
+                              imageUrl = require('../images/aws.png')
+                            }
+                            if (read.dc === "Azure"){
+                              imageUrl = require('../images/azure.png')
+                            }
+                            if (read.dc === "GCP"){
+                              imageUrl = require('../images/gcp.png')
+                            }
                             return (
-                                <div key={index}>Datacenter: {read.dc}, Count: {read.count}, Result: {read.result}</div>
+                              <div key={index}>
+                                <img src={imageUrl} alt={read.dc}  height="36" width="58" style={{ "padding-right": "2em"}} />
+                                Count: {read.count}, Result: {read.result}
+                              </div>
                             )
                         })
                     }
@@ -73,5 +67,5 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const ReadCardContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(withStyles(styles)(ReadCard))
+)(ReadCard)
 export default ReadCardContainer;

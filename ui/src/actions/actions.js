@@ -4,14 +4,14 @@ import { get } from '../common/requests.js';
 import { post } from '../common/requests.js';
 import { streamingRequest } from '../common/requests.js';
 
-// const hostname = '3.16.75.18';
+//const hostname = '3.17.77.103';
 const hostname = window.location.hostname;
 
 export function writeApi() {
-    var data = '{"dc": "AWS", "count": 20000, "cl": "ONE"}';
+    var data = '{"dc": "AWS", "count": 200000, "cl": "ONE"}';
 
     return(dispatch, getState) => {
-        dispatch(appendValue('events', 'initiating writes for purchase transactions'))
+        dispatch(appendValue('events', 'Initiating writes for purchase transactions'))
         // dispatch(updateValue("snackbarOpen", true))
 
         const url = 'http://'+hostname+':8080/demo/write';
@@ -31,10 +31,10 @@ export function writeApi() {
 }
 
 export function readApi() {
-    var data = '{"dc": "AWS", "count": 20000, "cl": "ONE"}';
+    var data = '{"dc": "AWS", "count": 200000, "cl": "ONE"}';
 
     return(dispatch, getState) => {
-        dispatch(appendValue('events', 'initiating reads for purchase transactions'))
+        dispatch(appendValue('events', 'Initiating reads for purchase transactions'))
         // dispatch(updateValue("snackbarOpen", true))
 
         const url = 'http://'+hostname+':8080/demo/read';
@@ -58,7 +58,6 @@ export function getDataCenter(url) {
             url: url, 
             success: function(res){
                 dispatch(updateValue('nodeList', res.data))
-                // console.log(res.data[3].dc)
 
                 //TODO: Get the data centers from res.data and assign them to:
                 let rawList = []
@@ -109,11 +108,9 @@ export function getNodeInfo() {
                 success: function(res){
                     let oldNodeList = []
                     Object.assign(oldNodeList, getState().app.nodeList)
-                    oldNodeList.map((node, id) => {
-                        // console.log('Mode: ' +node.mode)
-                        // console.log('Last_seen: ' +node.last_seen)
-                        if (node.last_seen > 0) {
-                            let olderNodeList = getState().app.oldNodeList
+                    oldNodeList = oldNodeList.map((node, id) => {
+                         let olderNodeList = getState().app.oldNodeList
+                         if (node.last_seen > 0) {
                             if (olderNodeList === undefined || olderNodeList[id] === undefined) {
                                 return node
                             }
@@ -121,20 +118,20 @@ export function getNodeInfo() {
                                 node.mode = 'starting';
                                 node.last_seen = -1;
                             }
-                            return node
-                        } 
+                         } if(node.last_seen === 0){
+                            if (olderNodeList === undefined || olderNodeList[id] === undefined) {
+                                return node
+                            }
+                            if (olderNodeList[id].mode === 'stopping') {
+                                node.mode = 'stopping';
+                                node.last_seen = -2;
+                            }
+                         }
+                         return node
                     })
 
                     dispatch(updateValue('oldNodeList', oldNodeList))
                     dispatch(updateValue('nodeList', res.data))
-                    // console.log("oldNodeList")
-                    // oldNodeList.map((node, index) => {
-                    //     console.log(index + "-" + node.mode)
-                    // })
-                    // console.log("newNodeList")
-                    // res.data.map((node, index) => {
-                    //     console.log(index + "-" + node.mode)
-                    // })
 
                 },
                 dispatch: dispatch,
@@ -145,16 +142,31 @@ export function getNodeInfo() {
 
 export function dropOneNode() {
     return(dispatch, getState) => {
-        dispatch(appendValue('events', 'a node has failed!'))
+        dispatch(appendValue('events', 'Taking down node'))
         // dispatch(updateValue("snackbarOpen", true))
 
         const url = 'http://'+hostname+':8080/demo/killnode';
-        const nodeIpAddresses = getState().app.nodeList.filter((node) => {
-            return node.mode === 'normal';
-        }).map(node => {
-            return node.node_ip
-        }) 
+        const nodeIpAddresses = getState().app.nodeList
+          .filter((node) => {
+              return node.dc === 'AWS';
+          })
+          .filter((node) => {
+              return node.mode === 'normal';
+          }).map(node => {
+              return node.node_ip
+          }) 
         const randomDroppedNode = nodeIpAddresses[parseInt(Math.random() * nodeIpAddresses.length)]
+
+        // mark as stopping
+        const nl = getState().app.nodeList.map((node, i) => {
+            if (node.node_ip === randomDroppedNode) {
+                node.mode = "stopping"
+                node.last_seen = -2
+            } 
+            return node
+        })
+        dispatch(updateValue("nodeList", nl));
+ 
         console.log([randomDroppedNode]) 
         if (randomDroppedNode !== undefined) {
             post({
@@ -176,7 +188,7 @@ export function dropOneDataCenter() {
     // var azureDataCenter = '{"dc": "Azure", "scenario": 3}';
 
     return(dispatch, getState) => {
-        dispatch(appendValue('events', 'a data center has crashed!'))
+        dispatch(appendValue('events', 'Taking down DC'))
         // dispatch(updateValue("snackbarOpen", true))
 
         const url = 'http://'+hostname+':8080/demo/chaos';
@@ -194,22 +206,36 @@ export function dropOneDataCenter() {
             dispatch: dispatch,
             method: "POST"
         })
+
+        // mark as stopping
+        const nl = getState().app.nodeList.map((node, i) => {
+            if (node.dc === "AWS") {
+                node.mode = "stopping"
+                node.last_seen = -2
+            } 
+            return node
+        })
+        dispatch(updateValue("nodeList", nl));
+ 
     }
 }
 
 export function resetAllNodes() {
     return(dispatch, getState) => {
-        dispatch(appendValue('events', 'bringing node(s) back online'))
+        dispatch(appendValue('events', 'Bringing node(s) back online'))
         // dispatch(updateValue("snackbarOpen", true))
 
         const url = 'http://'+hostname+':8080/demo/recover';
         const nodesDown = [];
-        getState().app.nodeList.map(node => {
+        const nl = getState().app.nodeList.map((node, i) => {
             if (node.mode === null) {
                 nodesDown.push(node.node_ip)
+                node.mode = "starting"
+                node.last_seen = -1
             } 
-            return nodesDown
+            return node
         })
+        dispatch(updateValue("nodeList", nl));
         console.log(nodesDown)
         post({
             url: url,
@@ -228,7 +254,7 @@ export function rollingRestart() {
     // var azureDataCenter = '{"dc": "Azure", "scenario": 4, "rrdelay": 130}';
 
     return(dispatch, getState) => {
-        dispatch(appendValue('events', 'rolling restart'))
+        dispatch(appendValue('events', 'Rolling restart'))
         // dispatch(updateValue("snackbarOpen", true))
 
         const url = 'http://'+hostname+':8080/demo/chaos';

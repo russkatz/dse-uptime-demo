@@ -7,6 +7,7 @@ import MainPage from './MainPage';
 import BottomMenu from './BottomMenu';
 import MainView from './MainPage';
 
+import style from '../style.css';
 
 const theme = createMuiTheme({
     root: {
@@ -17,10 +18,20 @@ const theme = createMuiTheme({
     },
     palette: {
         primary: {
-        main: '#039be5',
+        main: '#8031A7',
+        contrastText: 'white',
         },
         secondary: {
-        main: '#ffab40',
+        //main: '#ffab40',
+        main: '#0CB7E1',
+        },
+    },
+    text:{
+        primary: {
+        main: '#000000',
+        },
+        secondary: {
+        main: '#FFFFFF',
         },
     },
 });

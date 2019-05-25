@@ -7,24 +7,6 @@ import Card from 'material-kit-react/components/Card/Card';
 import CardHeader from 'material-kit-react/components/Card/CardHeader';
 import CardBody from 'material-kit-react/components/Card/CardBody';
 
-
-const styles = theme => ({
-    cardheader: {
-        backgroundColor: 'silver',
-        fontSize: '28px',
-        color: 'black',
-        textAlign: 'center',
-    },
-    cardbody: {
-        margin: '0 auto'
-    },
-    cardtext: {
-        height: '260px',
-        overflow: 'scroll',
-        fontSize: '22px',
-    }
-});
-
 class WriteCard extends React.Component {
     componentDidMount() {
         this.props.init();
@@ -33,11 +15,11 @@ class WriteCard extends React.Component {
         
     const { classes } = this.props;
         return (
-            <div className={classes.root}>
-                <Card className={classes.card}>
-                    <CardHeader className={classes.cardheader} style={{height: '50px', paddingTop: '20px'}}>PURCHASE TRANSACTIONS</CardHeader>
-                    <CardBody className={classes.cardbody}>
-                    <div className={classes.cardtext}>
+            <div className={"root"}>
+                <Card className={"card"}>
+                    <CardHeader className={"cardheader"} style={{paddingTop: '20px'}}>PURCHASE TRANSACTIONS</CardHeader>
+                    <CardBody className={"cardbody"}>
+                    <div className={"cardtext"}>
                     
                     {
                         [...this.props.writes].reverse().map((write, index) => {
@@ -85,5 +67,5 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const WriteCardContainer = connect(
     mapStateToProps,
     mapDispatchToProps
-)(withStyles(styles)(WriteCard))
+)((WriteCard))
 export default WriteCardContainer;

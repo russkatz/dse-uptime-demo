@@ -53,6 +53,7 @@ const styles = theme => ({
     menuButton: {
         marginLeft: 0,
         marginRight: 28,
+        color: "white"
     },
     drawer: {
         width: drawerWidth,
@@ -85,7 +86,10 @@ const styles = theme => ({
     },
     button: {
         margin: theme.spacing.unit,
-        color: 'secondary',
+        color: 'contrast',
+    },
+    title: {
+        color: 'white',
     }
 });
 
@@ -98,12 +102,9 @@ class BottomMenu extends React.Component{
                 <div className={classes.root}>
                     <AppBar position="fixed" color="primary" className={classes.appBar} style={{flexDirection: 'row'}}>
                         <Toolbar>
-                        <IconButton onClick={() => { this.props.drawerToggle(!this.props.drawerOpen)}} className={classes.menuButton} color="default" aria-label="Open drawer">
+                        <IconButton onClick={() => { this.props.drawerToggle(!this.props.drawerOpen)}} className={classes.menuButton}  aria-label="Open drawer">
                             <MenuIcon />
                         </IconButton>
-                        <Typography className={classes.title} variant="h5" component="h2" color="default" noWrap>
-                        CONTROLS
-                        </Typography>
                         </Toolbar>
                     </AppBar>
 
@@ -124,9 +125,9 @@ class BottomMenu extends React.Component{
                         >
                         <Paper square className={classes.paper}>
                             <div className={classes.controlContainer}>
-                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.getWrites()}}>START PURCHASES</Button>
+                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.getWrites()}}>LAUNCH OFFERS</Button>
 
-                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.getReads()}}>START READS</Button>
+                                <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.getReads()}}>LAUNCH APP</Button>
 
                                 <Button variant="contained" color="secondary" className={classes.button} size="large" onClick={() => {this.props.dropOneNode()}}>DROP ONE NODE</Button>
 

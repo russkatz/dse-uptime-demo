@@ -1,12 +1,100 @@
+@keyframes blink {
+  from {
+    opacity:.2;
+  }
+  
+  to {
+    opacity:.8;
+  }
+}
+
+.rsm-graticule{
+  animation: blink .5s infinite;
+  animation-direction: alternate;
+  /*-webkit-filter: drop-shadow(2px 2px 2px yellow);  
+  filter: drop-shadow(0 0 2px #0CB7E1);
+  filter: drop-shadow(0 0 2px #0CB7E1);  */
+}
+
 body {
+    /*background-color: #374C51;*/
+    /*background-color: #9EACAB;*/
+    background-color: #F8F9F7; 
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
-#root {
-    height: 100%;
+.spanningDiv {
+    height:100%;
+}
+.dashboardroot{ 
+    width: 100%;
+    height: 35vh;
+    margin: 0 auto;
+}
+.dashboardroot-full{ 
+    width: 100%;
+    height: 75vh;
+    margin: 0 auto;
 }
 
+
+html #root {
+    height: 100vh;
+}
+
+.cardheader {
+    /*background-color: #F8F9F7;*/
+    background-color: #9EACAB;
+    font-size: 28px;
+    color: black;
+    text-align: center;
+    padding-top: 20px;
+    height: 3vh;
+    width: 85%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.cardbody {
+    margin: 0 auto;
+    color: black;
+    padding: 5% !important;
+    overflow: hidden;
+}
+
+.cardtext {
+    height: 260px;
+    font-size: 22px;
+    width: 100%;
+}
+
+.cardchart {
+    height: 260px;
+    font-size: 22px;
+    width: 100%;
+}
+
+
+
+.gridroot {
+    flex-grow: 1;
+}
+.paperdash {
+    box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.2), 0px 8px 8px 5px rgba(0,0,0,0.14), 0px 7px 1px -2px rgba(0,0,0,0.12);
+    min-height: 270px;
+    padding: 20px;
+    margin: 30px auto;
+    max-width: 80%;
+}
+.papercard {
+    box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.2), 0px 8px 8px 5px rgba(0,0,0,0.14), 0px 7px 1px -2px rgba(0,0,0,0.12);
+    margin: 0 10px 10px 10px;
+}
+
+.button {
+    position: absolute !important;
+    top: 15%;
+    left: 2%;
+}
